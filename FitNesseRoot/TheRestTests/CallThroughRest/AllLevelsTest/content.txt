@@ -18,7 +18,7 @@ Last, we will create a trainingProgram using the metadata groups specified. We c
 *!
 !***> Create Metadata
 
-| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:8080/cora |
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:8080/therest |
 | setHeader | Content-Type:application/uub+record+json!-
 -!authToken:fitnesseAdminToken |
 | setBody | {"name":"metadata","attributes":{"type":"group"},"children":[{"name":"recordInfo","children":[{"name":"id","value":"trainingProgramGroup"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"textId","value":"trainingProgramGroupText"},{"name":"defTextId","value":"trainingProgramGroupDefText"},{"name":"nameInData","value":"trainingProgram"},{"name":"childReferences","children":[{"name":"childReference","repeatId":"1","children":[{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataTextVariable"},{"name":"linkedRecordId","value":"idTextVar"}],"attributes":{"type":"textVariable"}},{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"}]},{"name":"childReference","repeatId":"2","children":[{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataTextVariable"},{"name":"linkedRecordId","value":"createdByTextVar"}],"attributes":{"type":"textVariable"}},{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"}]}]}]} |
@@ -31,14 +31,14 @@ Last, we will create a trainingProgram using the metadata groups specified. We c
 *!
 !***> Create recordType
 
-| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:8080/cora |
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:8080/therest |
 | setBody | {"name":"recordType","children":[{"name":"recordInfo","children":[{"name":"id","value":"singleTrainingProgram"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"metadataId","value":"singleTrainingProgramGroup"},{"name":"abstract","value":"false"},{"name":"presentationViewId","value":"singleTrainingProgramViewPGroup"},{"name":"presentationFormId","value":"singleTrainingProgramFormPGroup"},{"name":"newMetadataId","value":"singleTrainingProgramNewGroup"},{"name":"newPresentationFormId","value":"singleTrainingProgramFormNewPGroup"},{"name":"menuPresentationViewId","value":"singleTrainingProgramMenuPGroup"},{"name":"listPresentationViewId","value":"singleTrainingProgramListPGroup"},{"name":"searchMetadataId","value":"singleTrainingProgramSearchGroup"},{"name":"searchPresentationFormId","value":"singleTrainingProgramFormSearchPGroup"},{"name":"userSuppliedId","value":"true"},{"name":"selfPresentationViewId","value":"singleTrainingProgramViewSelfPGroup"},{"name":"textId","value":"singleTrainingProgramText"},{"name":"defTextId","value":"singleTrainingProgramDefText"}]} |
 | POST | /rest/record/recordType | 201 | | |
 
 *!
 !***> Create data
 
-| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:8080/cora |
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:8080/therest |
 | setBody | {"name":"singleTrainingProgram","children":[{"name":"recordInfo","children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"},{"name":"id","value":"medel"}]},{"name":"trainingProgram","children":[{"name":"createdBy","value":"asta_kask"}]}]} |
 | POST | /rest/record/singleTrainingProgram | 400 | | |
 | setBody | {"name":"singleTrainingProgram","children":[{"name":"recordInfo","children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"},{"name":"id","value":"intervallFlex"}]}]} |
@@ -49,7 +49,7 @@ Last, we will create a trainingProgram using the metadata groups specified. We c
 *!
 !***> Remove metadata
 
-| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:8080/cora |
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:8080/therest |
 | DELETE | /rest/record/singleTrainingProgram/cirkelfys | 200 | | |
 | DELETE | /rest/record/recordType/singleTrainingProgram | 200 | | |
 | DELETE | /rest/record/metadataGroup/singleTrainingProgramGroup | 200 | | |

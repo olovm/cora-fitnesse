@@ -16,7 +16,7 @@ Test that sending a valid authToken gives additional permissions compared to gue
 *!
 !***> Test create without token, should not be allowed
 
-| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:8080/cora |
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:8080/therest |
 | setHeader | Content-Type:application/uub+record+json !-
 -!authToken:!-unknown-!!-Token-!!-
 -! |
@@ -26,7 +26,7 @@ Test that sending a valid authToken gives additional permissions compared to gue
 *!
 !***> Test create with token, should  be allowed
 
-| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:8080/cora |
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:8080/therest |
 | setHeader | Content-Type:application/uub+record+json!-
 -!authToken:fitnesseAdminToken!-
 -! |
@@ -36,7 +36,7 @@ Test that sending a valid authToken gives additional permissions compared to gue
 *!
 !***> Remove text
 
-| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:8080/cora |
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | http://localhost:8080/therest |
 | DELETE | /rest/record/textSystemOne/authTokenTestingText | 200 | | |
 
 *!

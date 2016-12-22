@@ -19,21 +19,21 @@
 
 package se.uu.ub.cora.fitnesse;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.StatusType;
 
+import org.apache.http.client.ClientProtocolException;
+
 import se.uu.ub.cora.httphandler.HttpHandler;
 import se.uu.ub.cora.httphandler.HttpHandlerImp;
-//import se.uu.ub.cora.spider.dependency.SpiderInstanceFactory;
-//import se.uu.ub.cora.spider.dependency.SpiderInstanceFactoryImp;
-//import se.uu.ub.cora.spider.dependency.SpiderInstanceProvider;
-//import se.uu.ub.cora.systemone.SystemOneDependencyProviderForFitnesse;
-//import se.uu.ub.cora.therest.record.RecordEndpoint;
-//import se.uu.ub.cora.therest.record.TestUri;
+import se.uu.ub.cora.httphandler.HttpMultiPartUploaderImp;
 
 public class RecordEndpointFixture {
 	private String id;
@@ -235,46 +235,114 @@ public class RecordEndpointFixture {
 		return responseText;
 	}
 
-	// public String testUpload() {
-	// UriInfo uriInfo = new TestUri();
-	// setupSpiderInstanceProvider();
-	// RecordEndpoint recordEndpoint = new RecordEndpoint(uriInfo);
-	//
-	// InputStream stream = new ByteArrayInputStream("a
-	// string".getBytes(StandardCharsets.UTF_8));
-	//
-	// FormDataContentDispositionBuilder builder = FormDataContentDisposition
-	// .name("multipart;form-data");
-	// builder.fileName(fileName);
-	// FormDataContentDisposition formDataContentDisposition = builder.build();
-	//
-	// Response response = recordEndpoint.uploadFile(authToken, authToken, type,
-	// id, stream,
-	// formDataContentDisposition);
-	//
-	// statusType = response.getStatusInfo();
-	// if (null == response.getEntity()) {
-	// return "";
-	// }
-	// String entity = (String) response.getEntity();
-	// streamId = tryToFindStreamId(entity);
-	// return entity;
-	// }
-	//
-	// private String tryToFindStreamId(String entity) {
-	// try {
-	// return findStreamId(entity);
-	// } catch (Exception e) {
-	// return "";
-	// }
-	// }
-	//
-	// private String findStreamId(String entity) {
-	// int streamIdIndex = entity.lastIndexOf("streamId") + 19;
-	// return entity.substring(streamIdIndex, entity.indexOf("\"",
-	// streamIdIndex));
-	// }
-	//
+	public String testUpload() throws ClientProtocolException, IOException {
+		// UriInfo uriInfo = new TestUri();
+		// setupSpiderInstanceProvider();
+		// RecordEndpoint recordEndpoint = new RecordEndpoint(uriInfo);
+		//
+		// InputStream stream = new ByteArrayInputStream("a
+		// string".getBytes(StandardCharsets.UTF_8));
+		//
+		// FormDataContentDispositionBuilder builder =
+		// FormDataContentDisposition
+		// .name("multipart;form-data");
+		// builder.fileName(fileName);
+		// FormDataContentDisposition formDataContentDisposition =
+		// builder.build();
+		//
+		// Response response = recordEndpoint.uploadFile(authToken, authToken,
+		// type, id, stream,
+		// formDataContentDisposition);
+		//
+		// statusType = response.getStatusInfo();
+		// if (null == response.getEntity()) {
+		// return "";
+		// }
+		// String entity = (String) response.getEntity();
+		// streamId = tryToFindStreamId(entity);
+		// return entity;
+
+		String responseText = "";
+		try {
+			String url = baseUrl + "rest/record/" + type + "/" + id + "/master";
+
+			HttpMultiPartUploaderImp httpHandler = factorHttpMultiPartUploader(url);
+			// httpHandler.setRequestMethod("POST");
+			httpHandler.addHeaderField("Accept", "application/uub+record+json2");
+			// httpHandler.addHeaderField("Content-Type",
+			// "multipart/form-data");
+			InputStream fakeStream = new ByteArrayInputStream(
+					"a string".getBytes(StandardCharsets.UTF_8));
+			httpHandler.addFilePart("file", fileName, fakeStream);
+			httpHandler.done();
+			statusType = Response.Status.fromStatusCode(httpHandler.getResponseCode());
+
+			if (statusType.equals(Response.Status.OK)) {
+				responseText = httpHandler.getResponseText();
+				streamId = tryToFindStreamId(responseText);
+			} else {
+				responseText = httpHandler.getErrorText();
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return responseText;
+		// BELOW THIS LINE GOT TO SERVER
+		// String url = baseUrl + "rest/record/" + type + "/" + id +
+		// "/someStreamIdt";
+		// url += "?authToken=" + authToken;
+		// InputStream fakeStream = new ByteArrayInputStream(
+		// "a string".getBytes(StandardCharsets.UTF_8));
+		// HttpEntity entity =
+		// MultipartEntityBuilder.create().addTextBody("number", "5555555555")
+		// .addTextBody("clip",
+		// "rickroll").setContentType(ContentType.MULTIPART_FORM_DATA)//
+		// .addBinaryBody("upload_file",
+		// // new
+		// // File(filePath),
+		// .addBinaryBody("file", fakeStream,
+		// ContentType.create("application/png"),
+		// "adele.png")
+		// .addTextBody("tos", "agree").build();
+		//
+		// HttpPost httpPost = new HttpPost(url);
+		// httpPost.setEntity(entity);
+		// CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+		// HttpResponse response = httpClient.execute(httpPost);
+		// HttpEntity result = response.getEntity();
+		// statusType =
+		// Response.Status.fromStatusCode(response.getStatusLine().getStatusCode());
+		// return result.getContentType().toString();
+		// return response.getStatusLine().getStatusCode();
+	}
+
+	private HttpMultiPartUploaderImp factorHttpMultiPartUploader(String urlString) {
+		URL url;
+		try {
+			url = new URL(urlString);
+			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+			return HttpMultiPartUploaderImp.usingURLConnection(urlConnection);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	private String tryToFindStreamId(String entity) {
+		try {
+			return findStreamId(entity);
+		} catch (Exception e) {
+			return "";
+		}
+	}
+
+	private String findStreamId(String entity) {
+		int streamIdIndex = entity.lastIndexOf("streamId") + 19;
+		return entity.substring(streamIdIndex, entity.indexOf("\"", streamIdIndex));
+	}
+
 	// public String testDownload() {
 	// UriInfo uriInfo = new TestUri();
 	// setupSpiderInstanceProvider();
