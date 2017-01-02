@@ -2,12 +2,14 @@
 | import |
 | se.uu.ub.cora.fitnesse |
 
+If no token is provided will the request automatically be assigned the guest user, and its rights.  If a token that does not exist (or is no longer valid) is provided should the answer be UNAUTHORIZED
+
 !***> Read a metadataVariable (idTextVar)
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| dummyNonAuthenticatedToken | metadataTextVariable | idTextVar | | UNAUTHORIZED |
-| dummyAuthenticatedToken | metadataTextVariable | idTextVar | | OK |
+| dummyUnauthenticatedToken | metadataTextVariable | idTextVar | | UNAUTHORIZED |
+| | metadataTextVariable | idTextVar | | OK |
 
 *!
 !2 Test with new texts to show different createdBy userId
@@ -17,5 +19,12 @@
 | authToken | type | json | testCreateRecord? | getStatusType? |
 | fitnesseAdminToken | textSystemOne | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"myText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"} ,"children":[{"name":"text","value":"Min svenska text"}]}]} | =~/"name":"createdBy",\s*"value":"131313"/ | CREATED |
 | fitnesseUserToken | textSystemOne | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"my3Text"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"},"children":[{"name":"text","value":"Min andra text på svenska"}]},{"name":"textPart","attributes":{"type":"alternative","lang":"en"},"children":[{"name":"text","value":"My second text in english"}]}]} | =~/"name":"createdBy",\s*"value":"121212"/ | CREATED |
+*!
+
+!***> Clean up created data
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| fitnesseAdminToken | textSystemOne | myText | | OK |
+| fitnesseUserToken | textSystemOne | my3Text | | OK |
 
 *!

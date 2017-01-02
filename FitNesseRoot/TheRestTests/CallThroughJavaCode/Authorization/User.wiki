@@ -52,7 +52,7 @@ Create a new text to show that it is '''NOT''' allowed:
 | fitnesseUserToken | textSystemOne | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"myUserText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"},"children":[{"name":"text","value":"Min  svenska text"}]}]} | | FORBIDDEN |
 
 *!
-!2 User removed role
+!2 User removed role (currently not active)
 Update user, to only have one role (textAdmin)
 
 !***> Update user, fitnesse, to only have one related role (nothing)
@@ -66,17 +66,21 @@ Create a new text to show that it is '''NOT''' allowed:
 
 !***> Create data of recordType text (textSystemOne)
 
-!| RecordEndpointFixture |
+!| comment |
+| Not active as we do not reread user roles in gatekeeper for a known token |
+| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
 | fitnesseUserToken | textSystemOne | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"myUserText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"},"children":[{"name":"text","value":"Min  svenska text"}]}]} | | FORBIDDEN |
 
 *!
-!2 User change rule part connected to role
+!2 User change rule part(organisation) when connecting role to user (currently not active)
 Update users, connected rule textAdmin to have a specific userId (system.aUserIdThatHasNotCreatedAnything)
 
 !***> Update user, fitnesse, setting userId for connected role textAdmin (system.aUserIdThatHasNotCreatedAnything)
 
-!| RecordEndpointFixture |
+!| comment |
+| Should be updated to a test that uses organisation in the connection to a role |
+| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
 | fitnesseAdminToken | systemOneUser | 121212 | {"name":"user","children":[{"name":"recordInfo","children":[{"name":"id","value":"121212"},{"name":"type","value":"systemOneUser"},{"name":"createdBy","value":"131313"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"userId","value":"fitnesseUser@system.cora.uu.se"},{"name":"userFirstname","value":"Fitnesse"},{"name":"userLastname","value":"User"},{"name":"userRole","children":[{"name":"userRole","children":[{"name":"linkedRecordType","value":"permissionRole"},{"name":"linkedRecordId","value":"fitnesseTextAdmin"}]},{"name":"userRoleRulePart","children":[{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.","repeatId":"0"}],"attributes":{"type":"organisation"}}]}],"repeatId":"1"},{"name":"userRole","children":[{"name":"userRole","children":[{"name":"linkedRecordType","value":"permissionRole"},{"name":"linkedRecordId","value":"nothing"}]},{"name":"userRoleRulePart","children":[{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.DISABLED","repeatId":"0"}],"attributes":{"type":"organisation"}}]}],"repeatId":"2"},{"name":"activeStatus","value":"active"}]} | | OK |
 
@@ -86,6 +90,7 @@ Try to update created text to see that it is '''NOT''' allowed
 !***> Update  data of recordType text (textSystemOne)
 
 !| comment |
+| Change test to something that uses organisation in connection to role |
 | RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
 | fitnesseUserToken | textSystemOne | myUserText | {"children":[{"children":[{"name":"id","value":"myUserText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}],"name":"dataDivider"},{"name":"type","value":"textSystemOne"},{"name":"createdBy","value":"131313"}],"name":"recordInfo"},{"children":[{"name":"text","value":"Min  svenska text"}],"name":"textPart","attributes":{"type":"default","lang":"sv"}}],"name":"text"} | | FORBIDDEN |
@@ -99,5 +104,13 @@ Update user, fitnesse to be as it was before testing
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
 | fitnesseAdminToken | systemOneUser | 121212 | {"name":"user","children":[{"name":"recordInfo","children":[{"name":"id","value":"121212"},{"name":"type","value":"systemOneUser"},{"name":"createdBy","value":"131313"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"userId","value":"fitnesseUser@system.cora.uu.se"},{"name":"userFirstname","value":"Fitnesse"},{"name":"userLastname","value":"User"},{"name":"userRole","children":[{"name":"userRole","children":[{"name":"linkedRecordType","value":"permissionRole"},{"name":"linkedRecordId","value":"fitnesseTextAdmin"}]},{"name":"userRoleRulePart","children":[{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.","repeatId":"0"}],"attributes":{"type":"organisation"}}]}],"repeatId":"1"},{"name":"userRole","children":[{"name":"userRole","children":[{"name":"linkedRecordType","value":"permissionRole"},{"name":"linkedRecordId","value":"nothing"}]},{"name":"userRoleRulePart","children":[{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.DISABLED","repeatId":"0"}],"attributes":{"type":"organisation"}}]}],"repeatId":"2"},{"name":"activeStatus","value":"active"}]} | | OK |
+
+*!
+!2 Clean up created data
+!***> Clean up created texts
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| fitnesseUserToken | textSystemOne | myUserText | | OK |
 
 *!
