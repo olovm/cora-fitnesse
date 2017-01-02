@@ -65,3 +65,17 @@ The system should demand a unique non empty repeatId for all elements that can b
 | repeat | {"name":"repeat","children":[{"name":"recordInfo","children":[{"name":"id","value":"repeat1"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"nonRepeating","children":[{"name":"repeatText","repeatId":"1","value":"rrrr"}]},{"name":"repeating","children":[{"name":"repeatText","repeatId":"1","value":"rrrr"},{"name":"repeatText","repeatId":"2","value":"rrrr"}]}]} | | BAD_REQUEST |
 
 *!
+!2 Clean up created data
+!***> Clean up created data
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| fitnesseAdminToken | repeat | repeat1 | | OK |
+| fitnesseAdminToken | recordType | repeat | | OK |
+| fitnesseAdminToken | metadataGroup | repeatGroup | | OK |
+| fitnesseAdminToken | metadataGroup | repeatNewGroup | | OK |
+| fitnesseAdminToken | metadataGroup | repeatingGroup | | OK |
+| fitnesseAdminToken | metadataGroup | nonRepeatingGroup | | OK |
+| fitnesseAdminToken | metadataTextVariable | repeatTextVar | | OK |
+
+*!
