@@ -108,7 +108,7 @@
 
 *!
 !2 Clean up created data
-!***> Clean up created texts
+!***> Clean up created data
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |

@@ -65,3 +65,15 @@ The metadata for textVariable has been created during system startup, so we shou
 | lock | {"name":"lock","children":[{"name":"recordInfo","children":[{"name":"id","value":"lock_2"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"pinCode","value":"abcde"}]} | | BAD_REQUEST |
 
 *!
+!2 Clean up created data
+!***> Clean up created data
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| fitnesseAdminToken | lock | lock_1 | | OK |
+| fitnesseAdminToken | recordType | lock | | OK |
+| fitnesseAdminToken | metadataGroup | lockNewGroup | | OK |
+| fitnesseAdminToken | metadataGroup | lockGroup | | OK |
+| fitnesseAdminToken | metadataTextVariable | pinCodeTextVar | | OK |
+
+*!
