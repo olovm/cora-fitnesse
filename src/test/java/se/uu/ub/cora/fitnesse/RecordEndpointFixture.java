@@ -343,18 +343,34 @@ public class RecordEndpointFixture {
 		return entity.substring(streamIdIndex, entity.indexOf("\"", streamIdIndex));
 	}
 
-	// public String testDownload() {
-	// UriInfo uriInfo = new TestUri();
-	// setupSpiderInstanceProvider();
-	// RecordEndpoint recordEndpoint = new RecordEndpoint(uriInfo);
-	// Response response = recordEndpoint.downloadFile(authToken, authToken,
-	// type, id,
-	// resourceName);
-	// statusType = response.getStatusInfo();
-	// contentLenght = response.getHeaderString("Content-Length");
-	//
-	// contentDisposition = response.getHeaderString("Content-Disposition");
-	// return response.toString();
-	// }
+	public String testDownload() {
+		// UriInfo uriInfo = new TestUri();
+		// setupSpiderInstanceProvider();
+		// RecordEndpoint recordEndpoint = new RecordEndpoint(uriInfo);
+		// Response response = recordEndpoint.downloadFile(authToken, authToken,
+		// type, id,
+		// resourceName);
+		// statusType = response.getStatusInfo();
+		// contentLenght = response.getHeaderString("Content-Length");
+		//
+		// contentDisposition = response.getHeaderString("Content-Disposition");
+		// return response.toString();
+		String url = baseUrl + "rest/record/" + type + "/" + id + "/" + resourceName;
+		url += "?authToken=" + authToken;
+
+		HttpHandler httpHandler = factorHttpHandler(url);
+		httpHandler.setRequestMethod("GET");
+
+		statusType = Response.Status.fromStatusCode(httpHandler.getResponseCode());
+		String responseText = "";
+		if (statusType.equals(Response.Status.OK)) {
+			responseText = httpHandler.getResponseText();
+			contentLenght = httpHandler.getHeaderField("Content-Length");
+			contentDisposition = httpHandler.getHeaderField("Content-Disposition");
+		} else {
+			responseText = httpHandler.getErrorText();
+		}
+		return responseText;
+	}
 
 }
