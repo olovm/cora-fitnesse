@@ -47,7 +47,7 @@ public class RecordEndpointFixture {
 	private String contentLenght;
 	private String contentDisposition;
 	private String authToken = "fitnesseAdminToken";
-	private String baseUrl = "http://localhost:8080/therest/";
+	private String baseUrl = "http://localhost:8080/therest/" + "rest/record/";
 
 	public void setType(String type) {
 		this.type = type;
@@ -93,14 +93,8 @@ public class RecordEndpointFixture {
 		this.authToken = authToken;
 	}
 
-	// public String resetDependencyProvider() {
-	// DependencyProviderForMultipleTestsWorkingTogether.spiderDependencyProvider
-	// = new SystemOneDependencyProviderForFitnesse();
-	// return "OK";
-	// }
-
 	public String testReadRecord() {
-		String url = baseUrl + "rest/record/" + type + "/" + id;
+		String url = baseUrl + type + "/" + id;
 		url += "?authToken=" + authToken;
 
 		HttpHandler httpHandler = factorHttpHandler(url);
@@ -123,14 +117,13 @@ public class RecordEndpointFixture {
 			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 			return HttpHandlerImp.usingURLConnection(urlConnection);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
 	}
 
 	public String testReadIncomingLinks() {
-		String url = baseUrl + "rest/record/" + type + "/" + id + "/incomingLinks";
+		String url = baseUrl + type + "/" + id + "/incomingLinks";
 		url += "?authToken=" + authToken;
 
 		HttpHandler httpHandler = factorHttpHandler(url);
@@ -147,7 +140,7 @@ public class RecordEndpointFixture {
 	}
 
 	public String testReadRecordList() {
-		String url = baseUrl + "rest/record/" + type;
+		String url = baseUrl + type;
 		url += "?authToken=" + authToken;
 
 		HttpHandler httpHandler = factorHttpHandler(url);
@@ -164,7 +157,7 @@ public class RecordEndpointFixture {
 	}
 
 	public String testCreateRecord() {
-		String url = baseUrl + "rest/record/" + type;
+		String url = baseUrl + type;
 		url += "?authToken=" + authToken;
 
 		HttpHandler httpHandler = factorHttpHandler(url);
@@ -198,7 +191,7 @@ public class RecordEndpointFixture {
 	}
 
 	public String testUpdateRecord() {
-		String url = baseUrl + "rest/record/" + type + "/" + id;
+		String url = baseUrl + type + "/" + id;
 		url += "?authToken=" + authToken;
 
 		HttpHandler httpHandler = factorHttpHandler(url);
@@ -219,7 +212,7 @@ public class RecordEndpointFixture {
 	}
 
 	public String testDeleteRecord() {
-		String url = baseUrl + "rest/record/" + type + "/" + id;
+		String url = baseUrl + type + "/" + id;
 		url += "?authToken=" + authToken;
 
 		HttpHandler httpHandler = factorHttpHandler(url);
@@ -236,41 +229,12 @@ public class RecordEndpointFixture {
 	}
 
 	public String testUpload() throws ClientProtocolException, IOException {
-		// UriInfo uriInfo = new TestUri();
-		// setupSpiderInstanceProvider();
-		// RecordEndpoint recordEndpoint = new RecordEndpoint(uriInfo);
-		//
-		// InputStream stream = new ByteArrayInputStream("a
-		// string".getBytes(StandardCharsets.UTF_8));
-		//
-		// FormDataContentDispositionBuilder builder =
-		// FormDataContentDisposition
-		// .name("multipart;form-data");
-		// builder.fileName(fileName);
-		// FormDataContentDisposition formDataContentDisposition =
-		// builder.build();
-		//
-		// Response response = recordEndpoint.uploadFile(authToken, authToken,
-		// type, id, stream,
-		// formDataContentDisposition);
-		//
-		// statusType = response.getStatusInfo();
-		// if (null == response.getEntity()) {
-		// return "";
-		// }
-		// String entity = (String) response.getEntity();
-		// streamId = tryToFindStreamId(entity);
-		// return entity;
-
 		String responseText = "";
 		try {
-			String url = baseUrl + "rest/record/" + type + "/" + id + "/master";
+			String url = baseUrl + type + "/" + id + "/master";
 
 			HttpMultiPartUploaderImp httpHandler = factorHttpMultiPartUploader(url);
-			// httpHandler.setRequestMethod("POST");
 			httpHandler.addHeaderField("Accept", "application/uub+record+json2");
-			// httpHandler.addHeaderField("Content-Type",
-			// "multipart/form-data");
 			InputStream fakeStream = new ByteArrayInputStream(
 					"a string".getBytes(StandardCharsets.UTF_8));
 			httpHandler.addFilePart("file", fileName, fakeStream);
@@ -284,37 +248,9 @@ public class RecordEndpointFixture {
 				responseText = httpHandler.getErrorText();
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return responseText;
-		// BELOW THIS LINE GOT TO SERVER
-		// String url = baseUrl + "rest/record/" + type + "/" + id +
-		// "/someStreamIdt";
-		// url += "?authToken=" + authToken;
-		// InputStream fakeStream = new ByteArrayInputStream(
-		// "a string".getBytes(StandardCharsets.UTF_8));
-		// HttpEntity entity =
-		// MultipartEntityBuilder.create().addTextBody("number", "5555555555")
-		// .addTextBody("clip",
-		// "rickroll").setContentType(ContentType.MULTIPART_FORM_DATA)//
-		// .addBinaryBody("upload_file",
-		// // new
-		// // File(filePath),
-		// .addBinaryBody("file", fakeStream,
-		// ContentType.create("application/png"),
-		// "adele.png")
-		// .addTextBody("tos", "agree").build();
-		//
-		// HttpPost httpPost = new HttpPost(url);
-		// httpPost.setEntity(entity);
-		// CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-		// HttpResponse response = httpClient.execute(httpPost);
-		// HttpEntity result = response.getEntity();
-		// statusType =
-		// Response.Status.fromStatusCode(response.getStatusLine().getStatusCode());
-		// return result.getContentType().toString();
-		// return response.getStatusLine().getStatusCode();
 	}
 
 	private HttpMultiPartUploaderImp factorHttpMultiPartUploader(String urlString) {
@@ -324,7 +260,6 @@ public class RecordEndpointFixture {
 			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 			return HttpMultiPartUploaderImp.usingURLConnection(urlConnection);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -344,18 +279,7 @@ public class RecordEndpointFixture {
 	}
 
 	public String testDownload() {
-		// UriInfo uriInfo = new TestUri();
-		// setupSpiderInstanceProvider();
-		// RecordEndpoint recordEndpoint = new RecordEndpoint(uriInfo);
-		// Response response = recordEndpoint.downloadFile(authToken, authToken,
-		// type, id,
-		// resourceName);
-		// statusType = response.getStatusInfo();
-		// contentLenght = response.getHeaderString("Content-Length");
-		//
-		// contentDisposition = response.getHeaderString("Content-Disposition");
-		// return response.toString();
-		String url = baseUrl + "rest/record/" + type + "/" + id + "/" + resourceName;
+		String url = baseUrl + type + "/" + id + "/" + resourceName;
 		url += "?authToken=" + authToken;
 
 		HttpHandler httpHandler = factorHttpHandler(url);
