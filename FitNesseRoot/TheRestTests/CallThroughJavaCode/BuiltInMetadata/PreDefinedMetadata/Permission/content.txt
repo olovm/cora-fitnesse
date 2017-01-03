@@ -105,3 +105,13 @@ A test that first reads all predefined metadata needed to be able to create perm
 | permissionRole | | OK |
 
 *!
+
+!2 Clean up created data
+!***> Clean up created data
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| fitnesseAdminToken | permissionRole | myPermissionRole | | OK |
+| fitnesseAdminToken | permissionRule | myPermissionRule | | OK |
+
+*!

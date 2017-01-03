@@ -194,3 +194,21 @@ A test that first reads all predefined metadata needed to be able to add present
 | presentationGroup | {"name":"presentation","attributes":{"type":"pGroup"},"children":[{"name":"recordInfo","children":[{"name":"id","value":"myPGroup"}]},{"name":"presentationOf","value":"myGroup"},{"name":"childReferences","children":[{"name":"childReference","repeatId":"1","children":[{"name":"ref","value":"myHeadlineText"},{"name":"default","value":"ref"}]},{"name":"childReference","repeatId":"2","children":[{"name":"ref","value":"myChildPVar"},{"name":"default","value":"ref"}]},{"name":"childReference","repeatId":"3","children":[{"name":"ref","value":"myChildPGroup"},{"name":"refMinimized","value":"myChildMinPGroup"},{"name":"default","value":"refMaximized"}]}]}]} | | BAD_REQUEST |
 
 *!
+
+!2 Clean up created data
+!***> Clean up created data
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| fitnesseAdminToken | presentationGroup | myPGroup | | OK |
+| fitnesseAdminToken | presentationRepeatingContainer | myRContainer | | OK |
+| fitnesseAdminToken | presentationSurroundingContainer | mySContainer | | OK |
+| fitnesseAdminToken | presentationCollectionVar | my3PCollVar | | OK |
+| fitnesseAdminToken | presentationCollectionVar | my2PCollVar | | OK |
+| fitnesseAdminToken | presentationCollectionVar | myPCollVar | | OK |
+| fitnesseAdminToken | presentationVar | my4PVar | | OK |
+| fitnesseAdminToken | presentationVar | my3PVar | | OK |
+| fitnesseAdminToken | presentationVar | my2PVar | | OK |
+| fitnesseAdminToken | presentationVar | myPVar | | OK |
+
+*!

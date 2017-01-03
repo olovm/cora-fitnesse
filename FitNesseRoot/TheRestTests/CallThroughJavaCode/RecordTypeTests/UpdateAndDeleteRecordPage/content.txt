@@ -53,3 +53,13 @@
 | recordType2 | powerHour | | NOT_FOUND |
 
 *!
+
+!2 Clean up created data
+!***> Clean up created data
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| fitnesseAdminToken | metadataGroup | powerHourGroup | | OK |
+| fitnesseAdminToken | metadataGroup | poweHourNewGroup | | OK |
+
+*!

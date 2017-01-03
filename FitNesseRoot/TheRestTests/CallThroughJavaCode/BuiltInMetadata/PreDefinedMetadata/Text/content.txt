@@ -127,3 +127,13 @@ A test that first reads all predefined metadata needed to be able to add texts t
 | textSystemOne | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"myNonWorkingText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"},"children":[{"name":"text","value":"Att ha språk som inte är definierade(norska) på en text fungerar inte"}]},{"name":"textPart","attributes":{"type":"alternative","lang":"en"},"children":[{"name":"text","value":"An ok english text"}]},{"name":"textPart","attributes":{"type":"alternative","lang":"no"},"children":[{"name":"text","value":"Dette går ikke"}]}]} | | BAD_REQUEST |
 
 *!
+
+!2 Clean up created data
+!***> Clean up created data
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| fitnesseAdminToken | textSystemOne | myText | | OK |
+| fitnesseAdminToken | textSystemOne | my2Text | | OK |
+
+*!

@@ -114,3 +114,13 @@ A test that first reads all predefined metadata needed to be able to add present
 | textSystemOne | mimeTypeTextVarDefText | | OK |
 
 *!
+!2 Clean up created data
+!***> Clean up created data
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| fitnesseAdminToken | presentationResourceLink | withOutputAndChildReferencesPResLink | | OK |
+| fitnesseAdminToken | presentationResourceLink | withChildReferencesPResLink | | OK |
+| fitnesseAdminToken | presentationResourceLink | withOutputPResLink | | OK |
+
+*!
