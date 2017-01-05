@@ -47,7 +47,9 @@ public class RecordEndpointFixture {
 	private String contentLenght;
 	private String contentDisposition;
 	private String authToken = "fitnesseAdminToken";
-	private String baseUrl = "http://localhost:8080/therest/" + "rest/record/";
+	// private String baseUrl = "http://localhost:8080/therest/" +
+	// "rest/record/";
+	private String baseUrl = "http://therest:8080/therest/" + "rest/record/";
 
 	public void setType(String type) {
 		this.type = type;
