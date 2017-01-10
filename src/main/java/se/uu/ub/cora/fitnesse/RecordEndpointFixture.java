@@ -36,6 +36,7 @@ import se.uu.ub.cora.httphandler.HttpHandlerImp;
 import se.uu.ub.cora.httphandler.HttpMultiPartUploaderImp;
 
 public class RecordEndpointFixture {
+	private static final String AUTH_TOKEN = "?authToken=";
 	private String id;
 	private String type;
 	private String json;
@@ -47,9 +48,7 @@ public class RecordEndpointFixture {
 	private String contentLenght;
 	private String contentDisposition;
 	private String authToken = "fitnesseAdminToken";
-	// private String baseUrl = "http://localhost:8080/therest/" +
-	// "rest/record/";
-	private String baseUrl = "http://therest:8080/therest/" + "rest/record/";
+	private String baseUrl = SystemUrl.url + "rest/record/";
 
 	public void setType(String type) {
 		this.type = type;
@@ -97,19 +96,16 @@ public class RecordEndpointFixture {
 
 	public String testReadRecord() {
 		String url = baseUrl + type + "/" + id;
-		url += "?authToken=" + authToken;
+		url += AUTH_TOKEN + authToken;
 
 		HttpHandler httpHandler = factorHttpHandler(url);
 		httpHandler.setRequestMethod("GET");
 
 		statusType = Response.Status.fromStatusCode(httpHandler.getResponseCode());
-		String responseText = "";
 		if (statusType.equals(Response.Status.OK)) {
-			responseText = httpHandler.getResponseText();
-		} else {
-			responseText = httpHandler.getErrorText();
+			return httpHandler.getResponseText();
 		}
-		return responseText;
+		return httpHandler.getErrorText();
 	}
 
 	private HttpHandler factorHttpHandler(String urlString) {
@@ -126,7 +122,7 @@ public class RecordEndpointFixture {
 
 	public String testReadIncomingLinks() {
 		String url = baseUrl + type + "/" + id + "/incomingLinks";
-		url += "?authToken=" + authToken;
+		url += AUTH_TOKEN + authToken;
 
 		HttpHandler httpHandler = factorHttpHandler(url);
 		httpHandler.setRequestMethod("GET");
@@ -143,24 +139,21 @@ public class RecordEndpointFixture {
 
 	public String testReadRecordList() {
 		String url = baseUrl + type;
-		url += "?authToken=" + authToken;
+		url += AUTH_TOKEN + authToken;
 
 		HttpHandler httpHandler = factorHttpHandler(url);
 		httpHandler.setRequestMethod("GET");
 
 		statusType = Response.Status.fromStatusCode(httpHandler.getResponseCode());
-		String responseText = "";
 		if (statusType.equals(Response.Status.OK)) {
-			responseText = httpHandler.getResponseText();
-		} else {
-			responseText = httpHandler.getErrorText();
+			return httpHandler.getResponseText();
 		}
-		return responseText;
+		return httpHandler.getErrorText();
 	}
 
 	public String testCreateRecord() {
 		String url = baseUrl + type;
-		url += "?authToken=" + authToken;
+		url += AUTH_TOKEN + authToken;
 
 		HttpHandler httpHandler = factorHttpHandler(url);
 		httpHandler.setRequestMethod("POST");
@@ -194,7 +187,7 @@ public class RecordEndpointFixture {
 
 	public String testUpdateRecord() {
 		String url = baseUrl + type + "/" + id;
-		url += "?authToken=" + authToken;
+		url += AUTH_TOKEN + authToken;
 
 		HttpHandler httpHandler = factorHttpHandler(url);
 		httpHandler.setRequestMethod("POST");
@@ -204,18 +197,15 @@ public class RecordEndpointFixture {
 
 		statusType = Response.Status.fromStatusCode(httpHandler.getResponseCode());
 
-		String responseText = "";
 		if (statusType.equals(Response.Status.OK)) {
-			responseText = httpHandler.getResponseText();
-		} else {
-			responseText = httpHandler.getErrorText();
+			return httpHandler.getResponseText();
 		}
-		return responseText;
+		return httpHandler.getErrorText();
 	}
 
 	public String testDeleteRecord() {
 		String url = baseUrl + type + "/" + id;
-		url += "?authToken=" + authToken;
+		url += AUTH_TOKEN + authToken;
 
 		HttpHandler httpHandler = factorHttpHandler(url);
 		httpHandler.setRequestMethod("DELETE");
@@ -282,7 +272,7 @@ public class RecordEndpointFixture {
 
 	public String testDownload() {
 		String url = baseUrl + type + "/" + id + "/" + resourceName;
-		url += "?authToken=" + authToken;
+		url += AUTH_TOKEN + authToken;
 
 		HttpHandler httpHandler = factorHttpHandler(url);
 		httpHandler.setRequestMethod("GET");
