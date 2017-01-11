@@ -24,12 +24,9 @@
 	<name>Fitnesse</name>
 
 	<properties>
-<!-- 		<json.version>0.3-SNAPSHOT</json.version> -->
 		<httphandler.version>0.1-SNAPSHOT</httphandler.version>
-<!-- 		<gatekeeper.version>0.1-SNAPSHOT</gatekeeper.version> -->
-<!-- 		<therest.version>0.13-SNAPSHOT</therest.version> -->
 		<javax.ws.rs.version>2.0.1</javax.ws.rs.version>
-		<jersey.version>2.23.2</jersey.version>
+<!-- 		<jersey.version>2.23.2</jersey.version> -->
 		<fitnesse.version>20161106</fitnesse.version>
 	</properties>
 
@@ -78,41 +75,29 @@
 			<version>${httphandler.version}</version>
 			<scope>compile</scope>
 		</dependency>
-<!-- 		<dependency> -->
-<!-- 			<groupId>se.uu.ub.cora</groupId> -->
-<!-- 			<artifactId>gatekeeper</artifactId> -->
-<!-- 			<version>${gatekeeper.version}</version> -->
-<!-- 			<scope>compile</scope> -->
-<!-- 		</dependency> -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>se.uu.ub.cora</groupId> -->
-<!-- 			<artifactId>therest</artifactId> -->
-<!-- 			<version>${therest.version}</version> -->
-<!-- 			<scope>compile</scope> -->
-<!-- 		</dependency> -->
 		<dependency>
 			<groupId>javax.ws.rs</groupId>
 			<artifactId>javax.ws.rs-api</artifactId>
 			<version>${javax.ws.rs.version}</version>
 			<scope>compile</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jersey.containers</groupId>
-			<artifactId>jersey-container-servlet</artifactId>
-			<version>${jersey.version}</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jersey.media</groupId>
-			<artifactId>jersey-media-multipart</artifactId>
-			<version>${jersey.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.0.1</version>
-			<scope>provided</scope>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.glassfish.jersey.containers</groupId> -->
+<!-- 			<artifactId>jersey-container-servlet</artifactId> -->
+<!-- 			<version>${jersey.version}</version> -->
+<!-- 			<scope>compile</scope> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>org.glassfish.jersey.media</groupId> -->
+<!-- 			<artifactId>jersey-media-multipart</artifactId> -->
+<!-- 			<version>${jersey.version}</version> -->
+<!-- 		</dependency> -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>javax.servlet</groupId> -->
+<!-- 			<artifactId>javax.servlet-api</artifactId> -->
+<!-- 			<version>3.0.1</version> -->
+<!-- 			<scope>provided</scope> -->
+<!-- 		</dependency> -->
 		<!-- FitNesse -->
 		<dependency>
 			<groupId>org.fitnesse</groupId>
