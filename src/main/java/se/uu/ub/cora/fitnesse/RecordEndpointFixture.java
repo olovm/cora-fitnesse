@@ -31,6 +31,7 @@ import se.uu.ub.cora.httphandler.HttpHandler;
 import se.uu.ub.cora.httphandler.HttpMultiPartUploader;
 
 public class RecordEndpointFixture {
+	private static final int DISTANCE_TO_START_OF_ID = 19;
 	private static final String APPLICATION_UUB_RECORD_JSON = "application/uub+record+json";
 	private static final String ACCEPT = "Accept";
 	private static final String AUTH_TOKEN = "?authToken=";
@@ -45,7 +46,7 @@ public class RecordEndpointFixture {
 	private String contentLenght;
 	private String contentDisposition;
 	private String authToken = "fitnesseAdminToken";
-	private String baseUrl = SystemUrl.url + "rest/record/";
+	private String baseUrl = SystemUrl.getUrl() + "rest/record/";
 	private HttpHandlerFactory factory;
 
 	public RecordEndpointFixture() {
@@ -231,7 +232,7 @@ public class RecordEndpointFixture {
 	}
 
 	private String findStreamId(String entity) {
-		int streamIdIndex = entity.lastIndexOf("streamId") + 19;
+		int streamIdIndex = entity.lastIndexOf("streamId") + DISTANCE_TO_START_OF_ID;
 		return entity.substring(streamIdIndex, entity.indexOf('"', streamIdIndex));
 	}
 

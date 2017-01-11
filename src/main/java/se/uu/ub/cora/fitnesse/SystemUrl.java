@@ -21,18 +21,17 @@ package se.uu.ub.cora.fitnesse;
 
 public final class SystemUrl {
 
-	public static String url;
+	private static String url;
 
 	public SystemUrl() {
 		super();
 	}
 
-	public void setUrl(String url) {
-		SystemUrl.url = url;
-
+	public static void setUrl(String urlIn) {
+		url = urlIn;
 	}
 
-	public String getUrl() {
+	public static String getUrl() {
 		return url;
 	}
 
