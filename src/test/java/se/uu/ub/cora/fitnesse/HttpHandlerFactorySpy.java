@@ -30,6 +30,12 @@ public class HttpHandlerFactorySpy implements HttpHandlerFactory {
 
 	public String urlString;
 	private boolean factorValid = true;
+	public HttpHandlerSpy httpHandlerSpy;
+	public HttpHandlerInvalidSpy httpHandlerInvalidSpy;
+
+	private int responseCode = 200;
+	public HttpMultiPartUploaderSpy httpMultiPartUploaderSpy;
+	public HttpMultiPartUploaderInvalidSpy httpMultiPartUploaderInvalidSpy;
 
 	@Override
 	public HttpHandler factorHttpHandler(String urlString) {
@@ -38,10 +44,12 @@ public class HttpHandlerFactorySpy implements HttpHandlerFactory {
 			URL url = new URL(urlString);
 			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 			if (factorValid) {
-				return HttpHandlerSpy.usingURLConnection(urlConnection);
+				httpHandlerSpy = HttpHandlerSpy.usingURLConnection(urlConnection);
+				httpHandlerSpy.responseCode = responseCode;
+				return httpHandlerSpy;
 			}
-			return HttpHandlerInvalidSpy.usingURLConnection(urlConnection);
-
+			httpHandlerInvalidSpy = HttpHandlerInvalidSpy.usingURLConnection(urlConnection);
+			return httpHandlerInvalidSpy;
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -49,12 +57,31 @@ public class HttpHandlerFactorySpy implements HttpHandlerFactory {
 
 	@Override
 	public HttpMultiPartUploader factorHttpMultiPartUploader(String urlString) {
-		// TODO Auto-generated method stub
-		return null;
+		this.urlString = urlString;
+		try {
+			URL url = new URL(urlString);
+			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+			if (factorValid) {
+				httpMultiPartUploaderSpy = HttpMultiPartUploaderSpy
+						.usingURLConnection(urlConnection);
+				httpMultiPartUploaderSpy.responseCode = responseCode;
+				return httpMultiPartUploaderSpy;
+			}
+			httpMultiPartUploaderInvalidSpy = HttpMultiPartUploaderInvalidSpy
+					.usingURLConnection(urlConnection);
+			return httpMultiPartUploaderInvalidSpy;
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	public void changeFactoryToFactorInvalidHttpHandlers() {
 		factorValid = false;
+	}
+
+	public void setResponseCode(int responseCode) {
+		this.responseCode = responseCode;
+
 	}
 
 }

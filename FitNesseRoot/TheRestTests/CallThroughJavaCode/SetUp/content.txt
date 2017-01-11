@@ -3,3 +3,6 @@
 
 !| script | SystemUrl |
 | setUrl | ${systemUnderTestUrl} |
+
+!| script | DependencyProvider |
+| setHttpHandlerFactoryClassName | se.uu.ub.cora.fitnesse.HttpHandlerFactoryImp |

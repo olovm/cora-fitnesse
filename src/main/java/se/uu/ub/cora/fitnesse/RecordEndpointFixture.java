@@ -214,9 +214,10 @@ public class RecordEndpointFixture {
 		String responseText = "";
 		try {
 			String url = baseUrl + type + "/" + id + "/master";
+			url += AUTH_TOKEN + authToken;
 
 			HttpMultiPartUploader httpHandler = factory.factorHttpMultiPartUploader(url);
-			httpHandler.addHeaderField("Accept", "application/uub+record+json2");
+			httpHandler.addHeaderField("Accept", "application/uub+record+json");
 			InputStream fakeStream = new ByteArrayInputStream(
 					"a string".getBytes(StandardCharsets.UTF_8));
 			httpHandler.addFilePart("file", fileName, fakeStream);

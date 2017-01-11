@@ -21,6 +21,8 @@ package se.uu.ub.cora.fitnesse;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.util.HashMap;
+import java.util.Map;
 
 import se.uu.ub.cora.httphandler.HttpHandler;
 
@@ -29,9 +31,9 @@ public class HttpHandlerSpy implements HttpHandler {
 	public HttpURLConnection httpUrlConnection;
 	public String requestMetod;
 	public String outputString;
-	public String key;
-	public String value;
+	public Map<String, String> requestProperties = new HashMap<>();
 	public InputStream stream;
+	public int responseCode = 200;
 
 	private HttpHandlerSpy(HttpURLConnection httpUrlConnection) {
 		this.httpUrlConnection = httpUrlConnection;
@@ -53,7 +55,7 @@ public class HttpHandlerSpy implements HttpHandler {
 
 	@Override
 	public int getResponseCode() {
-		return 200;
+		return responseCode;
 	}
 
 	@Override
@@ -64,9 +66,7 @@ public class HttpHandlerSpy implements HttpHandler {
 
 	@Override
 	public void setRequestProperty(String key, String value) {
-		this.key = key;
-		this.value = value;
-
+		requestProperties.put(key, value);
 	}
 
 	@Override

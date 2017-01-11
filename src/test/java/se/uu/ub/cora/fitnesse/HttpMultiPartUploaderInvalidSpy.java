@@ -19,28 +19,23 @@
 
 package se.uu.ub.cora.fitnesse;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 
-import se.uu.ub.cora.httphandler.HttpHandler;
+import se.uu.ub.cora.httphandler.HttpMultiPartUploader;
 
-public class HttpHandlerInvalidSpy implements HttpHandler {
+public class HttpMultiPartUploaderInvalidSpy implements HttpMultiPartUploader {
 
 	public HttpURLConnection urlConnection;
 
-	public HttpHandlerInvalidSpy(HttpURLConnection urlConnection) {
+	public HttpMultiPartUploaderInvalidSpy(HttpURLConnection urlConnection) {
 		this.urlConnection = urlConnection;
-
 	}
 
-	public static HttpHandlerInvalidSpy usingURLConnection(HttpURLConnection urlConnection) {
-		return new HttpHandlerInvalidSpy(urlConnection);
-	}
-
-	@Override
-	public void setRequestMethod(String requestMetod) {
-		// TODO Auto-generated method stub
-
+	public static HttpMultiPartUploaderInvalidSpy usingURLConnection(
+			HttpURLConnection urlConnection) {
+		return new HttpMultiPartUploaderInvalidSpy(urlConnection);
 	}
 
 	@Override
@@ -55,32 +50,33 @@ public class HttpHandlerInvalidSpy implements HttpHandler {
 	}
 
 	@Override
-	public void setOutput(String outputString) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setRequestProperty(String key, String value) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public String getErrorText() {
 		return "bad things happend";
 	}
 
 	@Override
-	public void setStreamOutput(InputStream stream) {
+	public void addFormField(String name, String value) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public String getHeaderField(String name) {
+	public void addFilePart(String fieldName, String fileName, InputStream stream)
+			throws IOException {
 		// TODO Auto-generated method stub
-		return null;
+
+	}
+
+	@Override
+	public void addHeaderField(String name, String value) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void done() throws IOException {
+		// TODO Auto-generated method stub
+
 	}
 
 }

@@ -25,6 +25,11 @@ public final class DependencyProvider {
 
 	private static HttpHandlerFactory httpHandlerFactory;
 
+	private DependencyProvider() {
+		// not in use
+		throw new UnsupportedOperationException();
+	}
+
 	public static void setHttpHandlerFactoryClassName(String httpHandlerFactoryClassName) {
 		Constructor<?> constructor;
 		try {

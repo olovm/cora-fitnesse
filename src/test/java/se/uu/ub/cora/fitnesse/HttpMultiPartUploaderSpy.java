@@ -19,51 +19,40 @@
 
 package se.uu.ub.cora.fitnesse;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.util.HashMap;
+import java.util.Map;
 
-import se.uu.ub.cora.httphandler.HttpHandler;
+import se.uu.ub.cora.httphandler.HttpMultiPartUploader;
 
-public class HttpHandlerInvalidSpy implements HttpHandler {
+public class HttpMultiPartUploaderSpy implements HttpMultiPartUploader {
 
 	public HttpURLConnection urlConnection;
+	public int responseCode = 200;
+	public Map<String, String> headerFields = new HashMap<>();
+	public boolean doneIsCalled = false;
+	public String fieldName;
+	public String fileName;
+	public InputStream stream;
 
-	public HttpHandlerInvalidSpy(HttpURLConnection urlConnection) {
+	public HttpMultiPartUploaderSpy(HttpURLConnection urlConnection) {
 		this.urlConnection = urlConnection;
-
 	}
 
-	public static HttpHandlerInvalidSpy usingURLConnection(HttpURLConnection urlConnection) {
-		return new HttpHandlerInvalidSpy(urlConnection);
-	}
-
-	@Override
-	public void setRequestMethod(String requestMetod) {
-		// TODO Auto-generated method stub
-
+	public static HttpMultiPartUploaderSpy usingURLConnection(HttpURLConnection urlConnection) {
+		return new HttpMultiPartUploaderSpy(urlConnection);
 	}
 
 	@Override
 	public String getResponseText() {
-		// TODO Auto-generated method stub
-		return null;
+		return "Everything ok";
 	}
 
 	@Override
 	public int getResponseCode() {
-		return 400;
-	}
-
-	@Override
-	public void setOutput(String outputString) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setRequestProperty(String key, String value) {
-		// TODO Auto-generated method stub
-
+		return responseCode;
 	}
 
 	@Override
@@ -72,15 +61,29 @@ public class HttpHandlerInvalidSpy implements HttpHandler {
 	}
 
 	@Override
-	public void setStreamOutput(InputStream stream) {
+	public void addFormField(String name, String value) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public String getHeaderField(String name) {
+	public void addFilePart(String fieldName, String fileName, InputStream stream)
+			throws IOException {
+		this.fieldName = fieldName;
+		this.fileName = fileName;
+		this.stream = stream;
+
+	}
+
+	@Override
+	public void addHeaderField(String name, String value) {
+		headerFields.put(name, value);
+	}
+
+	@Override
+	public void done() throws IOException {
 		// TODO Auto-generated method stub
-		return null;
+		doneIsCalled = true;
 	}
 
 }
