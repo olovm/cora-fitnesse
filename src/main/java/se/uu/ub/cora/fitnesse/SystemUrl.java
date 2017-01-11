@@ -24,14 +24,15 @@ public final class SystemUrl {
 	private static String url;
 
 	public SystemUrl() {
+		// needed by fitnesse
 		super();
 	}
 
-	public static void setUrl(String urlIn) {
+	public static synchronized void setUrl(String urlIn) {
 		url = urlIn;
 	}
 
-	public static String getUrl() {
+	public static synchronized String getUrl() {
 		return url;
 	}
 
