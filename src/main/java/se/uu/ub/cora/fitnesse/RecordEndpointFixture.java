@@ -31,6 +31,8 @@ import se.uu.ub.cora.httphandler.HttpHandler;
 import se.uu.ub.cora.httphandler.HttpMultiPartUploader;
 
 public class RecordEndpointFixture {
+	private static final String APPLICATION_UUB_RECORD_JSON = "application/uub+record+json";
+	private static final String ACCEPT = "Accept";
 	private static final String AUTH_TOKEN = "?authToken=";
 	private String id;
 	private String type;
@@ -116,13 +118,10 @@ public class RecordEndpointFixture {
 		httpHandler.setRequestMethod("GET");
 
 		statusType = Response.Status.fromStatusCode(httpHandler.getResponseCode());
-		String responseText = "";
 		if (statusType.equals(Response.Status.OK)) {
-			responseText = httpHandler.getResponseText();
-		} else {
-			responseText = httpHandler.getErrorText();
+			return httpHandler.getResponseText();
 		}
-		return responseText;
+		return httpHandler.getErrorText();
 	}
 
 	public String testReadRecordList() {
@@ -145,20 +144,17 @@ public class RecordEndpointFixture {
 
 		HttpHandler httpHandler = factory.factorHttpHandler(url);
 		httpHandler.setRequestMethod("POST");
-		httpHandler.setRequestProperty("Accept", "application/uub+record+json");
-		httpHandler.setRequestProperty("Content-Type", "application/uub+record+json");
+		httpHandler.setRequestProperty(ACCEPT, APPLICATION_UUB_RECORD_JSON);
+		httpHandler.setRequestProperty("Content-Type", APPLICATION_UUB_RECORD_JSON);
 		httpHandler.setOutput(json);
 
 		statusType = Response.Status.fromStatusCode(httpHandler.getResponseCode());
-
-		String responseText = "";
 		if (statusType.equals(Response.Status.CREATED)) {
-			responseText = httpHandler.getResponseText();
+			String responseText = httpHandler.getResponseText();
 			createdId = tryToFindCreatedId(responseText);
-		} else {
-			responseText = httpHandler.getErrorText();
+			return responseText;
 		}
-		return responseText;
+		return httpHandler.getErrorText();
 	}
 
 	private String tryToFindCreatedId(String entity) {
@@ -170,7 +166,7 @@ public class RecordEndpointFixture {
 	}
 
 	private String findCreatedId(String entity) {
-		return entity.substring(entity.lastIndexOf("/") + 1, entity.lastIndexOf("\""));
+		return entity.substring(entity.lastIndexOf('/') + 1, entity.lastIndexOf('"'));
 	}
 
 	public String testUpdateRecord() {
@@ -179,8 +175,8 @@ public class RecordEndpointFixture {
 
 		HttpHandler httpHandler = factory.factorHttpHandler(url);
 		httpHandler.setRequestMethod("POST");
-		httpHandler.setRequestProperty("Accept", "application/uub+record+json");
-		httpHandler.setRequestProperty("Content-Type", "application/uub+record+json");
+		httpHandler.setRequestProperty(ACCEPT, APPLICATION_UUB_RECORD_JSON);
+		httpHandler.setRequestProperty("Content-Type", APPLICATION_UUB_RECORD_JSON);
 		httpHandler.setOutput(json);
 
 		statusType = Response.Status.fromStatusCode(httpHandler.getResponseCode());
@@ -199,35 +195,31 @@ public class RecordEndpointFixture {
 		httpHandler.setRequestMethod("DELETE");
 
 		statusType = Response.Status.fromStatusCode(httpHandler.getResponseCode());
-		String responseText = "";
 		if (statusType.equals(Response.Status.OK)) {
-			responseText = httpHandler.getResponseText();
-		} else {
-			responseText = httpHandler.getErrorText();
+			return httpHandler.getResponseText();
 		}
-		return responseText;
+		return httpHandler.getErrorText();
 	}
 
 	public String testUpload() throws IOException {
-		String responseText = "";
 		String url = baseUrl + type + "/" + id + "/master";
 		url += AUTH_TOKEN + authToken;
 
 		HttpMultiPartUploader httpHandler = factory.factorHttpMultiPartUploader(url);
-		httpHandler.addHeaderField("Accept", "application/uub+record+json");
+		httpHandler.addHeaderField(ACCEPT, APPLICATION_UUB_RECORD_JSON);
 		InputStream fakeStream = new ByteArrayInputStream(
 				"a string".getBytes(StandardCharsets.UTF_8));
 		httpHandler.addFilePart("file", fileName, fakeStream);
 		httpHandler.done();
 		statusType = Response.Status.fromStatusCode(httpHandler.getResponseCode());
 
+		statusType = Response.Status.fromStatusCode(httpHandler.getResponseCode());
 		if (statusType.equals(Response.Status.OK)) {
-			responseText = httpHandler.getResponseText();
+			String responseText = httpHandler.getResponseText();
 			streamId = tryToFindStreamId(responseText);
-		} else {
-			responseText = httpHandler.getErrorText();
+			return responseText;
 		}
-		return responseText;
+		return httpHandler.getErrorText();
 	}
 
 	private String tryToFindStreamId(String entity) {
@@ -240,7 +232,7 @@ public class RecordEndpointFixture {
 
 	private String findStreamId(String entity) {
 		int streamIdIndex = entity.lastIndexOf("streamId") + 19;
-		return entity.substring(streamIdIndex, entity.indexOf("\"", streamIdIndex));
+		return entity.substring(streamIdIndex, entity.indexOf('"', streamIdIndex));
 	}
 
 	public String testDownload() {
@@ -251,15 +243,14 @@ public class RecordEndpointFixture {
 		httpHandler.setRequestMethod("GET");
 
 		statusType = Response.Status.fromStatusCode(httpHandler.getResponseCode());
-		String responseText = "";
 		if (statusType.equals(Response.Status.OK)) {
-			responseText = httpHandler.getResponseText();
+			String responseText = httpHandler.getResponseText();
 			contentLenght = httpHandler.getHeaderField("Content-Length");
 			contentDisposition = httpHandler.getHeaderField("Content-Disposition");
-		} else {
-			responseText = httpHandler.getErrorText();
+			streamId = tryToFindStreamId(responseText);
+			return responseText;
 		}
-		return responseText;
+		return httpHandler.getErrorText();
 	}
 
 }

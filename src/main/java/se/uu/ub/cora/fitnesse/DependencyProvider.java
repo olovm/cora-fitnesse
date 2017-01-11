@@ -26,10 +26,12 @@ public final class DependencyProvider {
 	private static HttpHandlerFactory httpHandlerFactory;
 
 	public DependencyProvider() {
+		// needs a public constructor for fitnesse to work
 		super();
 	}
 
-	public static void setHttpHandlerFactoryClassName(String httpHandlerFactoryClassName) {
+	public static synchronized void setHttpHandlerFactoryClassName(
+			String httpHandlerFactoryClassName) {
 		Constructor<?> constructor;
 		try {
 			constructor = Class.forName(httpHandlerFactoryClassName).getConstructor();
