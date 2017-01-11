@@ -27,8 +27,6 @@ import java.nio.charset.StandardCharsets;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.StatusType;
 
-import org.apache.http.client.ClientProtocolException;
-
 import se.uu.ub.cora.httphandler.HttpHandler;
 import se.uu.ub.cora.httphandler.HttpMultiPartUploader;
 
@@ -210,28 +208,24 @@ public class RecordEndpointFixture {
 		return responseText;
 	}
 
-	public String testUpload() throws ClientProtocolException, IOException {
+	public String testUpload() throws IOException {
 		String responseText = "";
-		try {
-			String url = baseUrl + type + "/" + id + "/master";
-			url += AUTH_TOKEN + authToken;
+		String url = baseUrl + type + "/" + id + "/master";
+		url += AUTH_TOKEN + authToken;
 
-			HttpMultiPartUploader httpHandler = factory.factorHttpMultiPartUploader(url);
-			httpHandler.addHeaderField("Accept", "application/uub+record+json");
-			InputStream fakeStream = new ByteArrayInputStream(
-					"a string".getBytes(StandardCharsets.UTF_8));
-			httpHandler.addFilePart("file", fileName, fakeStream);
-			httpHandler.done();
-			statusType = Response.Status.fromStatusCode(httpHandler.getResponseCode());
+		HttpMultiPartUploader httpHandler = factory.factorHttpMultiPartUploader(url);
+		httpHandler.addHeaderField("Accept", "application/uub+record+json");
+		InputStream fakeStream = new ByteArrayInputStream(
+				"a string".getBytes(StandardCharsets.UTF_8));
+		httpHandler.addFilePart("file", fileName, fakeStream);
+		httpHandler.done();
+		statusType = Response.Status.fromStatusCode(httpHandler.getResponseCode());
 
-			if (statusType.equals(Response.Status.OK)) {
-				responseText = httpHandler.getResponseText();
-				streamId = tryToFindStreamId(responseText);
-			} else {
-				responseText = httpHandler.getErrorText();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (statusType.equals(Response.Status.OK)) {
+			responseText = httpHandler.getResponseText();
+			streamId = tryToFindStreamId(responseText);
+		} else {
+			responseText = httpHandler.getErrorText();
 		}
 		return responseText;
 	}

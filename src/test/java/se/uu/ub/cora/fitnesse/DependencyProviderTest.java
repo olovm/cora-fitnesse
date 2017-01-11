@@ -21,26 +21,13 @@ package se.uu.ub.cora.fitnesse;
 
 import static org.testng.Assert.assertTrue;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Modifier;
-
 import org.testng.annotations.Test;
 
 public class DependencyProviderTest {
 	@Test
-	public void testPrivateConstructor() throws Exception {
-		Constructor<DependencyProvider> constructor = DependencyProvider.class
-				.getDeclaredConstructor();
-		assertTrue(Modifier.isPrivate(constructor.getModifiers()));
-	}
-
-	@Test(expectedExceptions = InvocationTargetException.class)
-	public void testPrivateConstructorInvoke() throws Exception {
-		Constructor<DependencyProvider> constructor = DependencyProvider.class
-				.getDeclaredConstructor();
-		constructor.setAccessible(true);
-		constructor.newInstance();
+	public void testConstructor() {
+		DependencyProvider dependencyProvider = new DependencyProvider();
+		assertTrue(dependencyProvider instanceof DependencyProvider);
 	}
 
 	@Test
