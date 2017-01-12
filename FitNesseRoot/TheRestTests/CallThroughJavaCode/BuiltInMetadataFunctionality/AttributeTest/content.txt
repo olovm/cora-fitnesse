@@ -2,7 +2,6 @@
 | import |
 | se.uu.ub.cora.fitnesse |
 
-
 !3 Setup metadata
 !***> Create three !-CollectionItems-! (yes, no, unknown)
 
@@ -17,15 +16,15 @@
 
 !| RecordEndpointFixture |
 | type | json | testCreateRecord? | getStatusType? |
-| textSystemOne | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"itemCollectionText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"} ,"children":[{"name":"text","value":"En text"}]}]} | | CREATED |
-| textSystemOne | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"itemCollectionDefText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"},"children":[{"name":"text","value":"En deftext"}]},{"name":"textPart","attributes":{"type":"alternative","lang":"en"},"children":[{"name":"text","value":"A collection defText"}]}]} | | CREATED |
+| coraText | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"itemCollectionText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"} ,"children":[{"name":"text","value":"En text"}]}]} | | CREATED |
+| coraText | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"itemCollectionDefText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"},"children":[{"name":"text","value":"En deftext"}]},{"name":"textPart","attributes":{"type":"alternative","lang":"en"},"children":[{"name":"text","value":"A collection defText"}]}]} | | CREATED |
 
 *!
 !***> Create one !-ItemCollection with three items-!
 
 !| RecordEndpointFixture |
 | type | json | testCreateRecord? | getStatusType? |
-| metadataItemCollection | {"name":"metadata","attributes":{"type":"itemCollection"},"children":[{"name":"recordInfo","children":[{"name":"id","value":"firstItemCollection"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"textId","children":[{"name":"linkedRecordType","value":"textSystemOne"},{"name":"linkedRecordId","value":"itemCollectionText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"textSystemOne"},{"name":"linkedRecordId","value":"itemCollectionDefText"}]},{"name":"nameInData","value":"itemCollection"},{"name":"collectionItemReferences","children":[{"name":"ref","repeatId":"0","children":[{"name":"linkedRecordType","value":"metadataCollectionItem"},{"name":"linkedRecordId","value":"yesAttributeItem"}]},{"name":"ref","repeatId":"1","children":[{"name":"linkedRecordType","value":"metadataCollectionItem"},{"name":"linkedRecordId","value":"noAttributeItem"}]},{"name":"ref","repeatId":"2","children":[{"name":"linkedRecordType","value":"metadataCollectionItem"},{"name":"linkedRecordId","value":"otherAttributeItem"}]}]}]} | | CREATED |
+| metadataItemCollection | {"name":"metadata","attributes":{"type":"itemCollection"},"children":[{"name":"recordInfo","children":[{"name":"id","value":"firstItemCollection"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"textId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"itemCollectionText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"itemCollectionDefText"}]},{"name":"nameInData","value":"itemCollection"},{"name":"collectionItemReferences","children":[{"name":"ref","repeatId":"0","children":[{"name":"linkedRecordType","value":"metadataCollectionItem"},{"name":"linkedRecordId","value":"yesAttributeItem"}]},{"name":"ref","repeatId":"1","children":[{"name":"linkedRecordType","value":"metadataCollectionItem"},{"name":"linkedRecordId","value":"noAttributeItem"}]},{"name":"ref","repeatId":"2","children":[{"name":"linkedRecordType","value":"metadataCollectionItem"},{"name":"linkedRecordId","value":"otherAttributeItem"}]}]}]} | | CREATED |
 
 *!
 !***> Create three !-CollectionVariables (to use as attributes)-!, two with the same nameInData
@@ -88,7 +87,7 @@
 | fitnesseAdminToken | metadataCollectionItem | otherAttributeItem | | OK |
 | fitnesseAdminToken | metadataCollectionItem | noAttributeItem | | OK |
 | fitnesseAdminToken | metadataCollectionItem | yesAttributeItem | | OK |
-| fitnesseAdminToken | textSystemOne | itemCollectionText | | OK |
-| fitnesseAdminToken | textSystemOne | itemCollectionDefText | | OK |
+| fitnesseAdminToken | coraText | itemCollectionText | | OK |
+| fitnesseAdminToken | coraText | itemCollectionDefText | | OK |
 
 *!
