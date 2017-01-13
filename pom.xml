@@ -248,10 +248,6 @@
 			<build>
 				<plugins>
 					<plugin>
-						<groupId>org.eclipse.jetty</groupId>
-						<artifactId>jetty-maven-plugin</artifactId>
-					</plugin>
-					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-failsafe-plugin</artifactId>
 						<dependencies>
@@ -261,9 +257,6 @@
 								<version>2.18.1</version>
 							</dependency>
 						</dependencies>
-						<!--<configuration> -->
-						<!--<reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory> -->
-						<!--</configuration> -->
 						<executions>
 							<execution>
 								<id>integration-test</id>
@@ -279,23 +272,6 @@
 							</execution>
 						</executions>
 					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-assembly-plugin</artifactId>
-						<configuration>
-							<descriptors>
-								<descriptor>src/main/assembly/fitnesse-zip.xml</descriptor>
-							</descriptors>
-						</configuration>
-						<executions>
-							<execution>
-								<phase>package</phase>
-								<goals>
-									<goal>single</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
 				</plugins>
 			</build>
 		</profile>
@@ -303,10 +279,6 @@
 			<id>wiki</id>
 			<build>
 				<plugins>
-<!-- 					<plugin> -->
-<!-- 						<groupId>org.eclipse.jetty</groupId> -->
-<!-- 						<artifactId>jetty-maven-plugin</artifactId> -->
-<!-- 					</plugin> -->
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-antrun-plugin</artifactId>
