@@ -1,6 +1,6 @@
 !contents -R2 -g -p -f -h
 This test will create the metadatagroup trainingProgram, containing two fields, id and createdBy. they are both mandatory (min 1, max 1)!--!It will then create a metadatagroup called singleTrainingProgram which must contain one trainingProgram, no less, no more.!-
--!Then the test will create a recordType which describes a singleTrainingProgram--------------------------------------------------------------------------------------------------------------------------------------------------------------
+-!Then the test will create a recordType which describes a singleTrainingProgram----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Last, we will create a trainingProgram using the metadata groups specified. We can only create a trainingProgram if we provide the mandatory elements.!-
 -!The first test is missing id.!-
@@ -29,10 +29,34 @@ Last, we will create a trainingProgram using the metadata groups specified. We c
 | POST | /rest/record/metadataGroup | 201 | | |
 
 *!
+!***> Create presentationGroups needed when creating recordType
+
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${systemUnderTestUrl} |
+| setBody | {"name":"presentation","children":[{"name":"recordInfo","children":[{"name":"id","value":"someFitnesseFormPGroup"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"presentationOf","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"trainingProgramGroup"}]},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"default","value":"ref"},{"name":"ref","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"recordInfoPGroup"}],"attributes":{"type":"pGroup"}}],"repeatId":"0"}]}],"attributes":{"type":"pGroup"}} |
+| POST | /rest/record/presentationGroup | 201 | | |
+| setBody | {"name":"presentation","children":[{"name":"recordInfo","children":[{"name":"id","value":"someFitnesseMenuPGroup"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"presentationOf","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"trainingProgramGroup"}]},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"default","value":"ref"},{"name":"ref","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"recordInfoPGroup"}],"attributes":{"type":"pGroup"}}],"repeatId":"0"}]}],"attributes":{"type":"pGroup"}} |
+| POST | /rest/record/presentationGroup | 201 | | |
+| setBody | {"name":"presentation","children":[{"name":"recordInfo","children":[{"name":"id","value":"someFitnesseViewPGroup"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"presentationOf","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"trainingProgramGroup"}]},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"default","value":"ref"},{"name":"ref","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"recordInfoPGroup"}],"attributes":{"type":"pGroup"}}],"repeatId":"0"}]}],"attributes":{"type":"pGroup"}} |
+| POST | /rest/record/presentationGroup | 201 | Location:/rest/record/presentationGroup | |
+| setBody | {"name":"presentation","children":[{"name":"recordInfo","children":[{"name":"id","value":"someFitnesseListPGroup"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"presentationOf","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"trainingProgramGroup"}]},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"default","value":"ref"},{"name":"ref","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"recordInfoPGroup"}],"attributes":{"type":"pGroup"}}],"repeatId":"0"}]}],"attributes":{"type":"pGroup"}} |
+| POST | /rest/record/presentationGroup | 201 | Location:/rest/record/presentationGroup | |
+| setBody | {"name":"presentation","children":[{"name":"recordInfo","children":[{"name":"id","value":"someFitnesseFormNewPGroup"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"presentationOf","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"trainingProgramGroup"}]},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"default","value":"ref"},{"name":"ref","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"recordInfoPGroup"}],"attributes":{"type":"pGroup"}}],"repeatId":"0"}]}],"attributes":{"type":"pGroup"}} |
+| POST | /rest/record/presentationGroup | 201 | Location:/rest/record/presentationGroup | |
+
+*!
+!***> Create texts needed when creating recordType
+
+| Table:smartrics.rest.fitnesse.fixture.RestFixture | ${systemUnderTestUrl} |
+| setBody | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"someFitnesseText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"} ,"children":[{"name":"text","value":"En text"}]}]} |
+| POST | /rest/record/coraText | 201 | | |
+| setBody | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"someFitnesseDefText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"},"children":[{"name":"text","value":"En deftext"}]},{"name":"textPart","attributes":{"type":"alternative","lang":"en"},"children":[{"name":"text","value":"A defText"}]}]} |
+| POST | /rest/record/coraText | 201 | | |
+
+*!
 !***> Create recordType
 
 | Table:smartrics.rest.fitnesse.fixture.RestFixture | ${systemUnderTestUrl} |
-| setBody | {"name":"recordType","children":[{"name":"recordInfo","children":[{"name":"id","value":"singleTrainingProgram"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"metadataId","value":"singleTrainingProgramGroup"},{"name":"abstract","value":"false"},{"name":"presentationViewId","value":"singleTrainingProgramViewPGroup"},{"name":"presentationFormId","value":"singleTrainingProgramFormPGroup"},{"name":"newMetadataId","value":"singleTrainingProgramNewGroup"},{"name":"newPresentationFormId","value":"singleTrainingProgramFormNewPGroup"},{"name":"menuPresentationViewId","value":"singleTrainingProgramMenuPGroup"},{"name":"listPresentationViewId","value":"singleTrainingProgramListPGroup"},{"name":"searchMetadataId","value":"singleTrainingProgramSearchGroup"},{"name":"searchPresentationFormId","value":"singleTrainingProgramFormSearchPGroup"},{"name":"userSuppliedId","value":"true"},{"name":"selfPresentationViewId","value":"singleTrainingProgramViewSelfPGroup"},{"name":"textId","value":"singleTrainingProgramText"},{"name":"defTextId","value":"singleTrainingProgramDefText"}]} |
+| setBody | {"name":"recordType","children":[{"name":"recordInfo","children":[{"name":"id","value":"singleTrainingProgram"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"metadataId","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"singleTrainingProgramGroup"}]},{"name":"abstract","value":"false"},{"name":"presentationViewId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnesseViewPGroup"}]},{"name":"presentationFormId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnesseFormPGroup"}]},{"name":"newMetadataId","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"singleTrainingProgramNewGroup"}]},{"name":"newPresentationFormId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnesseFormNewPGroup"}]},{"name":"menuPresentationViewId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnesseMenuPGroup"}]},{"name":"listPresentationViewId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnesseListPGroup"}]},{"name":"searchMetadataId","value":"someFitnesseSearchGroup"},{"name":"searchPresentationFormId","value":"someFitnesseFormSearchPGroup"},{"name":"userSuppliedId","value":"true"},{"name":"selfPresentationViewId","value":"someFitnesseViewSelfPGroup"},{"name":"textId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someFitnesseText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someFitnesseDefText"}]}]} |
 | POST | /rest/record/recordType | 201 | | |
 
 *!
@@ -52,8 +76,15 @@ Last, we will create a trainingProgram using the metadata groups specified. We c
 | Table:smartrics.rest.fitnesse.fixture.RestFixture | ${systemUnderTestUrl} |
 | DELETE | /rest/record/singleTrainingProgram/cirkelfys | 200 | | |
 | DELETE | /rest/record/recordType/singleTrainingProgram | 200 | | |
+| DELETE | /rest/record/presentationGroup/someFitnesseFormPGroup | 200 | | |
+| DELETE | /rest/record/presentationGroup/someFitnesseMenuPGroup | 200 | | |
+| DELETE | /rest/record/presentationGroup/someFitnesseViewPGroup | 200 | | |
+| DELETE | /rest/record/presentationGroup/someFitnesseListPGroup | 200 | | |
+| DELETE | /rest/record/presentationGroup/someFitnesseFormNewPGroup | 200 | | |
 | DELETE | /rest/record/metadataGroup/singleTrainingProgramGroup | 200 | | |
 | DELETE | /rest/record/metadataGroup/singleTrainingProgramNewGroup | 200 | | |
 | DELETE | /rest/record/metadataGroup/trainingProgramGroup | 200 | | |
+| DELETE | /rest/record/coraText/someFitnesseText | 200 | | |
+| DELETE | /rest/record/coraText/someFitnesseDefText | 200 | | |
 
 *!
