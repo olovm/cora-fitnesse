@@ -20,11 +20,11 @@
 
 	<artifactId>fitnesse</artifactId>
 	<packaging>jar</packaging>
-	<version>0.1-SNAPSHOT</version>
+	<version>0.2-SNAPSHOT</version>
 	<name>Fitnesse</name>
 
 	<properties>
-		<httphandler.version>0.1-SNAPSHOT</httphandler.version>
+		<httphandler.version>0.2-SNAPSHOT</httphandler.version>
 		<javax.ws.rs.version>2.0.1</javax.ws.rs.version>
 <!-- 		<jersey.version>2.23.2</jersey.version> -->
 		<fitnesse.version>20161106</fitnesse.version>
