@@ -152,22 +152,15 @@ public class RecordEndpointFixture {
 		statusType = Response.Status.fromStatusCode(httpHandler.getResponseCode());
 		if (statusType.equals(Response.Status.CREATED)) {
 			String responseText = httpHandler.getResponseText();
-			createdId = tryToFindCreatedId(responseText);
+
+			createdId = extractCreatedIdFromLocationHeader(httpHandler.getHeaderField("Location"));
 			return responseText;
 		}
 		return httpHandler.getErrorText();
 	}
 
-	private String tryToFindCreatedId(String entity) {
-		try {
-			return findCreatedId(entity);
-		} catch (Exception e) {
-			return "";
-		}
-	}
-
-	private String findCreatedId(String entity) {
-		return entity.substring(entity.lastIndexOf('/') + 1, entity.lastIndexOf('"'));
+	private String extractCreatedIdFromLocationHeader(String locationHeader) {
+		return locationHeader.substring(locationHeader.lastIndexOf('/') + 1);
 	}
 
 	public String testUpdateRecord() {

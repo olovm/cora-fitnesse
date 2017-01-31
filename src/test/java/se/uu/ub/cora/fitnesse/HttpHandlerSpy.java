@@ -91,6 +91,9 @@ public class HttpHandlerSpy implements HttpHandler {
 		if ("Content-Disposition".equals(name)) {
 			return "form-data; name=\"file\"; filename=\"adele.png\"\n";
 		}
+		if ("Location".equals(name)) {
+			return "http://epc.ub.uu.se/therest/rest/record/someRecordType/someRecordType:35824453170224822";
+		}
 		return null;
 	}
 
