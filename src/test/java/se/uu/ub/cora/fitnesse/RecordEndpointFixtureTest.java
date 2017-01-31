@@ -110,6 +110,26 @@ public class RecordEndpointFixtureTest {
 	}
 
 	@Test
+	public void testCreateAppTokenDataForFactoryIsOk() {
+		httpHandlerFactorySpy.setResponseCode(201);
+		fixture.setType("appToken");
+		fixture.setAuthToken("someToken");
+		fixture.setJson("{\"name\":\"value\"}");
+		fixture.testCreateRecord();
+		HttpHandlerSpy httpHandlerSpy = httpHandlerFactorySpy.httpHandlerSpy;
+		assertEquals(httpHandlerSpy.requestMetod, "POST");
+		assertEquals(httpHandlerSpy.outputString, "{\"name\":\"value\"}");
+		assertEquals(httpHandlerSpy.requestProperties.get("Accept"), "application/uub+record+json");
+		assertEquals(httpHandlerSpy.requestProperties.get("Content-Type"),
+				"application/uub+record+json");
+		assertEquals(httpHandlerSpy.requestProperties.size(), 2);
+		assertEquals(httpHandlerFactorySpy.urlString,
+				"http://localhost:8080/therest/rest/record/appToken?authToken=someToken");
+		assertEquals(fixture.getCreatedId(), "someRecordType:35824453170224822");
+		assertEquals(fixture.getToken(), "ba064c86-bd7c-4283-a5f3-86ba1dade3f3");
+	}
+
+	@Test
 	public void testCreateRecordOk() {
 		httpHandlerFactorySpy.setResponseCode(201);
 		assertEquals(fixture.testCreateRecord(), "Everything ok");

@@ -2,11 +2,12 @@
 <properties>
 <Edit/>
 <Files/>
+<Help>A test that checks that we can use newly created appTokens to authenticate</Help>
 <Properties/>
 <RecentChanges/>
 <Refactor/>
 <Search/>
-<Suite/>
+<Test/>
 <Versions/>
 <WhereUsed/>
 </properties>
