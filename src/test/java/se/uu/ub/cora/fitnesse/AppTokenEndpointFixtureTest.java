@@ -42,4 +42,10 @@ public class AppTokenEndpointFixtureTest {
 		assertEquals(fixture.getAuthToken(), "a1acff95-5849-4e10-9ee9-4b192aef17fd");
 		assertEquals(fixture.getStatusType(), Response.Status.CREATED);
 	}
+
+	@Test
+	public void testCreateRecordNotOk() {
+		httpHandlerFactorySpy.changeFactoryToFactorInvalidHttpHandlers();
+		assertEquals(fixture.getAuthTokenForAppToken(), "bad things happend");
+	}
 }

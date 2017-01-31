@@ -37,11 +37,11 @@ public final class SystemUrl {
 		return url;
 	}
 
-	public static void setAppTokenVerifierUrl(String url) {
+	public static synchronized void setAppTokenVerifierUrl(String url) {
 		appTokenVerifierUrl = url;
 	}
 
-	public static String getAppTokenVerifierUrl() {
+	public static synchronized String getAppTokenVerifierUrl() {
 		return appTokenVerifierUrl;
 	}
 

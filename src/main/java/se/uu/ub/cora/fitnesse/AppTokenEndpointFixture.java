@@ -28,29 +28,16 @@ public class AppTokenEndpointFixture {
 
 		HttpHandler httpHandler = factory.factorHttpHandler(url);
 		httpHandler.setRequestMethod("POST");
-		// httpHandler.setRequestProperty(ACCEPT, APPLICATION_UUB_RECORD_JSON);
-		// httpHandler.setRequestProperty("Content-Type",
-		// APPLICATION_UUB_RECORD_JSON);
 		httpHandler.setOutput(appToken);
 
 		statusType = Response.Status.fromStatusCode(httpHandler.getResponseCode());
 		if (statusType.equals(Response.Status.CREATED)) {
 			String responseText = httpHandler.getResponseText();
-			// createdId =
-			// extractCreatedIdFromLocationHeader(httpHandler.getHeaderField("Location"));
-			authToken = tryToExtractCreatedTokenFromResponseText(responseText);
+			authToken = extractCreatedTokenFromResponseText(responseText);
 
 			return responseText;
 		}
 		return httpHandler.getErrorText();
-	}
-
-	private String tryToExtractCreatedTokenFromResponseText(String responseText) {
-		try {
-			return extractCreatedTokenFromResponseText(responseText);
-		} catch (Exception e) {
-			return "";
-		}
 	}
 
 	private String extractCreatedTokenFromResponseText(String responseText) {

@@ -20,10 +20,17 @@
 package se.uu.ub.cora.fitnesse;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
 
 import org.testng.annotations.Test;
 
 public class SystemUrlTest {
+
+	@Test
+	public void testConstructorNeededByFitnesse() {
+		SystemUrl systemUrl = new SystemUrl();
+		assertNotNull(systemUrl);
+	}
 
 	@Test
 	public void testGetUrl() {
