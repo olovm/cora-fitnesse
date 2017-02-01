@@ -20,21 +20,27 @@
 package se.uu.ub.cora.fitnesse;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
 
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class SystemUrlTest {
-	private SystemUrl systemUrl;
 
-	@BeforeMethod
-	public void setUp() {
-		systemUrl = new SystemUrl();
+	@Test
+	public void testConstructorNeededByFitnesse() {
+		SystemUrl systemUrl = new SystemUrl();
+		assertNotNull(systemUrl);
 	}
 
 	@Test
 	public void testGetUrl() {
-		systemUrl.setUrl("someUrl");
-		assertEquals(systemUrl.getUrl(), "someUrl");
+		SystemUrl.setUrl("someUrl");
+		assertEquals(SystemUrl.getUrl(), "someUrl");
+	}
+
+	@Test
+	public void testGetAppTokenVerifierUrl() {
+		SystemUrl.setAppTokenVerifierUrl("appTokenVerifierUrl");
+		assertEquals(SystemUrl.getAppTokenVerifierUrl(), "appTokenVerifierUrl");
 	}
 }

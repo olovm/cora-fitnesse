@@ -31,6 +31,7 @@ import se.uu.ub.cora.httphandler.HttpHandler;
 import se.uu.ub.cora.httphandler.HttpMultiPartUploader;
 
 public class RecordEndpointFixture {
+	private static final int DISTANCE_TO_START_OF_TOKEN = 24;
 	private static final int DISTANCE_TO_START_OF_ID = 19;
 	private static final String APPLICATION_UUB_RECORD_JSON = "application/uub+record+json";
 	private static final String ACCEPT = "Accept";
@@ -48,6 +49,7 @@ public class RecordEndpointFixture {
 	private String authToken = "fitnesseAdminToken";
 	private String baseUrl = SystemUrl.getUrl() + "rest/record/";
 	private HttpHandlerFactory factory;
+	private String token;
 
 	public RecordEndpointFixture() {
 		factory = DependencyProvider.getFactory();
@@ -152,22 +154,30 @@ public class RecordEndpointFixture {
 		statusType = Response.Status.fromStatusCode(httpHandler.getResponseCode());
 		if (statusType.equals(Response.Status.CREATED)) {
 			String responseText = httpHandler.getResponseText();
-			createdId = tryToFindCreatedId(responseText);
+			createdId = extractCreatedIdFromLocationHeader(httpHandler.getHeaderField("Location"));
+			token = tryToExtractCreatedTokenFromResponseText(responseText);
+
 			return responseText;
 		}
 		return httpHandler.getErrorText();
 	}
 
-	private String tryToFindCreatedId(String entity) {
+	private String extractCreatedIdFromLocationHeader(String locationHeader) {
+		return locationHeader.substring(locationHeader.lastIndexOf('/') + 1);
+	}
+
+	private String tryToExtractCreatedTokenFromResponseText(String responseText) {
 		try {
-			return findCreatedId(entity);
+			return extractCreatedTokenFromResponseText(responseText);
 		} catch (Exception e) {
 			return "";
 		}
 	}
 
-	private String findCreatedId(String entity) {
-		return entity.substring(entity.lastIndexOf('/') + 1, entity.lastIndexOf('"'));
+	private String extractCreatedTokenFromResponseText(String responseText) {
+		int streamIdIndex = responseText.lastIndexOf("\"name\":\"token\"")
+				+ DISTANCE_TO_START_OF_TOKEN;
+		return responseText.substring(streamIdIndex, responseText.indexOf('"', streamIdIndex));
 	}
 
 	public String testUpdateRecord() {
@@ -252,6 +262,10 @@ public class RecordEndpointFixture {
 			return responseText;
 		}
 		return httpHandler.getErrorText();
+	}
+
+	public String getToken() {
+		return token;
 	}
 
 }

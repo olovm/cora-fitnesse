@@ -22,6 +22,7 @@ package se.uu.ub.cora.fitnesse;
 public final class SystemUrl {
 
 	private static String url;
+	private static String appTokenVerifierUrl;
 
 	public SystemUrl() {
 		// needed by fitnesse
@@ -34,6 +35,14 @@ public final class SystemUrl {
 
 	public static synchronized String getUrl() {
 		return url;
+	}
+
+	public static synchronized void setAppTokenVerifierUrl(String url) {
+		appTokenVerifierUrl = url;
+	}
+
+	public static synchronized String getAppTokenVerifierUrl() {
+		return appTokenVerifierUrl;
 	}
 
 }
