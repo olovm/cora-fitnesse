@@ -89,17 +89,17 @@ The metadata for textVariable has been created during system startup, so we shou
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| fitnesseAdminToken | lock | lock_1 | | OK |
-| fitnesseAdminToken | recordType | lock | | OK |
-| fitnesseAdminToken | presentationGroup | someFitnesseMenuPGroup | | OK |
-| fitnesseAdminToken | presentationGroup | someFitnesseListPGroup | | OK |
-| fitnesseAdminToken | presentationGroup | someFitnesseFormPGroup | | OK |
-| fitnesseAdminToken | presentationGroup | someFitnesseFormNewPGroup | | OK |
-| fitnesseAdminToken | presentationGroup | someFitnesseViewPGroup | | OK |
-| fitnesseAdminToken | metadataGroup | lockNewGroup | | OK |
-| fitnesseAdminToken | metadataGroup | lockGroup | | OK |
-| fitnesseAdminToken | metadataTextVariable | pinCodeTextVar | | OK |
-| fitnesseAdminToken | coraText | someFitnesseText | | OK |
-| fitnesseAdminToken | coraText | someFitnesseDefText | | OK |
+| $authToken | lock | lock_1 | | OK |
+| $authToken | recordType | lock | | OK |
+| $authToken | presentationGroup | someFitnesseMenuPGroup | | OK |
+| $authToken | presentationGroup | someFitnesseListPGroup | | OK |
+| $authToken | presentationGroup | someFitnesseFormPGroup | | OK |
+| $authToken | presentationGroup | someFitnesseFormNewPGroup | | OK |
+| $authToken | presentationGroup | someFitnesseViewPGroup | | OK |
+| $authToken | metadataGroup | lockNewGroup | | OK |
+| $authToken | metadataGroup | lockGroup | | OK |
+| $authToken | metadataTextVariable | pinCodeTextVar | | OK |
+| $authToken | coraText | someFitnesseText | | OK |
+| $authToken | coraText | someFitnesseDefText | | OK |
 
 *!

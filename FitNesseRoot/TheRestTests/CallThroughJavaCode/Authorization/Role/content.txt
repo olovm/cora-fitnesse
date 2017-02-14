@@ -13,7 +13,7 @@ The system has two roles used by the fitnesse user (121212), they are called fit
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| fitnesseAdminToken | permissionRole | fitnesseTextAdmin | {"record":{"data":{"children":[{"children":[{"name":"id","value":"fitnesseTextAdmin"},{"name":"type","value":"permissionRole"},{"name":"createdBy","value":"12345"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/system/cora","accept":"application/uub+record+json"}},"name":"dataDivider"}],"name":"recordInfo"},{"repeatId":"0","children":[{"name":"linkedRecordType","value":"permissionRule"},{"name":"linkedRecordId","value":"textAdmin"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/permissionRule/textAdmin","accept":"application/uub+record+json"}},"name":"permissionRuleLink"},{"repeatId":"1","children":[{"name":"linkedRecordType","value":"permissionRule"},{"name":"linkedRecordId","value":"nothing"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/permissionRule/nothing","accept":"application/uub+record+json"}},"name":"permissionRuleLink"},{"name":"activeStatus","value":"active"}],"name":"permissionRole"},"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/permissionRole/fitnesseTextAdmin","accept":"application/uub+record+json"},"read_incoming_links":{"requestMethod":"GET","rel":"read_incoming_links","url":"${systemUnderTestUrl}rest/record/permissionRole/fitnesseTextAdmin/incomingLinks","accept":"application/uub+recordList+json"},"update":{"requestMethod":"POST","rel":"update","contentType":"application/uub+record+json","url":"${systemUnderTestUrl}rest/record/permissionRole/fitnesseTextAdmin","accept":"application/uub+record+json"}}}} | OK |
+| $authToken | permissionRole | fitnesseTextAdmin | {"record":{"data":{"children":[{"children":[{"name":"id","value":"fitnesseTextAdmin"},{"name":"type","value":"permissionRole"},{"name":"createdBy","value":"12345"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/system/cora","accept":"application/uub+record+json"}},"name":"dataDivider"}],"name":"recordInfo"},{"repeatId":"0","children":[{"name":"linkedRecordType","value":"permissionRule"},{"name":"linkedRecordId","value":"textAdmin"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/permissionRule/textAdmin","accept":"application/uub+record+json"}},"name":"permissionRuleLink"},{"repeatId":"1","children":[{"name":"linkedRecordType","value":"permissionRule"},{"name":"linkedRecordId","value":"nothing"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/permissionRule/nothing","accept":"application/uub+record+json"}},"name":"permissionRuleLink"},{"name":"activeStatus","value":"active"}],"name":"permissionRole"},"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/permissionRole/fitnesseTextAdmin","accept":"application/uub+record+json"},"read_incoming_links":{"requestMethod":"GET","rel":"read_incoming_links","url":"${systemUnderTestUrl}rest/record/permissionRole/fitnesseTextAdmin/incomingLinks","accept":"application/uub+recordList+json"},"update":{"requestMethod":"POST","rel":"update","contentType":"application/uub+record+json","url":"${systemUnderTestUrl}rest/record/permissionRole/fitnesseTextAdmin","accept":"application/uub+record+json"}}}} | OK |
 
 *!
 The role fitnesseTextAdmin has one rules textAdmin.
@@ -36,7 +36,7 @@ Update role, set status to inactive
 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| fitnesseAdminToken | permissionRole | fitnesseTextAdmin | {"name":"permissionRole","children":[{"name":"recordInfo","children":[{"name":"id","value":"fitnesseTextAdmin"},{"name":"type","value":"permissionRole"},{"name":"createdBy","value":"12345"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"permissionRuleLink","children":[{"name":"linkedRecordType","value":"permissionRule"},{"name":"linkedRecordId","value":"textAdmin"}],"repeatId":"0"},{"name":"activeStatus","value":"inactive"}]} | | OK |
+| $authToken | permissionRole | fitnesseTextAdmin | {"name":"permissionRole","children":[{"name":"recordInfo","children":[{"name":"id","value":"fitnesseTextAdmin"},{"name":"type","value":"permissionRole"},{"name":"createdBy","value":"12345"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"permissionRuleLink","children":[{"name":"linkedRecordType","value":"permissionRule"},{"name":"linkedRecordId","value":"textAdmin"}],"repeatId":"0"},{"name":"activeStatus","value":"inactive"}]} | | OK |
 
 *!
 Create a new text to show that it is '''NOT''' allowed:
@@ -55,7 +55,7 @@ Update role, to only have one rule (systemOneUser), a role must have at least on
 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| fitnesseAdminToken | permissionRole | fitnesseTextAdmin | {"name":"permissionRole","children":[{"name":"recordInfo","children":[{"name":"id","value":"fitnesseTextAdmin"},{"name":"type","value":"permissionRole"},{"name":"createdBy","value":"12345"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"permissionRuleLink","children":[{"name":"linkedRecordType","value":"permissionRule"},{"name":"linkedRecordId","value":"nothing"}],"repeatId":"0"},{"name":"activeStatus","value":"active"}]} | | OK |
+| $authToken | permissionRole | fitnesseTextAdmin | {"name":"permissionRole","children":[{"name":"recordInfo","children":[{"name":"id","value":"fitnesseTextAdmin"},{"name":"type","value":"permissionRole"},{"name":"createdBy","value":"12345"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"permissionRuleLink","children":[{"name":"linkedRecordType","value":"permissionRule"},{"name":"linkedRecordId","value":"nothing"}],"repeatId":"0"},{"name":"activeStatus","value":"active"}]} | | OK |
 
 *!
 Create a new text to show that it is '''NOT''' allowed:
@@ -74,7 +74,7 @@ Update role, to have one rule (textAdmin, nothing)
 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| fitnesseAdminToken | permissionRole | fitnesseTextAdmin | {"name":"permissionRole","children":[{"name":"recordInfo","children":[{"name":"id","value":"fitnesseTextAdmin"},{"name":"type","value":"permissionRole"},{"name":"createdBy","value":"12345"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"permissionRuleLink","children":[{"name":"linkedRecordType","value":"permissionRule"},{"name":"linkedRecordId","value":"textAdmin"}],"repeatId":"0"},{"name":"permissionRuleLink","children":[{"name":"linkedRecordType","value":"permissionRule"},{"name":"linkedRecordId","value":"nothing"}],"repeatId":"1"},{"name":"activeStatus","value":"active"}]} | | OK |
+| $authToken | permissionRole | fitnesseTextAdmin | {"name":"permissionRole","children":[{"name":"recordInfo","children":[{"name":"id","value":"fitnesseTextAdmin"},{"name":"type","value":"permissionRole"},{"name":"createdBy","value":"12345"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"permissionRuleLink","children":[{"name":"linkedRecordType","value":"permissionRule"},{"name":"linkedRecordId","value":"textAdmin"}],"repeatId":"0"},{"name":"permissionRuleLink","children":[{"name":"linkedRecordType","value":"permissionRule"},{"name":"linkedRecordId","value":"nothing"}],"repeatId":"1"},{"name":"activeStatus","value":"active"}]} | | OK |
 
 *!
 Create a new text to show that it '''is''' allowed:
@@ -91,14 +91,14 @@ Create a new text to show that it '''is''' allowed:
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| fitnesseAdminToken | textSystemOne | myRoleText | | OK |
-| fitnesseUserToken | textSystemOne | myRole2Text | | OK |
+| $authToken | textSystemOne | myRoleText | | OK |
+| $authToken | textSystemOne | myRole2Text | | OK |
 
 *!
 !***> Reset, fitnesseTextAdmin
 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| fitnesseAdminToken | permissionRole | fitnesseTextAdmin | {"children":[{"children":[{"name":"id","value":"fitnesseTextAdmin"},{"name":"type","value":"permissionRole"},{"name":"createdBy","value":"12345"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}],"name":"recordInfo"},{"repeatId":"0","children":[{"name":"linkedRecordType","value":"permissionRule"},{"name":"linkedRecordId","value":"textAdmin"}],"name":"permissionRuleLink"},{"repeatId":"1","children":[{"name":"linkedRecordType","value":"permissionRule"},{"name":"linkedRecordId","value":"nothing"}],"name":"permissionRuleLink"},{"name":"activeStatus","value":"active"}],"name":"permissionRole"} | | OK |
+| $authToken | permissionRole | fitnesseTextAdmin | {"children":[{"children":[{"name":"id","value":"fitnesseTextAdmin"},{"name":"type","value":"permissionRole"},{"name":"createdBy","value":"12345"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}],"name":"recordInfo"},{"repeatId":"0","children":[{"name":"linkedRecordType","value":"permissionRule"},{"name":"linkedRecordId","value":"textAdmin"}],"name":"permissionRuleLink"},{"repeatId":"1","children":[{"name":"linkedRecordType","value":"permissionRule"},{"name":"linkedRecordId","value":"nothing"}],"name":"permissionRuleLink"},{"name":"activeStatus","value":"active"}],"name":"permissionRole"} | | OK |
 
 *!

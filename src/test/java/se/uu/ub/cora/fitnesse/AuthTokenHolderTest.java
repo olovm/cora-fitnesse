@@ -19,31 +19,22 @@
 
 package se.uu.ub.cora.fitnesse;
 
-public final class SystemUrl {
+import org.testng.annotations.Test;
 
-	private static String url;
-	private static String appTokenVerifierUrl;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNotNull;
 
+public class AuthTokenHolderTest {
 
-	public SystemUrl() {
-		// needed by fitnesse
-		super();
+	@Test
+	public void testInit() {
+		AuthTokenHolder authTokenHolder = new AuthTokenHolder();
+		assertNotNull(authTokenHolder);
 	}
 
-	public static synchronized void setUrl(String urlIn) {
-		url = urlIn;
+	@Test
+	public void testGetAuthToken() {
+		AuthTokenHolder.setAuthToken("someAuthToken");
+		assertEquals(AuthTokenHolder.getAuthToken(), "someAuthToken");
 	}
-
-	public static synchronized String getUrl() {
-		return url;
-	}
-
-	public static synchronized void setAppTokenVerifierUrl(String url) {
-		appTokenVerifierUrl = url;
-	}
-
-	public static synchronized String getAppTokenVerifierUrl() {
-		return appTokenVerifierUrl;
-	}
-
 }

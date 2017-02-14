@@ -28,12 +28,16 @@ public class AppTokenEndpointFixture {
 
 		HttpHandler httpHandler = factory.factorHttpHandler(url);
 		httpHandler.setRequestMethod("POST");
+		if(appToken == null || "".equals(appToken)){
+			appToken = "44c17361-ead7-43b5-a938-038765873037";
+		}
 		httpHandler.setOutput(appToken);
 
 		statusType = Response.Status.fromStatusCode(httpHandler.getResponseCode());
 		if (statusType.equals(Response.Status.CREATED)) {
 			String responseText = httpHandler.getResponseText();
 			authToken = extractCreatedTokenFromResponseText(responseText);
+//			SystemUrl.setAuthToken(authToken);
 
 			return responseText;
 		}

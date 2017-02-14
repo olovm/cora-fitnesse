@@ -131,29 +131,29 @@
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| fitnesseAdminToken | yesNoUnknown | myYesNoUnknown | | OK |
-| fitnesseAdminToken | yesNoUnknown | myYesNoUnknown2 | | OK |
-| fitnesseAdminToken | recordType | yesNoUnknown | | OK |
-| fitnesseAdminToken | presentationGroup | someFitnesseMenuPGroup | | OK |
-| fitnesseAdminToken | presentationGroup | someFitnesseListPGroup | | OK |
-| fitnesseAdminToken | presentationGroup | someFitnesseFormPGroup | | OK |
-| fitnesseAdminToken | presentationGroup | someFitnesseFormNewPGroup | | OK |
-| fitnesseAdminToken | presentationGroup | someFitnesseViewPGroup | | OK |
-| fitnesseAdminToken | metadataGroup | yesNoUnknownGroup | | OK |
-| fitnesseAdminToken | metadataGroup | yesNoUnknownNewGroup | | OK |
-| fitnesseAdminToken | metadataCollectionVariable | testYesVar | | OK |
-| fitnesseAdminToken | metadataCollectionVariable | testYesNoVar | | OK |
-| fitnesseAdminToken | metadataCollectionVariable | testYesNoUnknownVar | | OK |
-| fitnesseAdminToken | metadataItemCollection | testYesNoUnknownItemCollection | | OK |
-| fitnesseAdminToken | metadataItemCollection | testYesNoCollection | | OK |
-| fitnesseAdminToken | metadataCollectionItem | testYesItem | | OK |
-| fitnesseAdminToken | metadataCollectionItem | testNoItem | | OK |
-| fitnesseAdminToken | metadataCollectionItem | testUnknownItem | | OK |
-| fitnesseAdminToken | coraText | testYesNoUnknownItemCollectionText | | OK |
-| fitnesseAdminToken | coraText | testYesNoUnknownItemCollectionDefText | | OK |
-| fitnesseAdminToken | coraText | testYestestNoItemText | | OK |
-| fitnesseAdminToken | coraText | testYestestNoItemDefText | | OK |
-| fitnesseAdminToken | coraText | someFitnesseText | | OK |
-| fitnesseAdminToken | coraText | someFitnesseDefText | | OK |
+| $authToken | yesNoUnknown | myYesNoUnknown | | OK |
+| $authToken | yesNoUnknown | myYesNoUnknown2 | | OK |
+| $authToken | recordType | yesNoUnknown | | OK |
+| $authToken | presentationGroup | someFitnesseMenuPGroup | | OK |
+| $authToken | presentationGroup | someFitnesseListPGroup | | OK |
+| $authToken | presentationGroup | someFitnesseFormPGroup | | OK |
+| $authToken | presentationGroup | someFitnesseFormNewPGroup | | OK |
+| $authToken | presentationGroup | someFitnesseViewPGroup | | OK |
+| $authToken | metadataGroup | yesNoUnknownGroup | | OK |
+| $authToken | metadataGroup | yesNoUnknownNewGroup | | OK |
+| $authToken | metadataCollectionVariable | testYesVar | | OK |
+| $authToken | metadataCollectionVariable | testYesNoVar | | OK |
+| $authToken | metadataCollectionVariable | testYesNoUnknownVar | | OK |
+| $authToken | metadataItemCollection | testYesNoUnknownItemCollection | | OK |
+| $authToken | metadataItemCollection | testYesNoCollection | | OK |
+| $authToken | metadataCollectionItem | testYesItem | | OK |
+| $authToken | metadataCollectionItem | testNoItem | | OK |
+| $authToken | metadataCollectionItem | testUnknownItem | | OK |
+| $authToken | coraText | testYesNoUnknownItemCollectionText | | OK |
+| $authToken | coraText | testYesNoUnknownItemCollectionDefText | | OK |
+| $authToken | coraText | testYestestNoItemText | | OK |
+| $authToken | coraText | testYestestNoItemDefText | | OK |
+| $authToken | coraText | someFitnesseText | | OK |
+| $authToken | coraText | someFitnesseDefText | | OK |
 
 *!

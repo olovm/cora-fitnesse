@@ -2,29 +2,66 @@
 | import |
 | se.uu.ub.cora.fitnesse |
 
+
 If no token is provided will the request automatically be assigned the guest user, and its rights.  If a token that does not exist (or is no longer valid) is provided should the answer be UNAUTHORIZED
+
+!***> Read a metadataVariable with an invalid authToken
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| dummyUnauthenticatedToken | metadataTextVariable | idTextVar | | UNAUTHORIZED |
+
+*!
+!| script | AuthTokenHolder |
+| setAuthToken | |
 
 !***> Read a metadataVariable (idTextVar)
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| dummyUnauthenticatedToken | metadataTextVariable | idTextVar | | UNAUTHORIZED |
 | | metadataTextVariable | idTextVar | | OK |
 
 *!
+!2 Login again
+!***> Login
+
+!| AppTokenEndpointFixture |
+| userId | appToken | getAuthTokenForAppToken? | getAuthToken? | getStatusType? |
+| 131313 |  | | $authToken= | CREATED |
+*!
+
+!| script | AuthTokenHolder |
+| setAuthToken | $authToken |
+
 !2 Test with new texts to show different createdBy userId
 !***> Create data of recordType text (textSystemOne)
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| fitnesseAdminToken | textSystemOne | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"myAuthText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"} ,"children":[{"name":"text","value":"Min svenska text"}]}]} | =~/"name":"createdBy",\s*"value":"131313"/ | CREATED |
+| $authToken | textSystemOne | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"myAuthText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"} ,"children":[{"name":"text","value":"Min svenska text"}]}]} | =~/"name":"createdBy",\s*"value":"131313"/ | CREATED |
+*!
+
+!2 Test with new texts to show different createdBy userId
+!***> Create data of recordType text (textSystemOne)
+
+!| comment |
+| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $authToken | textSystemOne | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"myAuthText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"} ,"children":[{"name":"text","value":"Min svenska text"}]}]} | =~/"name":"createdBy",\s*"value":"131313"/ | CREATED |
 | fitnesseUserToken | textSystemOne | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"myAuth3Text"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"},"children":[{"name":"text","value":"Min andra text på svenska"}]},{"name":"textPart","attributes":{"type":"alternative","lang":"en"},"children":[{"name":"text","value":"My second text in english"}]}]} | =~/"name":"createdBy",\s*"value":"121212"/ | CREATED |
 *!
 
 !***> Clean up created data
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| fitnesseAdminToken | textSystemOne | myAuthText | | OK |
+| $authToken | textSystemOne | myAuthText | | OK |
+*!
+
+!***> Clean up created data
+!| comment |
+| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $authToken | textSystemOne | myAuthText | | OK |
 | fitnesseUserToken | textSystemOne | myAuth3Text | | OK |
 
 *!

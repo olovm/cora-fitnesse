@@ -9,3 +9,14 @@
 
 !| script | DependencyProvider |
 | setHttpHandlerFactoryClassName | se.uu.ub.cora.fitnesse.HttpHandlerFactoryImp |
+
+!2 Login
+!***> Login
+
+!| AppTokenEndpointFixture |
+| userId | appToken | getAuthTokenForAppToken? | getAuthToken? | getStatusType? |
+| 131313 |  | | $authToken= | CREATED |
+*!
+
+!| script | AuthTokenHolder |
+| setAuthToken | $authToken |

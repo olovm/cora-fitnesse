@@ -46,7 +46,7 @@ public class RecordEndpointFixture {
 	private String resourceName;
 	private String contentLenght;
 	private String contentDisposition;
-	private String authToken = "fitnesseAdminToken";
+	private String authToken;
 	private String baseUrl = SystemUrl.getUrl() + "rest/record/";
 	private HttpHandlerFactory factory;
 	private String token;
@@ -101,7 +101,7 @@ public class RecordEndpointFixture {
 
 	public String testReadRecord() {
 		String url = baseUrl + type + "/" + id;
-		url += AUTH_TOKEN + authToken;
+		url = addAuthTokenToUrl(url);
 
 		HttpHandler httpHandler = factory.factorHttpHandler(url);
 		httpHandler.setRequestMethod("GET");
@@ -113,9 +113,18 @@ public class RecordEndpointFixture {
 		return httpHandler.getErrorText();
 	}
 
+	private String addAuthTokenToUrl(String url) {
+		if(authToken != null) {
+			url += AUTH_TOKEN + authToken;
+		}else{
+			url += AUTH_TOKEN + AuthTokenHolder.getAuthToken();
+		}
+		return url;
+	}
+
 	public String testReadIncomingLinks() {
 		String url = baseUrl + type + "/" + id + "/incomingLinks";
-		url += AUTH_TOKEN + authToken;
+		url = addAuthTokenToUrl(url);
 
 		HttpHandler httpHandler = factory.factorHttpHandler(url);
 		httpHandler.setRequestMethod("GET");
@@ -129,7 +138,7 @@ public class RecordEndpointFixture {
 
 	public String testReadRecordList() {
 		String url = baseUrl + type;
-		url += AUTH_TOKEN + authToken;
+		url = addAuthTokenToUrl(url);
 
 		HttpHandler httpHandler = factory.factorHttpHandler(url);
 		httpHandler.setRequestMethod("GET");
@@ -143,7 +152,7 @@ public class RecordEndpointFixture {
 
 	public String testCreateRecord() {
 		String url = baseUrl + type;
-		url += AUTH_TOKEN + authToken;
+		url = addAuthTokenToUrl(url);
 
 		HttpHandler httpHandler = factory.factorHttpHandler(url);
 		httpHandler.setRequestMethod("POST");
@@ -182,7 +191,7 @@ public class RecordEndpointFixture {
 
 	public String testUpdateRecord() {
 		String url = baseUrl + type + "/" + id;
-		url += AUTH_TOKEN + authToken;
+		url = addAuthTokenToUrl(url);
 
 		HttpHandler httpHandler = factory.factorHttpHandler(url);
 		httpHandler.setRequestMethod("POST");
@@ -200,7 +209,7 @@ public class RecordEndpointFixture {
 
 	public String testDeleteRecord() {
 		String url = baseUrl + type + "/" + id;
-		url += AUTH_TOKEN + authToken;
+		url = addAuthTokenToUrl(url);
 
 		HttpHandler httpHandler = factory.factorHttpHandler(url);
 		httpHandler.setRequestMethod("DELETE");
@@ -214,7 +223,7 @@ public class RecordEndpointFixture {
 
 	public String testUpload() throws IOException {
 		String url = baseUrl + type + "/" + id + "/master";
-		url += AUTH_TOKEN + authToken;
+		url = addAuthTokenToUrl(url);
 
 		HttpMultiPartUploader httpHandler = factory.factorHttpMultiPartUploader(url);
 		httpHandler.addHeaderField(ACCEPT, APPLICATION_UUB_RECORD_JSON);
@@ -248,7 +257,7 @@ public class RecordEndpointFixture {
 
 	public String testDownload() {
 		String url = baseUrl + type + "/" + id + "/" + resourceName;
-		url += AUTH_TOKEN + authToken;
+		url = addAuthTokenToUrl(url);
 
 		HttpHandler httpHandler = factory.factorHttpHandler(url);
 		httpHandler.setRequestMethod("GET");
