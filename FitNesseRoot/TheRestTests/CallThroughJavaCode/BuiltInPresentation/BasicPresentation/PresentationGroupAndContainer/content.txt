@@ -209,18 +209,18 @@ A test that first reads all predefined metadata needed to be able to add present
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| fitnesseAdminToken | presentationRepeatingContainer | myRContainer | | OK |
-| fitnesseAdminToken | presentationSurroundingContainer | mySContainer | | OK |
-| fitnesseAdminToken | presentationGroup | myGroupPGroup | | OK |
-| fitnesseAdminToken | presentationGroup | my2GroupPGroup | | OK |
-| fitnesseAdminToken | presentationCollectionVar | my3PCollVar | | OK |
-| fitnesseAdminToken | presentationCollectionVar | my2PCollVar | | OK |
-| fitnesseAdminToken | presentationCollectionVar | myPCollVar | | OK |
-| fitnesseAdminToken | presentationVar | my4PVar | | OK |
-| fitnesseAdminToken | presentationVar | my3PVar | | OK |
-| fitnesseAdminToken | presentationVar | my2PVar | | OK |
-| fitnesseAdminToken | presentationVar | myPVar | | OK |
-| fitnesseAdminToken | metadataGroup | myGroup | | OK |
-| fitnesseAdminToken | metadataGroup | my2Group | | OK |
+| $authToken | presentationRepeatingContainer | myRContainer | | OK |
+| $authToken | presentationSurroundingContainer | mySContainer | | OK |
+| $authToken | presentationGroup | myGroupPGroup | | OK |
+| $authToken | presentationGroup | my2GroupPGroup | | OK |
+| $authToken | presentationCollectionVar | my3PCollVar | | OK |
+| $authToken | presentationCollectionVar | my2PCollVar | | OK |
+| $authToken | presentationCollectionVar | myPCollVar | | OK |
+| $authToken | presentationVar | my4PVar | | OK |
+| $authToken | presentationVar | my3PVar | | OK |
+| $authToken | presentationVar | my2PVar | | OK |
+| $authToken | presentationVar | myPVar | | OK |
+| $authToken | metadataGroup | myGroup | | OK |
+| $authToken | metadataGroup | my2Group | | OK |
 
 *!

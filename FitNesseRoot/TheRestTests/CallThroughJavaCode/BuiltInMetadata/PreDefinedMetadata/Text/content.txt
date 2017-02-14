@@ -132,7 +132,7 @@ A test that first reads all predefined metadata needed to be able to add texts t
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| fitnesseAdminToken | coraText | myText | | OK |
-| fitnesseAdminToken | coraText | my2Text | | OK |
+| $authToken | coraText | myText | | OK |
+| $authToken | coraText | my2Text | | OK |
 
 *!

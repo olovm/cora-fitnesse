@@ -11,7 +11,7 @@ Last, we will create a trainingProgram using the metadata groups specified. We c
 
 | Table:smartrics.rest.fitnesse.fixture.RestFixtureConfig | |
 | restfixture.default.headers | Content-Type: application/uub+record+json!-
--!authToken:fitnesseAdminToken !-
+-!authToken:$authToken !-
 -! |
 | restfixture.content.handlers.map | application/uub+record+json=JSON |
 
@@ -20,7 +20,7 @@ Last, we will create a trainingProgram using the metadata groups specified. We c
 
 | Table:smartrics.rest.fitnesse.fixture.RestFixture | ${systemUnderTestUrl} |
 | setHeader | Content-Type:application/uub+record+json!-
--!authToken:fitnesseAdminToken |
+-!authToken:$authToken |
 | setBody | {"name":"metadata","attributes":{"type":"group"},"children":[{"name":"recordInfo","children":[{"name":"id","value":"trainingProgramGroup"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"textId","value":"trainingProgramGroupText"},{"name":"defTextId","value":"trainingProgramGroupDefText"},{"name":"nameInData","value":"trainingProgram"},{"name":"childReferences","children":[{"name":"childReference","repeatId":"1","children":[{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataTextVariable"},{"name":"linkedRecordId","value":"idTextVar"}],"attributes":{"type":"textVariable"}},{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"}]},{"name":"childReference","repeatId":"2","children":[{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataTextVariable"},{"name":"linkedRecordId","value":"createdByTextVar"}],"attributes":{"type":"textVariable"}},{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"}]}]}]} |
 | POST | /rest/record/metadataGroup | 201 | | |
 | setBody | {"name":"metadata","attributes":{"type":"group"},"children":[{"name":"recordInfo","children":[{"name":"id","value":"singleTrainingProgramNewGroup"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"textId","value":"singleTrainingProgramNewGroupText"},{"name":"defTextId","value":"singleTrainingProgramNewGroupDefText"},{"name":"nameInData","value":"singleTrainingProgram"},{"name":"childReferences","children":[{"name":"childReference","repeatId":"3","children":[{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"recordInfoNewGroup"}],"attributes":{"type":"group"}},{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"}]},{"name":"childReference","repeatId":"1","children":[{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"trainingProgramGroup"}],"attributes":{"type":"group"}},{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"}]}]}]} |

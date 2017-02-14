@@ -187,31 +187,31 @@ An abstract record type (the parent) is used to create a group of record type si
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| fitnesseAdminToken | recordType | flower | | OK |
-| fitnesseAdminToken | recordType | tree | | OK |
-| fitnesseAdminToken | recordType | plant | | OK |
-| fitnesseAdminToken | presentationGroup | someFitnesseMenuPGroup | | OK |
-| fitnesseAdminToken | presentationGroup | someFitnesseListPGroup | | OK |
-| fitnesseAdminToken | presentationGroup | someFitnesseFormPGroup | | OK |
-| fitnesseAdminToken | presentationGroup | someFitnesseFormNewPGroup | | OK |
-| fitnesseAdminToken | presentationGroup | someFitnesseViewPGroup | | OK |
-| fitnesseAdminToken | metadataGroup | flowerNewGroup | | OK |
-| fitnesseAdminToken | metadataGroup | flowerGroup | | OK |
-| fitnesseAdminToken | metadataGroup | treeNewGroup | | OK |
-| fitnesseAdminToken | metadataGroup | treeGroup | | OK |
-| fitnesseAdminToken | metadataGroup | plantGroup | | OK |
-| fitnesseAdminToken | metadataGroup | plantNewGroup | | OK |
-| fitnesseAdminToken | metadataTextVariable | woodColourTextVar | | OK |
-| fitnesseAdminToken | metadataTextVariable | petalColourTextVar | | OK |
-| fitnesseAdminToken | metadataCollectionVariable | flowerTypeCollectionVar | | OK |
-| fitnesseAdminToken | metadataCollectionVariable | treeTypeCollectionVar | | OK |
-| fitnesseAdminToken | metadataCollectionVariable | plantTypeCollectionVar | | OK |
-| fitnesseAdminToken | metadataItemCollection | plantTypeCollection | | OK |
-| fitnesseAdminToken | metadataCollectionItem | flowerItem | | OK |
-| fitnesseAdminToken | metadataCollectionItem | treeItem | | OK |
-| fitnesseAdminToken | coraText | plantTypeCollectionDefText | | OK |
-| fitnesseAdminToken | coraText | plantTypeCollectionText | | OK |
-| fitnesseAdminToken | coraText | someFitnesseText | | OK |
-| fitnesseAdminToken | coraText | someFitnesseDefText | | OK |
+| $authToken | recordType | flower | | OK |
+| $authToken | recordType | tree | | OK |
+| $authToken | recordType | plant | | OK |
+| $authToken | presentationGroup | someFitnesseMenuPGroup | | OK |
+| $authToken | presentationGroup | someFitnesseListPGroup | | OK |
+| $authToken | presentationGroup | someFitnesseFormPGroup | | OK |
+| $authToken | presentationGroup | someFitnesseFormNewPGroup | | OK |
+| $authToken | presentationGroup | someFitnesseViewPGroup | | OK |
+| $authToken | metadataGroup | flowerNewGroup | | OK |
+| $authToken | metadataGroup | flowerGroup | | OK |
+| $authToken | metadataGroup | treeNewGroup | | OK |
+| $authToken | metadataGroup | treeGroup | | OK |
+| $authToken | metadataGroup | plantGroup | | OK |
+| $authToken | metadataGroup | plantNewGroup | | OK |
+| $authToken | metadataTextVariable | woodColourTextVar | | OK |
+| $authToken | metadataTextVariable | petalColourTextVar | | OK |
+| $authToken | metadataCollectionVariable | flowerTypeCollectionVar | | OK |
+| $authToken | metadataCollectionVariable | treeTypeCollectionVar | | OK |
+| $authToken | metadataCollectionVariable | plantTypeCollectionVar | | OK |
+| $authToken | metadataItemCollection | plantTypeCollection | | OK |
+| $authToken | metadataCollectionItem | flowerItem | | OK |
+| $authToken | metadataCollectionItem | treeItem | | OK |
+| $authToken | coraText | plantTypeCollectionDefText | | OK |
+| $authToken | coraText | plantTypeCollectionText | | OK |
+| $authToken | coraText | someFitnesseText | | OK |
+| $authToken | coraText | someFitnesseDefText | | OK |
 
 *!

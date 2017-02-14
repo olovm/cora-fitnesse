@@ -30,6 +30,7 @@ public class AppTokenEndpointFixture {
 		httpHandler.setRequestMethod("POST");
 		if(appToken == null || "".equals(appToken)){
 			appToken = "44c17361-ead7-43b5-a938-038765873037";
+			//apptoken for fitnesseuser a5b9871f-1610-44e1-b838-c37ace6757d6
 		}
 		httpHandler.setOutput(appToken);
 

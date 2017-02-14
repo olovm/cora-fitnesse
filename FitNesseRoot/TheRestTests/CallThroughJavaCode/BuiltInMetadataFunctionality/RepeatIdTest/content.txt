@@ -89,19 +89,19 @@ The system should demand a unique non empty repeatId for all elements that can b
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| fitnesseAdminToken | repeat | repeat1 | | OK |
-| fitnesseAdminToken | recordType | repeat | | OK |
-| fitnesseAdminToken | presentationGroup | someFitnesseMenuPGroup | | OK |
-| fitnesseAdminToken | presentationGroup | someFitnesseListPGroup | | OK |
-| fitnesseAdminToken | presentationGroup | someFitnesseFormPGroup | | OK |
-| fitnesseAdminToken | presentationGroup | someFitnesseFormNewPGroup | | OK |
-| fitnesseAdminToken | presentationGroup | someFitnesseViewPGroup | | OK |
-| fitnesseAdminToken | metadataGroup | repeatGroup | | OK |
-| fitnesseAdminToken | metadataGroup | repeatNewGroup | | OK |
-| fitnesseAdminToken | metadataGroup | repeatingGroup | | OK |
-| fitnesseAdminToken | metadataGroup | nonRepeatingGroup | | OK |
-| fitnesseAdminToken | metadataTextVariable | repeatTextVar | | OK |
-| fitnesseAdminToken | coraText | someFitnesseText | | OK |
-| fitnesseAdminToken | coraText | someFitnesseDefText | | OK |
+| $authToken | repeat | repeat1 | | OK |
+| $authToken | recordType | repeat | | OK |
+| $authToken | presentationGroup | someFitnesseMenuPGroup | | OK |
+| $authToken | presentationGroup | someFitnesseListPGroup | | OK |
+| $authToken | presentationGroup | someFitnesseFormPGroup | | OK |
+| $authToken | presentationGroup | someFitnesseFormNewPGroup | | OK |
+| $authToken | presentationGroup | someFitnesseViewPGroup | | OK |
+| $authToken | metadataGroup | repeatGroup | | OK |
+| $authToken | metadataGroup | repeatNewGroup | | OK |
+| $authToken | metadataGroup | repeatingGroup | | OK |
+| $authToken | metadataGroup | nonRepeatingGroup | | OK |
+| $authToken | metadataTextVariable | repeatTextVar | | OK |
+| $authToken | coraText | someFitnesseText | | OK |
+| $authToken | coraText | someFitnesseDefText | | OK |
 
 *!

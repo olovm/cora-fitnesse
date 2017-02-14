@@ -93,29 +93,29 @@
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| fitnesseAdminToken | someParent | myParent | | OK |
-| fitnesseAdminToken | recordType | someParent | | OK |
-| fitnesseAdminToken | presentationGroup | someFitnesseMenuPGroup | | OK |
-| fitnesseAdminToken | presentationGroup | someFitnesseListPGroup | | OK |
-| fitnesseAdminToken | presentationGroup | someFitnesseFormPGroup | | OK |
-| fitnesseAdminToken | presentationGroup | someFitnesseFormNewPGroup | | OK |
-| fitnesseAdminToken | presentationGroup | someFitnesseViewPGroup | | OK |
-| fitnesseAdminToken | metadataGroup | someParentGroup | | OK |
-| fitnesseAdminToken | metadataGroup | someParentNewGroup | | OK |
-| fitnesseAdminToken | metadataGroup | child3Group | | OK |
-| fitnesseAdminToken | metadataGroup | child2Group | | OK |
-| fitnesseAdminToken | metadataGroup | child1Group | | OK |
-| fitnesseAdminToken | metadataCollectionVariable | attribute3CollectionVar | | OK |
-| fitnesseAdminToken | metadataCollectionVariable | attribute2CollectionVar | | OK |
-| fitnesseAdminToken | metadataCollectionVariable | attribute1CollectionVar | | OK |
-| fitnesseAdminToken | metadataTextVariable | freeTextVar | | OK |
-| fitnesseAdminToken | metadataItemCollection | firstItemCollection | | OK |
-| fitnesseAdminToken | metadataCollectionItem | otherAttributeItem | | OK |
-| fitnesseAdminToken | metadataCollectionItem | noAttributeItem | | OK |
-| fitnesseAdminToken | metadataCollectionItem | yesAttributeItem | | OK |
-| fitnesseAdminToken | coraText | itemCollectionText | | OK |
-| fitnesseAdminToken | coraText | itemCollectionDefText | | OK |
-| fitnesseAdminToken | coraText | someFitnesseText | | OK |
-| fitnesseAdminToken | coraText | someFitnesseDefText | | OK |
+| $authToken | someParent | myParent | | OK |
+| $authToken | recordType | someParent | | OK |
+| $authToken | presentationGroup | someFitnesseMenuPGroup | | OK |
+| $authToken | presentationGroup | someFitnesseListPGroup | | OK |
+| $authToken | presentationGroup | someFitnesseFormPGroup | | OK |
+| $authToken | presentationGroup | someFitnesseFormNewPGroup | | OK |
+| $authToken | presentationGroup | someFitnesseViewPGroup | | OK |
+| $authToken | metadataGroup | someParentGroup | | OK |
+| $authToken | metadataGroup | someParentNewGroup | | OK |
+| $authToken | metadataGroup | child3Group | | OK |
+| $authToken | metadataGroup | child2Group | | OK |
+| $authToken | metadataGroup | child1Group | | OK |
+| $authToken | metadataCollectionVariable | attribute3CollectionVar | | OK |
+| $authToken | metadataCollectionVariable | attribute2CollectionVar | | OK |
+| $authToken | metadataCollectionVariable | attribute1CollectionVar | | OK |
+| $authToken | metadataTextVariable | freeTextVar | | OK |
+| $authToken | metadataItemCollection | firstItemCollection | | OK |
+| $authToken | metadataCollectionItem | otherAttributeItem | | OK |
+| $authToken | metadataCollectionItem | noAttributeItem | | OK |
+| $authToken | metadataCollectionItem | yesAttributeItem | | OK |
+| $authToken | coraText | itemCollectionText | | OK |
+| $authToken | coraText | itemCollectionDefText | | OK |
+| $authToken | coraText | someFitnesseText | | OK |
+| $authToken | coraText | someFitnesseDefText | | OK |
 
 *!

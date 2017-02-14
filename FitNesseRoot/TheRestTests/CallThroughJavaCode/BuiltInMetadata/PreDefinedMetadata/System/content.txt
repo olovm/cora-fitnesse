@@ -64,6 +64,6 @@ A test that first reads all predefined metadata needed to be able to add system 
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| fitnesseAdminToken | system | fitnesse | | OK |
+| $authToken | system | fitnesse | | OK |
 
 *!

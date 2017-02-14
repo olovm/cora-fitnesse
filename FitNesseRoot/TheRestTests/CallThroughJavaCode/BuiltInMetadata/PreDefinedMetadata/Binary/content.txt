@@ -107,7 +107,7 @@ A test that first reads all predefined metadata needed to be able to add binary 
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| fitnesseAdminToken | image | $createdId | | OK |
+| $authToken | image | $createdId | | OK |
 
 *!
 !2 Test with new sound
@@ -169,6 +169,6 @@ A test that first reads all predefined metadata needed to be able to add binary 
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| fitnesseAdminToken | sound | $createdId | | OK |
+| $authToken | sound | $createdId | | OK |
 
 *!

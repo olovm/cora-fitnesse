@@ -65,6 +65,6 @@ A test that first reads all predefined metadata needed to be able to create user
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| fitnesseAdminToken | systemOneUser | fitnesseUser | | OK |
+| $authToken | systemOneUser | fitnesseUser | | OK |
 
 *!

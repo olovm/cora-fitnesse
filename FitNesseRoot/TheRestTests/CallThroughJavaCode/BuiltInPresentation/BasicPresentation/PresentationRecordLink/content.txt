@@ -110,7 +110,7 @@ A test that first reads all predefined metadata needed to be able to add present
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| fitnesseAdminToken | presentationRecordLink | myPLink | | OK |
-| fitnesseAdminToken | presentationRecordLink | myLinkNoPresentationOfLinkedRecordPLink | | OK |
+| $authToken | presentationRecordLink | myPLink | | OK |
+| $authToken | presentationRecordLink | myLinkNoPresentationOfLinkedRecordPLink | | OK |
 
 *!

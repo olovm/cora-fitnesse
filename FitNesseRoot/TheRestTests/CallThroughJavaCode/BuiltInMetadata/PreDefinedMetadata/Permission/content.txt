@@ -110,7 +110,7 @@ A test that first reads all predefined metadata needed to be able to create perm
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| fitnesseAdminToken | permissionRole | myPermissionRole | | OK |
-| fitnesseAdminToken | permissionRule | myPermissionRule | | OK |
+| $authToken | permissionRole | myPermissionRole | | OK |
+| $authToken | permissionRule | myPermissionRule | | OK |
 
 *!

@@ -119,8 +119,8 @@ A test that first reads all predefined metadata needed to be able to add present
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| fitnesseAdminToken | presentationResourceLink | withOutputAndChildReferencesPResLink | | OK |
-| fitnesseAdminToken | presentationResourceLink | withChildReferencesPResLink | | OK |
-| fitnesseAdminToken | presentationResourceLink | withOutputPResLink | | OK |
+| $authToken | presentationResourceLink | withOutputAndChildReferencesPResLink | | OK |
+| $authToken | presentationResourceLink | withChildReferencesPResLink | | OK |
+| $authToken | presentationResourceLink | withOutputPResLink | | OK |
 
 *!
