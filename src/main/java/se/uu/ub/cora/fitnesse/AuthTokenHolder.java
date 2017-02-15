@@ -1,13 +1,22 @@
 package se.uu.ub.cora.fitnesse;
 
 public final class AuthTokenHolder {
-    private static String authToken;
+    private static String authTokenForAdmin;
+    private static String authTokenForUser;
 
-    public static synchronized String getAuthToken() {
-        return authToken;
+    public static synchronized String getAuthTokenForAdmin() {
+        return authTokenForAdmin;
     }
 
-    public static synchronized void setAuthToken(String authTokenIn) {
-        authToken = authTokenIn;
+    public static synchronized void setAuthTokenForAdmin(String authTokenIn) {
+        authTokenForAdmin = authTokenIn;
+    }
+
+    public static synchronized void setAuthTokenForUser(String authTokenIn) {
+        authTokenForUser = authTokenIn;
+    }
+
+    public static String getAuthTokenForUser() {
+        return authTokenForUser;
     }
 }

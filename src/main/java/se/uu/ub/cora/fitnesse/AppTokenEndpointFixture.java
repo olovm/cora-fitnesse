@@ -28,9 +28,12 @@ public class AppTokenEndpointFixture {
 
 		HttpHandler httpHandler = factory.factorHttpHandler(url);
 		httpHandler.setRequestMethod("POST");
-		if(appToken == null || "".equals(appToken)){
-			appToken = "44c17361-ead7-43b5-a938-038765873037";
-			//apptoken for fitnesseuser a5b9871f-1610-44e1-b838-c37ace6757d6
+		if(appToken == null || "".equals(appToken)) {
+			if ("131313".equals(userId)) {
+				appToken = "44c17361-ead7-43b5-a938-038765873037";
+			} else if ("121212".equals(userId)) {
+				appToken = "a5b9871f-1610-44e1-b838-c37ace6757d6";
+			}
 		}
 		httpHandler.setOutput(appToken);
 

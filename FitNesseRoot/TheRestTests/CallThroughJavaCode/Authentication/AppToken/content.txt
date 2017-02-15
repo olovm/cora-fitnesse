@@ -33,7 +33,7 @@ A test that checks that we can use newly created appTokens to authenticate.
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $authToken | textSystemOne | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"myAuthText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"} ,"children":[{"name":"text","value":"Min svenska text"}]}]} | =~/"name":"createdBy",\s*"value":"131313"/ | CREATED |
+| $authTokenForAdmin | textSystemOne | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"myAuthText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"} ,"children":[{"name":"text","value":"Min svenska text"}]}]} | =~/"name":"createdBy",\s*"value":"131313"/ | CREATED |
 
 *!
 !2 Reset user fitnesse

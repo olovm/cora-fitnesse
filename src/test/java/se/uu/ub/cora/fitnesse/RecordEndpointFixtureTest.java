@@ -18,7 +18,7 @@ public class RecordEndpointFixtureTest {
 	@BeforeMethod
 	public void setUp() {
 		SystemUrl.setUrl("http://localhost:8080/therest/");
-		AuthTokenHolder.setAuthToken("someToken");
+		AuthTokenHolder.setAuthTokenForAdmin("someToken");
 		DependencyProvider
 				.setHttpHandlerFactoryClassName("se.uu.ub.cora.fitnesse.HttpHandlerFactorySpy");
 		httpHandlerFactorySpy = (HttpHandlerFactorySpy) DependencyProvider.getFactory();

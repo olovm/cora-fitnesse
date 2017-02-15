@@ -1,22 +1,31 @@
 | import |
 | se.uu.ub.cora.fitnesse |
 
-
 !| script | SystemUrl |
 | setUrl | ${systemUnderTestUrl} |
 | setAppTokenVerifierUrl | ${appTokenVerifierUrl} |
-
 
 !| script | DependencyProvider |
 | setHttpHandlerFactoryClassName | se.uu.ub.cora.fitnesse.HttpHandlerFactoryImp |
 
 !2 Login
-!***> Login
+!***> Login for admin
 
 !| AppTokenEndpointFixture |
 | userId | appToken | getAuthTokenForAppToken? | getAuthToken? | getStatusType? |
-| 131313 |  | | $authToken= | CREATED |
-*!
+| 131313 | | | $authToken= | CREATED |
 
+*!
 !| script | AuthTokenHolder |
-| setAuthToken | $authToken |
+| setAuthTokenForAdmin | $authToken |
+
+!***> Login for user
+
+!| AppTokenEndpointFixture |
+| userId | appToken | getAuthTokenForAppToken? | getAuthToken? | getStatusType? |
+| 121212 | | | $authToken= | CREATED |
+
+*!
+!| script | AuthTokenHolder |
+| setAuthTokenForUser | $authToken |
+

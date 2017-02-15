@@ -7,7 +7,7 @@ The authority system of Cora is built using rules, roles, users.
 
 A role descibes what is allowed based on one or more rules and a status. More information about rules can be found  [[here.][Rule]]
 
-The system has two roles used by the fitnesse user (121212), they are called fitnesseTextAdmin, nothing, reading fitnesseTextAdmin results in the following:
+The system has two roles used by the fitnesse user (121212), they are called fitnesseTextAdmin and nothing. Reading fitnesseTextAdmin results in the following:
 
 !***> Read permissionRole, fitnesse
 
