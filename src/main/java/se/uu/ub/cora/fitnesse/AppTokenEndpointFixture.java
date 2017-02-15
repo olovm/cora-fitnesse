@@ -14,6 +14,7 @@ public class AppTokenEndpointFixture {
 	private String userId;
 	private Status statusType;
 	private String authToken;
+	private String authTokenToLogOut;
 
 	public AppTokenEndpointFixture() {
 		factory = DependencyProvider.getFactory();
@@ -57,4 +58,17 @@ public class AppTokenEndpointFixture {
 		return statusType;
 	}
 
+	public void setAuthTokenToLogOut(String authTokenToLogOut) {
+		this.authTokenToLogOut = authTokenToLogOut;
+	}
+
+	public void removeAuthTokenForUser() {
+		String url = baseUrl + userId;
+
+		HttpHandler httpHandler = factory.factorHttpHandler(url);
+		httpHandler.setRequestMethod("DELETE");
+		httpHandler.setOutput(authTokenToLogOut);
+
+		statusType = Response.Status.fromStatusCode(httpHandler.getResponseCode());
+	}
 }
