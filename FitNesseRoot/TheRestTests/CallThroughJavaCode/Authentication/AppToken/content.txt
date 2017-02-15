@@ -36,6 +36,21 @@ A test that checks that we can use newly created appTokens to authenticate.
 | $authTokenForAdmin | textSystemOne | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"myAuthText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"} ,"children":[{"name":"text","value":"Min svenska text"}]}]} | =~/"name":"createdBy",\s*"value":"131313"/ | CREATED |
 
 *!
+!***> Logout
+
+!| AppTokenEndpointFixture |
+| userId | authTokenToLogOut | removeAuthTokenForUser? | getStatusType? |
+| 131313 | $authToken | | OK |
+
+*!
+!2 Test with new texts to show that authToken is not valid after logout
+!***> Create data of recordType text (textSystemOne)
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $authToken | textSystemOne | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"myAuthText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"} ,"children":[{"name":"text","value":"Min svenska text"}]}]} | | UNAUTHORIZED |
+
+*!
 !2 Reset user fitnesse
 Update user, fitnesse to be as it was before testing
 
@@ -51,7 +66,7 @@ Update user, fitnesse to be as it was before testing
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $authToken | textSystemOne | myAuthText | | OK |
-| $authToken | appToken | $createdId | | OK |
+| fitnesseAdminToken | textSystemOne | myAuthText | | OK |
+| fitnesseAdminToken | appToken | $createdId | | OK |
 
 *!
