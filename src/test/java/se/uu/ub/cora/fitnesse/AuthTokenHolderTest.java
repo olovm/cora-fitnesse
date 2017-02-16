@@ -33,14 +33,14 @@ public class AuthTokenHolderTest {
 	}
 
 	@Test
-	public void testGetAuthTokenForAdmin() {
-		AuthTokenHolder.setAuthTokenForAdmin("someAdminAuthToken");
-		assertEquals(AuthTokenHolder.getAuthTokenForAdmin(), "someAdminAuthToken");
+	public void testGetAdminAuthToken() {
+		AuthTokenHolder.setAdminAuthToken("someAdminAuthToken");
+		assertEquals(AuthTokenHolder.getAdminAuthToken(), "someAdminAuthToken");
 	}
 
 	@Test
 	public void testGetAuthTokenForUser() {
-		AuthTokenHolder.setAuthTokenForUser("someUserAuthToken");
-		assertEquals(AuthTokenHolder.getAuthTokenForUser(), "someUserAuthToken");
+		AuthTokenHolder.setUserAuthToken("someUserAuthToken");
+		assertEquals(AuthTokenHolder.getUserAuthToken(), "someUserAuthToken");
 	}
 }

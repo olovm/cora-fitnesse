@@ -13,19 +13,18 @@
 
 !| AppTokenEndpointFixture |
 | userId | appToken | getAuthTokenForAppToken? | getAuthToken? | getStatusType? |
-| 131313 | | | $authToken= | CREATED |
+| 131313 | | | $adminAuthToken= | CREATED |
 
 *!
 !| script | AuthTokenHolder |
-| setAuthTokenForAdmin | $authToken |
+| setAdminAuthToken | $adminAuthToken |
 
 !***> Login for user
 
 !| AppTokenEndpointFixture |
 | userId | appToken | getAuthTokenForAppToken? | getAuthToken? | getStatusType? |
-| 121212 | | | $authToken= | CREATED |
+| 121212 | | | $userAuthToken= | CREATED |
 
 *!
 !| script | AuthTokenHolder |
-| setAuthTokenForUser | $authToken |
-
+| setUserAuthToken | $userAuthToken |

@@ -117,7 +117,7 @@ public class RecordEndpointFixture {
 		if(authToken != null) {
 			url += AUTH_TOKEN + authToken;
 		}else{
-			url += AUTH_TOKEN + AuthTokenHolder.getAuthTokenForAdmin();
+			url += AUTH_TOKEN + AuthTokenHolder.getAdminAuthToken();
 		}
 		return url;
 	}
