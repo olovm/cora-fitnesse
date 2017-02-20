@@ -42,7 +42,6 @@ public class AppTokenEndpointFixture {
 		if (statusType.equals(Response.Status.CREATED)) {
 			String responseText = httpHandler.getResponseText();
 			authToken = extractCreatedTokenFromResponseText(responseText);
-//			SystemUrl.setAuthToken(authToken);
 
 			return responseText;
 		}

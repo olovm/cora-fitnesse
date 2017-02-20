@@ -113,7 +113,8 @@ public class RecordEndpointFixture {
 		return httpHandler.getErrorText();
 	}
 
-	private String addAuthTokenToUrl(String url) {
+	private String addAuthTokenToUrl(String urlIn) {
+		String url =urlIn;
 		if(authToken != null) {
 			url += AUTH_TOKEN + authToken;
 		}else{
