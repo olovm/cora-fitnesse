@@ -180,7 +180,7 @@ A test that first reads all predefined metadata needed to be able to add present
 !***> List data(text, coraText)
 
 !| RecordEndpointFixture |
-| authtoken | type | testReadRecordList? | getStatusType? |
+| authToken | type | testReadRecordList? | getStatusType? |
 | $adminAuthToken | presentation | | OK |
 | $adminAuthToken | presentationVar | | OK |
 | $adminAuthToken | presentationSurroundingContainer | | OK |

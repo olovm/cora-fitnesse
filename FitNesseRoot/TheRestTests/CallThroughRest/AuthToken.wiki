@@ -2,6 +2,27 @@
 Test
 ---
 !contents -R2 -g -p -f -h
+
+| import |
+| se.uu.ub.cora.fitnesse |
+
+!| script | SystemUrl |
+| setUrl | ${systemUnderTestUrl} |
+| setAppTokenVerifierUrl | ${appTokenVerifierUrl} |
+
+!| script | DependencyProvider |
+| setHttpHandlerFactoryClassName | se.uu.ub.cora.fitnesse.HttpHandlerFactoryImp |
+
+!2 Login  - call is made through java code
+!***> Login for admin
+
+!| AppTokenEndpointFixture |
+| userId | appToken | getAuthTokenForAppToken? | getAuthToken? | getStatusType? |
+| 131313 | | | $adminAuthToken= | CREATED |
+*!
+!| script | AuthTokenHolder |
+| setAdminAuthToken | $adminAuthToken |
+
 !1 Test AuthToken
 Test that sending a valid authToken gives additional permissions compared to guest (no token).
 
@@ -39,14 +60,14 @@ Test that sending a valid authToken gives additional permissions compared to gue
 -!authToken:!-fitnesseUserToken-!!-
 -! |
 | setBody | {"name":"system","children":[{"name":"recordInfo","children":[{"name":"id","value":"dummySystem"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"systemName","value":"Dummy"}]} |
-| POST | /rest/record/system | 403 | | |
+| POST | /rest/record/system | 401 | | |
 
 *!
 !***> Test create with token, should  be allowed
 
 | Table:smartrics.rest.fitnesse.fixture.RestFixture | ${systemUnderTestUrl} |
 | setHeader | Content-Type:application/uub+record+json!-
--!authToken:$authToken!-
+-!authToken:$adminAuthToken!-
 -! |
 | setBody | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"authTokenTestingText"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"textPart","children":[{"name":"text","value":"En  text för att testa  authTokens"}],"attributes":{"type":"default","lang":"sv"}}]} |
 | POST | /rest/record/textSystemOne | 201 | | |
@@ -56,7 +77,7 @@ Test that sending a valid authToken gives additional permissions compared to gue
 
 | Table:smartrics.rest.fitnesse.fixture.RestFixture | ${systemUnderTestUrl} |
 | setHeader | Content-Type:application/uub+record+json!-
--!authToken:$authToken!-
+-!authToken:$adminAuthToken!-
 -! | | | |
 | DELETE | /rest/record/textSystemOne/authTokenTestingText | 200 | | |
 

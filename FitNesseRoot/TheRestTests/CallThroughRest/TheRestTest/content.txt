@@ -1,9 +1,30 @@
 !contents -R2 -g -p -f -h
+
+| import |
+| se.uu.ub.cora.fitnesse |
+
+!| script | SystemUrl |
+| setUrl | ${systemUnderTestUrl} |
+| setAppTokenVerifierUrl | ${appTokenVerifierUrl} |
+
+!| script | DependencyProvider |
+| setHttpHandlerFactoryClassName | se.uu.ub.cora.fitnesse.HttpHandlerFactoryImp |
+
+!2 Login  - call is made through java code
+!***> Login for admin
+
+!| AppTokenEndpointFixture |
+| userId | appToken | getAuthTokenForAppToken? | getAuthToken? | getStatusType? |
+| 131313 | | | $adminAuthToken= | CREATED |
+*!
+!| script | AuthTokenHolder |
+| setAdminAuthToken | $adminAuthToken |
+
 !***> Configure !-RestFixture-!
 
 | Table:smartrics.rest.fitnesse.fixture.RestFixtureConfig | |
 | restfixture.default.headers | Content-Type: application/uub+record+json!-
--!authToken:$authToken !-
+-!authToken:$adminAuthToken !-
 -! |
 | restfixture.content.handlers.map | application/uub+record+json=JSON!-
 -!default=JSON |
