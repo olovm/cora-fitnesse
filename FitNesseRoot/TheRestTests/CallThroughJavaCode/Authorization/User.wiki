@@ -16,7 +16,7 @@ The system has two user used by fitnesse, they are called fitnesseUser(121212) a
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| fitnesseAdminToken | systemOneUser | 121212 | | OK |
+| $adminAuthToken | systemOneUser | 121212 | | OK |
 
 *!
 The user fitnesseUser has one role fitnesseTextAdmin.
@@ -29,7 +29,7 @@ Create a new text to show that it '''is''' allowed:
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| fitnesseUserToken | textSystemOne | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"myUserText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"},"children":[{"name":"text","value":"Min svenska text"}]}]} | | CREATED |
+| $userAuthToken | textSystemOne | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"myUserText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"},"children":[{"name":"text","value":"Min svenska text"}]}]} | | CREATED |
 
 *!
 !2 User status
@@ -39,7 +39,7 @@ Update user, set status to inactive
 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| fitnesseAdminToken | systemOneUser | 121212 | {"name":"user","children":[{"name":"recordInfo","children":[{"name":"id","value":"121212"},{"name":"type","value":"systemOneUser"},{"name":"createdBy","value":"131313"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"userId","value":"fitnesse123@system.cora.uu.se"},{"name":"userFirstname","value":"Fit"},{"name":"userLastname","value":"Nesse"},{"name":"userRole","children":[{"name":"userRole","children":[{"name":"linkedRecordType","value":"permissionRole"},{"name":"linkedRecordId","value":"fitnesse"}]},{"name":"userRoleRulePart","children":[{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.","repeatId":"0"}],"attributes":{"type":"organisation"}}]}],"repeatId":"0"},{"name":"userRole","children":[{"name":"userRole","children":[{"name":"linkedRecordType","value":"permissionRole"},{"name":"linkedRecordId","value":"metadataAdmin"}]},{"name":"userRoleRulePart","children":[{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.","repeatId":"0"}],"attributes":{"type":"organisation"}}]}],"repeatId":"1"},{"name":"activeStatus","value":"inactive"}]} | | OK |
+| $adminAuthToken | systemOneUser | 121212 | {"name":"user","children":[{"name":"recordInfo","children":[{"name":"id","value":"121212"},{"name":"type","value":"systemOneUser"},{"name":"createdBy","value":"131313"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"userId","value":"fitnesse123@system.cora.uu.se"},{"name":"userFirstname","value":"Fit"},{"name":"userLastname","value":"Nesse"},{"name":"userRole","children":[{"name":"userRole","children":[{"name":"linkedRecordType","value":"permissionRole"},{"name":"linkedRecordId","value":"fitnesse"}]},{"name":"userRoleRulePart","children":[{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.","repeatId":"0"}],"attributes":{"type":"organisation"}}]}],"repeatId":"0"},{"name":"userRole","children":[{"name":"userRole","children":[{"name":"linkedRecordType","value":"permissionRole"},{"name":"linkedRecordId","value":"metadataAdmin"}]},{"name":"userRoleRulePart","children":[{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.","repeatId":"0"}],"attributes":{"type":"organisation"}}]}],"repeatId":"1"},{"name":"activeStatus","value":"inactive"}]} | | OK |
 
 *!
 Create a new text to show that it is '''NOT''' allowed:
@@ -49,7 +49,7 @@ Create a new text to show that it is '''NOT''' allowed:
 !| comment |
 | RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| fitnesseUserToken | textSystemOne | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"myUserText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"},"children":[{"name":"text","value":"Min  svenska text"}]}]} | | FORBIDDEN |
+| $userAuthToken | textSystemOne | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"myUserText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"},"children":[{"name":"text","value":"Min  svenska text"}]}]} | | FORBIDDEN |
 
 *!
 !2 User removed role (currently not active)
@@ -59,7 +59,7 @@ Update user, to only have one role (textAdmin)
 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| fitnesseAdminToken | systemOneUser | 121212 | {"name":"user","children":[{"name":"recordInfo","children":[{"name":"id","value":"121212"},{"name":"type","value":"systemOneUser"},{"name":"createdBy","value":"131313"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"userId","value":"fitnesseUser@system.cora.uu.se"},{"name":"userFirstname","value":"Fitnesse"},{"name":"userLastname","value":"User"},{"name":"userRole","children":[{"name":"userRole","children":[{"name":"linkedRecordType","value":"permissionRole"},{"name":"linkedRecordId","value":"nothing"}]},{"name":"userRoleRulePart","children":[{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.DISABLED","repeatId":"0"}],"attributes":{"type":"organisation"}}]}],"repeatId":"2"},{"name":"activeStatus","value":"active"}]} | | OK |
+| $adminAuthToken | systemOneUser | 121212 | {"name":"user","children":[{"name":"recordInfo","children":[{"name":"id","value":"121212"},{"name":"type","value":"systemOneUser"},{"name":"createdBy","value":"131313"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"userId","value":"fitnesseUser@system.cora.uu.se"},{"name":"userFirstname","value":"Fitnesse"},{"name":"userLastname","value":"User"},{"name":"userRole","children":[{"name":"userRole","children":[{"name":"linkedRecordType","value":"permissionRole"},{"name":"linkedRecordId","value":"nothing"}]},{"name":"userRoleRulePart","children":[{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.DISABLED","repeatId":"0"}],"attributes":{"type":"organisation"}}]}],"repeatId":"2"},{"name":"activeStatus","value":"active"}]} | | OK |
 
 *!
 Create a new text to show that it is '''NOT''' allowed:
@@ -70,7 +70,7 @@ Create a new text to show that it is '''NOT''' allowed:
 | Not active as we do not reread user roles in gatekeeper for a known token |
 | RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| fitnesseUserToken | textSystemOne | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"myUserText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"},"children":[{"name":"text","value":"Min  svenska text"}]}]} | | FORBIDDEN |
+| $userAuthToken | textSystemOne | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"myUserText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"},"children":[{"name":"text","value":"Min  svenska text"}]}]} | | FORBIDDEN |
 
 *!
 !2 User change rule part(organisation) when connecting role to user (currently not active)
@@ -82,7 +82,7 @@ Update users, connected rule textAdmin to have a specific userId (system.aUserId
 | Should be updated to a test that uses organisation in the connection to a role |
 | RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| fitnesseAdminToken | systemOneUser | 121212 | {"name":"user","children":[{"name":"recordInfo","children":[{"name":"id","value":"121212"},{"name":"type","value":"systemOneUser"},{"name":"createdBy","value":"131313"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"userId","value":"fitnesseUser@system.cora.uu.se"},{"name":"userFirstname","value":"Fitnesse"},{"name":"userLastname","value":"User"},{"name":"userRole","children":[{"name":"userRole","children":[{"name":"linkedRecordType","value":"permissionRole"},{"name":"linkedRecordId","value":"fitnesseTextAdmin"}]},{"name":"userRoleRulePart","children":[{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.","repeatId":"0"}],"attributes":{"type":"organisation"}}]}],"repeatId":"1"},{"name":"userRole","children":[{"name":"userRole","children":[{"name":"linkedRecordType","value":"permissionRole"},{"name":"linkedRecordId","value":"nothing"}]},{"name":"userRoleRulePart","children":[{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.DISABLED","repeatId":"0"}],"attributes":{"type":"organisation"}}]}],"repeatId":"2"},{"name":"activeStatus","value":"active"}]} | | OK |
+| $adminAuthToken | systemOneUser | 121212 | {"name":"user","children":[{"name":"recordInfo","children":[{"name":"id","value":"121212"},{"name":"type","value":"systemOneUser"},{"name":"createdBy","value":"131313"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"userId","value":"fitnesseUser@system.cora.uu.se"},{"name":"userFirstname","value":"Fitnesse"},{"name":"userLastname","value":"User"},{"name":"userRole","children":[{"name":"userRole","children":[{"name":"linkedRecordType","value":"permissionRole"},{"name":"linkedRecordId","value":"fitnesseTextAdmin"}]},{"name":"userRoleRulePart","children":[{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.","repeatId":"0"}],"attributes":{"type":"organisation"}}]}],"repeatId":"1"},{"name":"userRole","children":[{"name":"userRole","children":[{"name":"linkedRecordType","value":"permissionRole"},{"name":"linkedRecordId","value":"nothing"}]},{"name":"userRoleRulePart","children":[{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.DISABLED","repeatId":"0"}],"attributes":{"type":"organisation"}}]}],"repeatId":"2"},{"name":"activeStatus","value":"active"}]} | | OK |
 
 *!
 Try to update created text to see that it is '''NOT''' allowed
@@ -93,7 +93,7 @@ Try to update created text to see that it is '''NOT''' allowed
 | Change test to something that uses organisation in connection to role |
 | RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| fitnesseUserToken | textSystemOne | myUserText | {"children":[{"children":[{"name":"id","value":"myUserText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}],"name":"dataDivider"},{"name":"type","value":"textSystemOne"},{"name":"createdBy","value":"131313"}],"name":"recordInfo"},{"children":[{"name":"text","value":"Min  svenska text"}],"name":"textPart","attributes":{"type":"default","lang":"sv"}}],"name":"text"} | | FORBIDDEN |
+| $userAuthToken | textSystemOne | myUserText | {"children":[{"children":[{"name":"id","value":"myUserText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}],"name":"dataDivider"},{"name":"type","value":"textSystemOne"},{"name":"createdBy","value":"131313"}],"name":"recordInfo"},{"children":[{"name":"text","value":"Min  svenska text"}],"name":"textPart","attributes":{"type":"default","lang":"sv"}}],"name":"text"} | | FORBIDDEN |
 
 *!
 !2 Reset user fitnesse
@@ -101,9 +101,10 @@ Update user, fitnesse to be as it was before testing
 
 !***> Update user, fitnesse, restoring original state
 
-!| RecordEndpointFixture |
+!| comment |
+| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| fitnesseAdminToken | systemOneUser | 121212 | {"name":"user","children":[{"name":"recordInfo","children":[{"name":"id","value":"121212"},{"name":"type","value":"systemOneUser"},{"name":"createdBy","value":"131313"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"userId","value":"fitnesseUser@system.cora.uu.se"},{"name":"userFirstname","value":"Fitnesse"},{"name":"userLastname","value":"User"},{"name":"userRole","children":[{"name":"userRole","children":[{"name":"linkedRecordType","value":"permissionRole"},{"name":"linkedRecordId","value":"fitnesseTextAdmin"}]},{"name":"userRoleRulePart","children":[{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.","repeatId":"0"}],"attributes":{"type":"organisation"}}]}],"repeatId":"1"},{"name":"userRole","children":[{"name":"userRole","children":[{"name":"linkedRecordType","value":"permissionRole"},{"name":"linkedRecordId","value":"nothing"}]},{"name":"userRoleRulePart","children":[{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.DISABLED","repeatId":"0"}],"attributes":{"type":"organisation"}}]}],"repeatId":"2"},{"name":"activeStatus","value":"active"}]} | | OK |
+| $adminAuthToken | systemOneUser | 121212 | {"name":"user","children":[{"name":"recordInfo","children":[{"name":"id","value":"121212"},{"name":"type","value":"systemOneUser"},{"name":"createdBy","value":"131313"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"userId","value":"fitnesseUser@system.cora.uu.se"},{"name":"userFirstname","value":"Fitnesse"},{"name":"userLastname","value":"User"},{"name":"userRole","children":[{"name":"userRole","children":[{"name":"linkedRecordType","value":"permissionRole"},{"name":"linkedRecordId","value":"fitnesseTextAdmin"}]},{"name":"userRoleRulePart","children":[{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.","repeatId":"0"}],"attributes":{"type":"organisation"}}]}],"repeatId":"1"},{"name":"userRole","children":[{"name":"userRole","children":[{"name":"linkedRecordType","value":"permissionRole"},{"name":"linkedRecordId","value":"nothing"}]},{"name":"userRoleRulePart","children":[{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.DISABLED","repeatId":"0"}],"attributes":{"type":"organisation"}}]}],"repeatId":"2"},{"name":"activeStatus","value":"active"}]} | | OK |
 
 *!
 !2 Clean up created data
@@ -111,6 +112,6 @@ Update user, fitnesse to be as it was before testing
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| fitnesseUserToken | textSystemOne | myUserText | | OK |
+| $userAuthToken | textSystemOne | myUserText | | OK |
 
 *!
