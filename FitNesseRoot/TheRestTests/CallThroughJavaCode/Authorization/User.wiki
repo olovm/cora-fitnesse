@@ -46,8 +46,7 @@ Create a new text to show that it is '''NOT''' allowed:
 
 !***> Create data of recordType text (textSystemOne)
 
-!| comment |
-| RecordEndpointFixture |
+!| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
 | $userAuthToken | textSystemOne | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"myUserText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"},"children":[{"name":"text","value":"Min  svenska text"}]}]} | | FORBIDDEN |
 
