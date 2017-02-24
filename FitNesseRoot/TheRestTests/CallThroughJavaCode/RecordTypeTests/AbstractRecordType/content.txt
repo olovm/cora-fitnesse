@@ -149,7 +149,7 @@ An abstract record type (the parent) is used to create a group of record type si
 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | plant | flower1 | {"name":"plant","children":[{"name":"recordInfo","children":[{"name":"id","value":"flower1"},{"name":"type","value":"plant"},{"name":"createdBy","value":"131313"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"id","value":"theRosee"}]} | | NOT_FOUND |
+| $adminAuthToken | plant | flower1 | {"name":"plant","children":[{"name":"recordInfo","children":[{"name":"id","value":"flower1"},{"name":"type","value":"plant"},{"name":"createdBy","value":"131313"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"id","value":"theRosee"}]} | | BAD_REQUEST |
 
 *!
 !***> Read data(tree1, flower1)
