@@ -42,10 +42,18 @@
 | $adminAuthToken | searchTerm | myTestSearchTerm | {"name":"searchTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"myTestSearchTerm"},{"name":"type","value":"searchTerm"},{"name":"createdBy","value":"141414"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"searchTermType","value":"linkedData"},{"name":"searchFieldRef","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"refTextVar"}]}]} | {"record":{"data":{"children":[{"children":[{"name":"id","value":"myTestSearchTerm"},{"name":"type","value":"searchTerm"},{"name":"createdBy","value":"141414"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/system/cora","accept":"application/uub+record+json"}},"name":"dataDivider"}],"name":"recordInfo"},{"name":"searchTermType","value":"linkedData"},{"children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"refTextVar"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/metadata/refTextVar","accept":"application/uub+record+json"}},"name":"searchFieldRef"}],"name":"searchTerm"},"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/searchTerm/myTestSearchTerm","accept":"application/uub+record+json"},"update":{"requestMethod":"POST","rel":"update","contentType":"application/uub+record+json","url":"${systemUnderTestUrl}rest/record/searchTerm/myTestSearchTerm","accept":"application/uub+record+json"},"delete":{"requestMethod":"DELETE","rel":"delete","url":"${systemUnderTestUrl}rest/record/searchTerm/myTestSearchTerm"}}}} | OK |
 
 *!
-!***> Delete created searchTerm
+!***> Create a metadataGroup with a childreference that has a searchTerm
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | metadataGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testBookGroup"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"nameInData","value":"book"},{"name":"textId","value":"bookGroupText"},{"name":"defTextId","value":"bookGroupDefText"},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"recordInfoGroup"}]}],"repeatId":"0"},{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"bookTitleTextVar"}]},{"name":"childRefSearchTerm","children":[{"name":"linkedRecordType","value":"searchTerm"},{"name":"linkedRecordId","value":"myTestSearchTerm"}]}],"repeatId":"1"}]}],"attributes":{"type":"group"}} | | CREATED |
+
+*!
+!***> Delete created metadataGroup and searchTerm
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | metadataGroup | testBookGroup | | OK |
 | $adminAuthToken | searchTerm | myTestSearchTerm | | OK |
 
 *!
