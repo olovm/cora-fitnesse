@@ -1,0 +1,88 @@
+---
+Test
+---
+!contents -R2 -g -p -f -h
+| import |
+| se.uu.ub.cora.fitnesse |
+
+!1 Testing Search
+A search in Cora needs metadata for the searchForm, a fully defined metadataGroup, and a fully defined presentation (not yet added):
+
+!2 
+!2 Add metadata for a new search
+!***> Create data of recordType text (coraText)
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | coraText | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"testDummyText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"} ,"children":[{"name":"text","value":"Dummy text"}]}]} | | CREATED |
+| $adminAuthToken | coraText | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"testDummyDefText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"},"children":[{"name":"text","value":"Dummy def text"}]},{"name":"textPart","attributes":{"type":"alternative","lang":"en"},"children":[{"name":"text","value":"Dummy def text"}]}]} | | CREATED |
+
+*!
+!***> Create textVariable (testSearchTextTextVar)
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | metadataTextVariable | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testSearchTextTextVar"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"nameInData","value":"text"},{"name":"textId","value":"searchTextTextVarText"},{"name":"defTextId","value":"searchTextTextVarDefText"},{"name":"regEx","value":".*"}],"attributes":{"type":"textVariable"}} | | CREATED |
+
+*!
+!***> Create a metadataGroup(testUserIncludePartGroup, testUserIncludeGroup, testUserSearchGroup)
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | metadataGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testUserIncludePartGroup"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"nameInData","value":"includePart"},{"name":"textId","value":"testDummyText"},{"name":"defTextId","value":"testDummyDefText"},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testSearchTextTextVar"}]}],"repeatId":"0"}]}],"attributes":{"type":"group"}} | | CREATED |
+| $adminAuthToken | metadataGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testUserIncludeGroup"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"nameInData","value":"include"},{"name":"textId","value":"testDummyText"},{"name":"defTextId","value":"testDummyDefText"},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testUserIncludePartGroup"}]}],"repeatId":"0"}]}],"attributes":{"type":"group"}} | | CREATED |
+| $adminAuthToken | metadataGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testUserSearchGroup"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"nameInData","value":"search"},{"name":"textId","value":"testDummyText"},{"name":"defTextId","value":"testDummyDefText"},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testUserIncludeGroup"}]}],"repeatId":"0"}]}],"attributes":{"type":"group"}} | | CREATED |
+
+*!
+and metadata about the search, linking to the defined metadataGroup, and a list of linked recordTypes to search in:
+
+!2 Add a new search
+!***> Create data of recordType search
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | search | {"name":"search","children":[{"name":"recordInfo","children":[{"name":"id","value":"userSearch"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"metadataId","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"testUserSearchGroup"}]},{"name":"presentationId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"metadataGroupFormPGroup"}]},{"name":"recordTypeToSearchIn","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"user"}],"repeatId":"0"}]} | | CREATED |
+| $adminAuthToken | search | {"name":"search","children":[{"name":"recordInfo","children":[{"name":"id","value":"aSearchId"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"metadataId","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"testUserSearchGroup"}]},{"name":"presentationId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"metadataGroupFormPGroup"}]},{"name":"recordTypeToSearchIn","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"user"}],"repeatId":"0"}]} | | CREATED |
+
+*!
+then it is possible to do the search:
+
+!2 Perform a search (not yet enabled as no searchprovider is developed for the backend yet)
+!***> Test searches that will work
+
+!| comment |
+| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | aSearchId | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"text","value":""}]}]}]} | | OK |
+
+*!
+The searchForm has to be filled out correctly or the search will not be done, but instead errors returned:
+
+!2 Performing incorrect searches
+!***> Test searches that will not work (nonExisting searchId, missing searchData(json), broken searchData(json), not valid searchData(json)
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | aSearchIdThatDoesNotExist | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"text","value":""}]}]}]} | No record exists with recordId: aSearchIdThatDoesNotExist | NOT_FOUND |
+| $adminAuthToken | aSearchId | | Unable to parse json string | BAD_REQUEST |
+| $adminAuthToken | aSearchId | {"NOTname":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"text","value":""}]}]}]} | Error parsing jsonObject: Group data must contain key: name | BAD_REQUEST |
+| $userAuthToken | userSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"text","value":""}]}]}]} | | FORBIDDEN |
+
+*!
+!1 Reset testdata
+Remove data created for this test
+
+!***> Delete created search
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | search | userSearch | | OK |
+| $adminAuthToken | search | aSearchId | | OK |
+| $adminAuthToken | metadataGroup | testUserSearchGroup | | OK |
+| $adminAuthToken | metadataGroup | testUserIncludeGroup | | OK |
+| $adminAuthToken | metadataGroup | testUserIncludePartGroup | | OK |
+| $adminAuthToken | metadataTextVariable | testSearchTextTextVar | | OK |
+| $adminAuthToken | coraText | testDummyText | | OK |
+| $adminAuthToken | coraText | testDummyDefText | | OK |
+
+*!
