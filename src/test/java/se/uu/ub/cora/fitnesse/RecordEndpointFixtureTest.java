@@ -4,6 +4,8 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 import javax.ws.rs.core.Response;
 
@@ -256,6 +258,48 @@ public class RecordEndpointFixtureTest {
 	public void testDownloadNotOk() {
 		httpHandlerFactorySpy.changeFactoryToFactorInvalidHttpHandlers();
 		assertEquals(fixture.testDownload(), "bad things happend");
+	}
+
+	@Test
+	public void testSearchRecordFactoryIsOk() throws UnsupportedEncodingException {
+		fixture.setAuthToken("someToken");
+		fixture.setSearchId("aSearchId");
+
+		String json = "{\"name\":\"search\",\"children\":[{\"name\":\"include\",\"children\":["
+				+ "{\"name\":\"includePart\",\"children\":[{\"name\":\"text\",\"value\":\"\"}]}]}]}";
+		fixture.setJson(json);
+		fixture.testSearchRecord();
+		assertEquals(httpHandlerFactorySpy.httpHandlerSpy.requestMetod, "GET");
+
+		String encodedJson = URLEncoder.encode(json, "UTF-8");
+
+		assertEquals(httpHandlerFactorySpy.urlString,
+				"http://localhost:8080/therest/rest/record/searchResult/aSearchId/?"
+						+ "authToken=someToken&searchData=" + encodedJson);
+	}
+
+	@Test
+	public void testSearchRecordOk() throws UnsupportedEncodingException {
+		fixture.setAuthToken("someToken");
+		fixture.setSearchId("aSearchId");
+
+		String json = "{\"name\":\"search\",\"children\":[{\"name\":\"include\",\"children\":["
+				+ "{\"name\":\"includePart\",\"children\":[{\"name\":\"text\",\"value\":\"\"}]}]}]}";
+		fixture.setJson(json);
+		assertEquals(fixture.testSearchRecord(), "Everything ok");
+	}
+
+	@Test
+	public void testSearchRecordNotOk() throws UnsupportedEncodingException {
+		httpHandlerFactorySpy.changeFactoryToFactorInvalidHttpHandlers();
+		fixture.setAuthToken("someToken");
+		fixture.setSearchId("aSearchId");
+
+		String json = "{\"name\":\"search\",\"children\":[{\"name\":\"include\",\"children\":["
+				+ "{\"name\":\"includePart\",\"children\":[{\"name\":\"text\",\"value\":\"\"}]}]}]}";
+		fixture.setJson(json);
+		fixture.testSearchRecord();
+		assertEquals(fixture.testReadRecordList(), "bad things happend");
 	}
 
 }

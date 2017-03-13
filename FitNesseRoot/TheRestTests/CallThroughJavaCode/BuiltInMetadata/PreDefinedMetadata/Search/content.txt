@@ -50,7 +50,7 @@
 
 *!
 !2 Test with incorrect data
-Try create data of recodType search. Shuld fail since links are not correct
+Try create data of recodType search. Should fail since links are not correct
 
 !***> Create data of recordType search
 

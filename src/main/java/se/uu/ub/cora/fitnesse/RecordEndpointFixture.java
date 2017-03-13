@@ -22,6 +22,8 @@ package se.uu.ub.cora.fitnesse;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 import javax.ws.rs.core.Response;
@@ -37,6 +39,7 @@ public class RecordEndpointFixture {
 	private static final String ACCEPT = "Accept";
 	private static final String AUTH_TOKEN = "?authToken=";
 	private String id;
+	private String searchId;
 	private String type;
 	private String json;
 	private StatusType statusType;
@@ -65,6 +68,10 @@ public class RecordEndpointFixture {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public void setSearchId(String searchId) {
+		this.searchId = searchId;
 	}
 
 	public StatusType getStatusType() {
@@ -114,10 +121,10 @@ public class RecordEndpointFixture {
 	}
 
 	private String addAuthTokenToUrl(String urlIn) {
-		String url =urlIn;
-		if(authToken != null) {
+		String url = urlIn;
+		if (authToken != null) {
 			url += AUTH_TOKEN + authToken;
-		}else{
+		} else {
 			url += AUTH_TOKEN + AuthTokenHolder.getAdminAuthToken();
 		}
 		return url;
@@ -276,6 +283,21 @@ public class RecordEndpointFixture {
 
 	public String getToken() {
 		return token;
+	}
+
+	public String testSearchRecord() throws UnsupportedEncodingException {
+		String url = baseUrl + "searchResult" + "/" + searchId + "/";
+		url = addAuthTokenToUrl(url);
+		url += "&searchData=" + URLEncoder.encode(json, "UTF-8");
+
+		HttpHandler httpHandler = factory.factorHttpHandler(url);
+		httpHandler.setRequestMethod("GET");
+
+		statusType = Response.Status.fromStatusCode(httpHandler.getResponseCode());
+		if (statusType.equals(Response.Status.OK)) {
+			return httpHandler.getResponseText();
+		}
+		return httpHandler.getErrorText();
 	}
 
 }
