@@ -41,7 +41,7 @@ and metadata about the search, linking to the defined metadataGroup, and a list 
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | search | {"name":"search","children":[{"name":"recordInfo","children":[{"name":"id","value":"userSearch"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"metadataId","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"testUserSearchGroup"}]},{"name":"presentationId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"metadataGroupFormPGroup"}]},{"name":"recordTypeToSearchIn","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"user"}],"repeatId":"0"}]} | | CREATED |
+| $adminAuthToken | search | {"name":"search","children":[{"name":"recordInfo","children":[{"name":"id","value":"testUserSearch"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"metadataId","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"testUserSearchGroup"}]},{"name":"presentationId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"metadataGroupFormPGroup"}]},{"name":"recordTypeToSearchIn","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"user"}],"repeatId":"0"}]} | | CREATED |
 | $adminAuthToken | search | {"name":"search","children":[{"name":"recordInfo","children":[{"name":"id","value":"aSearchId"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"metadataId","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"testUserSearchGroup"}]},{"name":"presentationId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"metadataGroupFormPGroup"}]},{"name":"recordTypeToSearchIn","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"user"}],"repeatId":"0"}]} | | CREATED |
 
 *!
@@ -66,7 +66,7 @@ The searchForm has to be filled out correctly or the search will not be done, bu
 | $adminAuthToken | aSearchIdThatDoesNotExist | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"text","value":""}]}]}]} | No record exists with recordId: aSearchIdThatDoesNotExist | NOT_FOUND |
 | $adminAuthToken | aSearchId | | Unable to parse json string | BAD_REQUEST |
 | $adminAuthToken | aSearchId | {"NOTname":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"text","value":""}]}]}]} | Error parsing jsonObject: Group data must contain key: name | BAD_REQUEST |
-| $userAuthToken | userSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"text","value":""}]}]}]} | | FORBIDDEN |
+| $userAuthToken | testUserSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"text","value":""}]}]}]} | | FORBIDDEN |
 
 *!
 !1 Reset testdata
@@ -76,7 +76,7 @@ Remove data created for this test
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $adminAuthToken | search | userSearch | | OK |
+| $adminAuthToken | search | testUserSearch | | OK |
 | $adminAuthToken | search | aSearchId | | OK |
 | $adminAuthToken | metadataGroup | testUserSearchGroup | | OK |
 | $adminAuthToken | metadataGroup | testUserIncludeGroup | | OK |
