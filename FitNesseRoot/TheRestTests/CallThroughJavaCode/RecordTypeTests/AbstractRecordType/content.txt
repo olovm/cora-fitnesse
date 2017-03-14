@@ -201,7 +201,15 @@ An abstract record type (the parent) is used to create a group of record type si
 | $adminAuthToken | metadataGroup | treeGroup | | OK |
 | $adminAuthToken | metadataGroup | plantGroup | | OK |
 | $adminAuthToken | metadataGroup | plantNewGroup | | OK |
+| $adminAuthToken | coraText | woodColourTextVarText | | OK |
+| $adminAuthToken | coraText | woodColourTextVarDefText | | OK |
+| $adminAuthToken | presentationVar | woodColourTextVarPVar | | OK |
+| $adminAuthToken | presentationVar | woodColourTextVarOutputPVar | | OK |
 | $adminAuthToken | metadataTextVariable | woodColourTextVar | | OK |
+| $adminAuthToken | coraText | petalColourTextVarText | | OK |
+| $adminAuthToken | coraText | petalColourTextVarDefText | | OK |
+| $adminAuthToken | presentationVar | petalColourTextVarPVar | | OK |
+| $adminAuthToken | presentationVar | petalColourTextVarOutputPVar | | OK |
 | $adminAuthToken | metadataTextVariable | petalColourTextVar | | OK |
 | $adminAuthToken | metadataCollectionVariable | flowerTypeCollectionVar | | OK |
 | $adminAuthToken | metadataCollectionVariable | treeTypeCollectionVar | | OK |

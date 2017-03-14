@@ -10,7 +10,7 @@ The system should demand a unique non empty repeatId for all elements that can b
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | metadataTextVariable | {"name":"metadata","attributes":{"type":"textVariable"},"children":[{"name":"recordInfo","children":[{"name":"id","value":"repeatTextVar"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"nameInData","value":"repeatText"},{"name":"textId","value":"repeatTextText"},{"name":"defTextId","value":"repeatTextDefText"},{"name":"regEx","value":"^[r]{4}$"}]} | | CREATED |
+| $adminAuthToken | metadataTextVariable | {"name":"metadata","attributes":{"type":"textVariable"},"children":[{"name":"recordInfo","children":[{"name":"id","value":"repeatTextVar"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"nameInData","value":"repeatText"},{"name":"textId","value":"repeatTextVarText"},{"name":"defTextId","value":"repeatTextVarDefText"},{"name":"regEx","value":"^[r]{4}$"}]} | | CREATED |
 
 *!
 !***> Create a metadataGroups for (repeat)
@@ -100,6 +100,10 @@ The system should demand a unique non empty repeatId for all elements that can b
 | $adminAuthToken | metadataGroup | repeatNewGroup | | OK |
 | $adminAuthToken | metadataGroup | repeatingGroup | | OK |
 | $adminAuthToken | metadataGroup | nonRepeatingGroup | | OK |
+| $adminAuthToken | coraText | repeatTextVarText | | OK |
+| $adminAuthToken | coraText | repeatTextVarDefText | | OK |
+| $adminAuthToken | presentationVar | repeatTextVarPVar | | OK |
+| $adminAuthToken | presentationVar | repeatTextVarOutputPVar | | OK |
 | $adminAuthToken | metadataTextVariable | repeatTextVar | | OK |
 | $adminAuthToken | coraText | someFitnesseText | | OK |
 | $adminAuthToken | coraText | someFitnesseDefText | | OK |
