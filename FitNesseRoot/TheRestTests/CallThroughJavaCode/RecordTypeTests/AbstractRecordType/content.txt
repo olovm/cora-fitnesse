@@ -187,8 +187,11 @@ An abstract record type (the parent) is used to create a group of record type si
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | search | flowerSearch | | OK |
 | $adminAuthToken | recordType | flower | | OK |
+| $adminAuthToken | search | treeSearch | | OK |
 | $adminAuthToken | recordType | tree | | OK |
+| $adminAuthToken | search | plantSearch | | OK |
 | $adminAuthToken | recordType | plant | | OK |
 | $adminAuthToken | presentationGroup | someFitnesseMenuPGroup | | OK |
 | $adminAuthToken | presentationGroup | someFitnesseListPGroup | | OK |

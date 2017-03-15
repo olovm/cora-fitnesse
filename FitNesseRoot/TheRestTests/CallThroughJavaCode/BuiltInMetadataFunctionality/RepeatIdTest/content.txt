@@ -90,6 +90,7 @@ The system should demand a unique non empty repeatId for all elements that can b
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
 | $adminAuthToken | repeat | repeat1 | | OK |
+| $adminAuthToken | search | repeatSearch | | |
 | $adminAuthToken | recordType | repeat | | OK |
 | $adminAuthToken | presentationGroup | someFitnesseMenuPGroup | | OK |
 | $adminAuthToken | presentationGroup | someFitnesseListPGroup | | OK |

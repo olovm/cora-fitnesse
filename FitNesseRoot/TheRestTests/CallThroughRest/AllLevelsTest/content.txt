@@ -1,6 +1,6 @@
 !contents -R2 -g -p -f -h
 This test will create the metadatagroup trainingProgram, containing two fields, id and createdBy. they are both mandatory (min 1, max 1)!--!It will then create a metadatagroup called singleTrainingProgram which must contain one trainingProgram, no less, no more.!-
--!Then the test will create a recordType which describes a singleTrainingProgram--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-!Then the test will create a recordType which describes a singleTrainingProgram------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Last, we will create a trainingProgram using the metadata groups specified. We can only create a trainingProgram if we provide the mandatory elements.!-
 -!The first test is missing id.!-
@@ -95,6 +95,7 @@ Last, we will create a trainingProgram using the metadata groups specified. We c
 
 | Table:smartrics.rest.fitnesse.fixture.RestFixture | ${systemUnderTestUrl} |
 | DELETE | /rest/record/singleTrainingProgram/cirkelfys | 200 | | |
+| DELETE | /rest/record/search/singleTrainingProgramSearch | 200 | | |
 | DELETE | /rest/record/recordType/singleTrainingProgram | 200 | | |
 | DELETE | /rest/record/presentationGroup/someFitnesseFormPGroup | 200 | | |
 | DELETE | /rest/record/presentationGroup/someFitnesseMenuPGroup | 200 | | |

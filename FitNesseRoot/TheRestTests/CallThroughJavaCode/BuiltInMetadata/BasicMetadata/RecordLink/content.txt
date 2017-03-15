@@ -284,9 +284,13 @@ Create metadata needed for link test.
 | $adminAuthToken | bush | bush4 | | OK |
 | $adminAuthToken | bush | bush2 | | OK |
 | $adminAuthToken | bush | bush1 | | OK |
+| $adminAuthToken | search | bushSearch | | |
 | $adminAuthToken | recordType | bush | | OK |
+| $adminAuthToken | search | bushLinkingToOtherBushSearch | | |
 | $adminAuthToken | recordType | bushLinkingToOtherBush | | OK |
+| $adminAuthToken | search | testPersonSearch | | |
 | $adminAuthToken | recordType | testPerson | | OK |
+| $adminAuthToken | search | testBookSearch | | |
 | $adminAuthToken | recordType | testBook | | OK |
 | $adminAuthToken | presentationGroup | someFitnesseMenuPGroup | | OK |
 | $adminAuthToken | presentationGroup | someFitnesseListPGroup | | OK |
