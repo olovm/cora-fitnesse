@@ -114,6 +114,7 @@
 | $adminAuthToken | presentationVar | freeTextVarPVar | | OK |
 | $adminAuthToken | presentationVar | freeTextVarOutputPVar | | OK |
 | $adminAuthToken | metadataTextVariable | freeTextVar | | OK |
+| $adminAuthToken | metadataCollectionVariable | firstItemCollectionVar | | OK |
 | $adminAuthToken | metadataItemCollection | firstItemCollection | | OK |
 | $adminAuthToken | metadataCollectionItem | otherAttributeItem | | OK |
 | $adminAuthToken | metadataCollectionItem | noAttributeItem | | OK |
