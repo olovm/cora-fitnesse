@@ -31,7 +31,8 @@ An abstract record type (the parent) is used to create a group of record type si
 *!
 !***> Create collectionVariable (plantTypeCollectionVar)
 
-!| RecordEndpointFixture |
+!| comment |
+| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
 | $adminAuthToken | metadataCollectionVariable | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"plantTypeCollectionVar"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"nameInData","value":"type"},{"name":"textId","value":"plantTypeCollectionVarText"},{"name":"defTextId","value":"plantTypeCollectionVarDefText"},{"name":"refCollection","children":[{"name":"linkedRecordType","value":"metadataItemCollection"},{"name":"linkedRecordId","value":"plantTypeCollection"}]}],"attributes":{"type":"collectionVariable"}} | | CREATED |
 
