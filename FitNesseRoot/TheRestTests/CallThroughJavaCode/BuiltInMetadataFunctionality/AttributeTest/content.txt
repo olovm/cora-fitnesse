@@ -106,6 +106,10 @@
 | $adminAuthToken | metadataGroup | child3Group | | OK |
 | $adminAuthToken | metadataGroup | child2Group | | OK |
 | $adminAuthToken | metadataGroup | child1Group | | OK |
+| $adminAuthToken | presentationCollectionVar | attributeNameInDataOutputPCollVar | | OK |
+| $adminAuthToken | presentationCollectionVar | attributeNameInDataPCollVar | | OK |
+| $adminAuthToken | presentationCollectionVar | otherAttributeNameInDataPCollVar | | OK |
+| $adminAuthToken | presentationCollectionVar | otherAttributeNameInDataOutputPCollVar | | OK |
 | $adminAuthToken | metadataCollectionVariable | attribute3CollectionVar | | OK |
 | $adminAuthToken | metadataCollectionVariable | attribute2CollectionVar | | OK |
 | $adminAuthToken | metadataCollectionVariable | attribute1CollectionVar | | OK |
@@ -114,6 +118,8 @@
 | $adminAuthToken | presentationVar | freeTextVarPVar | | OK |
 | $adminAuthToken | presentationVar | freeTextVarOutputPVar | | OK |
 | $adminAuthToken | metadataTextVariable | freeTextVar | | OK |
+| $adminAuthToken | presentationCollectionVar | itemCollectionPCollVar | | |
+| $adminAuthToken | presentationCollectionVar | itemCollectionOutputPCollVar | | |
 | $adminAuthToken | metadataCollectionVariable | firstItemCollectionVar | | OK |
 | $adminAuthToken | metadataItemCollection | firstItemCollection | | OK |
 | $adminAuthToken | metadataCollectionItem | otherAttributeItem | | OK |
