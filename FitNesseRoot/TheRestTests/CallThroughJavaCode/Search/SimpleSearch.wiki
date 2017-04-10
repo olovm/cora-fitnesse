@@ -47,11 +47,10 @@ and metadata about the search, linking to the defined metadataGroup, and a list 
 *!
 then it is possible to do the search:
 
-!2 Perform a search (not yet enabled as no searchprovider is developed for the backend yet)
+!2 Perform a search
 !***> Test searches that will work
 
-!| comment |
-| RecordEndpointFixture |
+!| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
 | $adminAuthToken | aSearchId | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"text","value":""}]}]}]} | | OK |
 
