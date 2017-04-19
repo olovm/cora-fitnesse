@@ -31,16 +31,16 @@ Last, we will create a trainingProgram using the metadata groups specified. We c
 !***> Configure !-RestFixture-!
 
 | Table:smartrics.rest.fitnesse.fixture.RestFixtureConfig | |
-| restfixture.default.headers | Content-Type: application/uub+record+json!-
+| restfixture.default.headers | Content-Type: application/vnd.uub.record+json!-
 -!authToken:$adminAuthToken |
-| restfixture.content.handlers.map | application/uub+record+json=JSON |
+| restfixture.content.handlers.map | application/vnd.uub.record+json=JSON |
 | http.client.connection.timeout | 5000 |
 
 *!
 !***> Create Metadata
 
 | Table:smartrics.rest.fitnesse.fixture.RestFixture | ${systemUnderTestUrl} |
-| setHeader | Content-Type:application/uub+record+json!-
+| setHeader | Content-Type:application/vnd.uub.record+json!-
 -!authToken:$adminAuthToken |
 | setBody | {"name":"metadata","attributes":{"type":"group"},"children":[{"name":"recordInfo","children":[{"name":"id","value":"trainingProgramGroup"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"textId","value":"trainingProgramGroupText"},{"name":"defTextId","value":"trainingProgramGroupDefText"},{"name":"nameInData","value":"trainingProgram"},{"name":"childReferences","children":[{"name":"childReference","repeatId":"1","children":[{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"idTextVar"}]},{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"}]},{"name":"childReference","repeatId":"2","children":[{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"createdByTextVar"}]},{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"}]}]}]} |
 | POST | /rest/record/metadataGroup | 201 | | |
