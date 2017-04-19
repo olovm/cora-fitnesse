@@ -29,15 +29,15 @@ Test that sending a valid authToken gives additional permissions compared to gue
 !***> Configure !-RestFixture-!
 
 | Table:smartrics.rest.fitnesse.fixture.RestFixtureConfig | |
-| restfixture.default.headers | Content-Type: application/uub+record+json!-
+| restfixture.default.headers | Content-Type: application/vnd.uub.record+json!-
 -! |
-| restfixture.content.handlers.map | application/uub+record+json=JSON |
+| restfixture.content.handlers.map | application/vnd.uub.record+json=JSON |
 
 *!
 !***> Test create without token, should not be allowed (401)
 
 | Table:smartrics.rest.fitnesse.fixture.RestFixture | ${systemUnderTestUrl} |
-| setHeader | Content-Type:application/uub+record+json!-
+| setHeader | Content-Type:application/vnd.uub.record+json!-
 -! |
 | setBody | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"authTokenTestingText"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"textPart","children":[{"name":"text","value":"En  text för att testa  authTokens"}],"attributes":{"type":"default","lang":"sv"}}]} |
 | POST | /rest/record/textSystemOne | 401 | | |
@@ -46,7 +46,7 @@ Test that sending a valid authToken gives additional permissions compared to gue
 !***> Test create without invalid token, should not be allowed (401)
 
 | Table:smartrics.rest.fitnesse.fixture.RestFixture | ${systemUnderTestUrl} |
-| setHeader | Content-Type:application/uub+record+json !-
+| setHeader | Content-Type:application/vnd.uub.record+json !-
 -!authToken:!-invalidToken
 -! |
 | setBody | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"authTokenTestingText"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"textPart","children":[{"name":"text","value":"En  text för att testa  authTokens"}],"attributes":{"type":"default","lang":"sv"}}]} |
@@ -56,7 +56,7 @@ Test that sending a valid authToken gives additional permissions compared to gue
 !***> Test create without invalid token, should not be allowed (403)
 
 | Table:smartrics.rest.fitnesse.fixture.RestFixture | ${systemUnderTestUrl} |
-| setHeader | Content-Type:application/uub+record+json !-
+| setHeader | Content-Type:application/vnd.uub.record+json !-
 -!authToken:!-fitnesseUserToken-!!-
 -! |
 | setBody | {"name":"system","children":[{"name":"recordInfo","children":[{"name":"id","value":"dummySystem"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"systemName","value":"Dummy"}]} |
@@ -66,7 +66,7 @@ Test that sending a valid authToken gives additional permissions compared to gue
 !***> Test create with token, should  be allowed
 
 | Table:smartrics.rest.fitnesse.fixture.RestFixture | ${systemUnderTestUrl} |
-| setHeader | Content-Type:application/uub+record+json!-
+| setHeader | Content-Type:application/vnd.uub.record+json!-
 -!authToken:$adminAuthToken!-
 -! |
 | setBody | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"authTokenTestingText"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"textPart","children":[{"name":"text","value":"En  text för att testa  authTokens"}],"attributes":{"type":"default","lang":"sv"}}]} |
@@ -76,7 +76,7 @@ Test that sending a valid authToken gives additional permissions compared to gue
 !***> Remove text
 
 | Table:smartrics.rest.fitnesse.fixture.RestFixture | ${systemUnderTestUrl} |
-| setHeader | Content-Type:application/uub+record+json!-
+| setHeader | Content-Type:application/vnd.uub.record+json!-
 -!authToken:$adminAuthToken!-
 -! | | | |
 | DELETE | /rest/record/textSystemOne/authTokenTestingText | 200 | | |

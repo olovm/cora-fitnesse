@@ -35,7 +35,7 @@ import se.uu.ub.cora.httphandler.HttpMultiPartUploader;
 public class RecordEndpointFixture {
 	private static final int DISTANCE_TO_START_OF_TOKEN = 24;
 	private static final int DISTANCE_TO_START_OF_ID = 19;
-	private static final String APPLICATION_UUB_RECORD_JSON = "application/uub+record+json";
+	private static final String APPLICATION_UUB_RECORD_JSON = "application/vnd.uub.record+json";
 	private static final String ACCEPT = "Accept";
 	private static final String AUTH_TOKEN = "?authToken=";
 	private String id;
