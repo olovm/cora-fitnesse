@@ -22,7 +22,7 @@ A search in Cora needs metadata for the searchForm, a fully defined metadataGrou
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | metadataTextVariable | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testSearchTextTextVar"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"nameInData","value":"text"},{"name":"textId","value":"testSearchTextTextVarText"},{"name":"defTextId","value":"testSearchTextTextVarDefText"},{"name":"regEx","value":".*"}],"attributes":{"type":"textVariable"}} | | CREATED |
+| $adminAuthToken | metadataTextVariable | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testSearchTextTextVar"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"nameInData","value":"text"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestText"}],"name":"textId"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestDefText"}],"name":"defTextId"},{"name":"regEx","value":".*"}],"attributes":{"type":"textVariable"}} | | CREATED |
 
 *!
 !***> Create a metadataGroup(testUserIncludePartGroup, testUserIncludeGroup, testUserSearchGroup)
@@ -84,8 +84,8 @@ Remove data created for this test
 | $adminAuthToken | metadataGroup | testUserSearchGroup | | OK |
 | $adminAuthToken | metadataGroup | testUserIncludeGroup | | OK |
 | $adminAuthToken | metadataGroup | testUserIncludePartGroup | | OK |
-| $adminAuthToken | coraText | testSearchTextTextVarText | | OK |
-| $adminAuthToken | coraText | testSearchTextTextVarDefText | | OK |
+| $adminAuthToken | coraText | someTestText | | OK |
+| $adminAuthToken | coraText | someTestDefText | | OK |
 | $adminAuthToken | presentationVar | testSearchTextTextVarPVar | | OK |
 | $adminAuthToken | presentationVar | testSearchTextTextVarOutputPVar | | OK |
 | $adminAuthToken | metadataTextVariable | testSearchTextTextVar | | OK |
