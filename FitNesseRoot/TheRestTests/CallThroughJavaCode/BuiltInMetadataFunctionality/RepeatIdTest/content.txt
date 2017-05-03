@@ -90,8 +90,8 @@ The system should demand a unique non empty repeatId for all elements that can b
 | $adminAuthToken | metadataGroup | repeatNewGroup | | OK |
 | $adminAuthToken | metadataGroup | repeatingGroup | | OK |
 | $adminAuthToken | metadataGroup | nonRepeatingGroup | | OK |
-| $adminAuthToken | presentationVar | repeatTextVarPVar | | OK |
-| $adminAuthToken | presentationVar | repeatTextVarOutputPVar | | OK |
+| $adminAuthToken | presentationVar | repeatPVar | | OK |
+| $adminAuthToken | presentationVar | repeatOutputPVar | | OK |
 | $adminAuthToken | metadataTextVariable | repeatTextVar | | OK |
 | $adminAuthToken | coraText | someFitnesseText | | OK |
 | $adminAuthToken | coraText | someFitnesseDefText | | OK |
