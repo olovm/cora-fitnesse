@@ -82,3 +82,52 @@ Remove data created for this test
 | $adminAuthToken | coraText | fitnesseBookGroupDefText | | OK |
 
 *!
+!2 Create a new metadataGroup with excludePGroupCreation option set to true
+!***> Create a new metadataGroup (fitnesseWithNoPGroupsBookGroup)
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | metadataGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"fitnesseWithNoPGroupsBookGroup"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"fitnesseBook"},{"name":"excludePGroupCreation","value":"true"},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"recordInfoGroup"}]}],"repeatId":"0"}]}],"attributes":{"type":"group"}} | | CREATED |
+
+*!
+Read fitnesseWithNoPGroupsBookGroup to see that links to texts have been added to the metadata
+
+!***> Read fitnesseWithNoPGroupsBookGroup
+
+!| RecordEndpointFixture |
+| id | type | testReadRecord? | getStatusType? |
+| fitnesseWithNoPGroupsBookGroup | metadataGroup | {"record":{"data":{"children":[{"children":[{"name":"id","value":"fitnesseWithNoPGroupsBookGroup"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/system/testSystem","accept":"application/vnd.uub.record+json"}},"name":"dataDivider"},{"name":"type","value":"metadataGroup"},{"name":"createdBy","value":"131313"}],"name":"recordInfo"},{"name":"nameInData","value":"fitnesseBook"},{"name":"excludePGroupCreation","value":"true"},{"children":[{"repeatId":"0","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"recordInfoGroup"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/metadata/recordInfoGroup","accept":"application/vnd.uub.record+json"}},"name":"ref"}],"name":"childReference"}],"name":"childReferences"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"fitnesseWithNoPGroupsBookGroupText"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/text/fitnesseWithNoPGroupsBookGroupText","accept":"application/vnd.uub.record+json"}},"name":"textId"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"fitnesseWithNoPGroupsBookGroupDefText"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/text/fitnesseWithNoPGroupsBookGroupDefText","accept":"application/vnd.uub.record+json"}},"name":"defTextId"}],"name":"metadata","attributes":{"type":"group"}},"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/metadataGroup/fitnesseWithNoPGroupsBookGroup","accept":"application/vnd.uub.record+json"},"update":{"requestMethod":"POST","rel":"update","contentType":"application/vnd.uub.record+json","url":"${systemUnderTestUrl}rest/record/metadataGroup/fitnesseWithNoPGroupsBookGroup","accept":"application/vnd.uub.record+json"},"delete":{"requestMethod":"DELETE","rel":"delete","url":"${systemUnderTestUrl}rest/record/metadataGroup/fitnesseWithNoPGroupsBookGroup"}}}} | OK |
+
+*!
+Read texts again to see that they have been created
+
+!***> Read fitnesseWithNoPGroupsBookGroupText and fitnesseWithNoPGroupsBookGroupDefText
+
+!| RecordEndpointFixture |
+| id | type | testReadRecord? | getStatusType? |
+| fitnesseWithNoPGroupsBookGroupText | coraText | | OK |
+| fitnesseWithNoPGroupsBookGroupDefText | coraText | | OK |
+
+*!
+Read presentationGroups to see that they have NOT been created
+
+!***> Read fitnesseWithNoPGroupsBookPGroup and fitnesseWithNoPGroupsBookOutputPGroup
+
+!| RecordEndpointFixture |
+| id | type | testReadRecord? | getStatusType? |
+| fitnesseWithNoPGroupsBookPGroup | presentationGroup | | NOT_FOUND |
+| fitnesseWithNoPGroupsBookOutputPGroup | presentationGroup | | NOT_FOUND |
+
+*!
+!1 Reset testdata
+Remove data created for this test
+
+!***> Delete created metadataGroup, presentationGroups and texts
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | metadataGroup | fitnesseWithNoPGroupsBookGroup | | OK |
+| $adminAuthToken | coraText | fitnesseWithNoPGroupsBookGroupText | | OK |
+| $adminAuthToken | coraText | fitnesseWithNoPGroupsBookGroupDefText | | OK |
+
+*!
