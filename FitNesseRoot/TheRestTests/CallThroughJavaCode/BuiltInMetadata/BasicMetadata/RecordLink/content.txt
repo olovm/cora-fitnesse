@@ -326,7 +326,6 @@ Create metadata needed for link test.
 | $adminAuthToken | presentationRecordLink | testParentFinalValuePLink | | OK |
 | $adminAuthToken | presentationRecordLink | testParentFinalValueOutputPLink | | OK |
 | $adminAuthToken | metadataRecordLink | testParentFinalValueLink | | OK |
-| $adminAuthToken | metadataRecordLink | testRecordLinkWithNoDataLink | | |
 | $adminAuthToken | presentationRecordLink | testRecordPLink | | OK |
 | $adminAuthToken | presentationRecordLink | testRecordOutputPLink | | OK |
 | $adminAuthToken | metadataRecordLink | testRecordLinkWithAttributeLink | | OK |
@@ -366,5 +365,6 @@ Create metadata needed for link test.
 | $adminAuthToken | coraText | someTestDefText | | OK |
 | $adminAuthToken | coraText | testLinkText | | OK |
 | $adminAuthToken | coraText | testLinkDefText | | OK |
+| $adminAuthToken | metadataRecordLink | testRecordLinkWithNoDataLink | | |
 
 *!
