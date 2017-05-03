@@ -71,7 +71,7 @@ Read presentationGroups again to see that they have been created
 !1 Reset testdata
 Remove data created for this test
 
-!***> Delete created metadataGroup and texts
+!***> Delete created metadataGroup, presentationGroups and texts
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
