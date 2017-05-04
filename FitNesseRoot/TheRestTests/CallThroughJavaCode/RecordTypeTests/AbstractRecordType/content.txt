@@ -208,5 +208,9 @@ An abstract record type (the parent) is used to create a group of record type si
 | $adminAuthToken | coraText | someFitnesseDefText | | OK |
 | $adminAuthToken | coraText | someTestText | | OK |
 | $adminAuthToken | coraText | someTestDefText | | OK |
+| $adminAuthToken | coraText | plantTypeCollectionVarText | | OK |
+| $adminAuthToken | coraText | plantTypeCollectionVarDefText | | OK |
+| $adminAuthToken | coraText | plantSearchDefText | | OK |
+| $adminAuthToken | coraText | plantSearchText | | OK |
 
 *!

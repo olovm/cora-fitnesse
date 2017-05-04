@@ -130,5 +130,7 @@ Remove data created for this test
 | $adminAuthToken | coraText | fitnesseBookGroupDefText | | OK |
 | $adminAuthToken | coraText | fitnesseBookNewGroupText | | OK |
 | $adminAuthToken | coraText | fitnesseBookNewGroupDefText | | OK |
+| $adminAuthToken | coraText | fitnesseBookSearchText | | OK |
+| $adminAuthToken | coraText | fitnesseBookSearchDefText | | OK |
 
 *!

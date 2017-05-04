@@ -365,6 +365,12 @@ Create metadata needed for link test.
 | $adminAuthToken | coraText | someTestDefText | | OK |
 | $adminAuthToken | coraText | testLinkText | | OK |
 | $adminAuthToken | coraText | testLinkDefText | | OK |
-| $adminAuthToken | metadataRecordLink | testRecordLinkWithNoDataLink | | |
+| $adminAuthToken | coraText | testBookRelatedPersonTypeItemCollectionVarDefText | | OK |
+| $adminAuthToken | coraText | testBookRelatedPersonTypeItemCollectionVarText | | OK |
+| $adminAuthToken | coraText | someText | | OK |
+| $adminAuthToken | coraText | someDefText | | OK |
+| $adminAuthToken | coraText | subBushTypeItemCollectionVarDefText | | OK |
+| $adminAuthToken | coraText | subBushTypeItemCollectionVarText | | OK |
+| $adminAuthToken | metadataRecordLink | testRecordLinkWithNoDataLink | | OK |
 
 *!

@@ -107,5 +107,7 @@ Remove data created for this test
 | $adminAuthToken | metadataCollectionItem | aFitnesseItem | | OK |
 | $adminAuthToken | coraText | aFitnesseItemText | | OK |
 | $adminAuthToken | coraText | aFitnesseItemDefText | | OK |
+| $adminAuthToken | coraText | fitnesseBookCollectionVarDefText | | OK |
+| $adminAuthToken | coraText | fitnesseBookCollectionVarText | | OK |
 
 *!

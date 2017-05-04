@@ -118,5 +118,7 @@
 | $adminAuthToken | coraText | someFitnesseDefText | | OK |
 | $adminAuthToken | coraText | someTestText | | OK |
 | $adminAuthToken | coraText | someTestDefText | | OK |
+| $adminAuthToken | coraText | firstItemCollectionVarText | | OK |
+| $adminAuthToken | coraText | firstItemCollectionVarDefText | | OK |
 
 *!
