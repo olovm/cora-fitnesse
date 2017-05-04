@@ -143,5 +143,9 @@
 | $adminAuthToken | metadataCollectionItem | testUnknownItem | | OK |
 | $adminAuthToken | coraText | someTestText | | OK |
 | $adminAuthToken | coraText | someTestDefText | | OK |
+| $adminAuthToken | coraText | testYesNoCollectionVarDefText | | OK |
+| $adminAuthToken | coraText | testYesNoCollectionVarText | | OK |
+| $adminAuthToken | coraText | testYesNoUnknownItemCollectionVarDefText | | OK |
+| $adminAuthToken | coraText | testYesNoUnknownItemCollectionVarText | | OK |
 
 *!
