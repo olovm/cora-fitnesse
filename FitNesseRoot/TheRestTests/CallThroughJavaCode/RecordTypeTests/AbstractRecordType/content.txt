@@ -192,10 +192,12 @@ An abstract record type (the parent) is used to create a group of record type si
 | $adminAuthToken | presentationVar | petalColourPVar | | OK |
 | $adminAuthToken | presentationVar | petalColourOutputPVar | | OK |
 | $adminAuthToken | metadataTextVariable | petalColourTextVar | | OK |
-| $adminAuthToken | presentationCollectionVar | testTypePCollVar | | OK |
-| $adminAuthToken | presentationCollectionVar | testTypeOutputPCollVar | | OK |
-| $adminAuthToken | presentationCollectionVar | typePCollVar | | OK |
-| $adminAuthToken | presentationCollectionVar | typeOutputPCollVar | | OK |
+| $adminAuthToken | presentationCollectionVar | flowerTypePCollVar | | OK |
+| $adminAuthToken | presentationCollectionVar | flowerTypeOutputPCollVar | | OK |
+| $adminAuthToken | presentationCollectionVar | treeTypePCollVar | | OK |
+| $adminAuthToken | presentationCollectionVar | treeTypeOutputPCollVar | | OK |
+| $adminAuthToken | presentationCollectionVar | plantTypePCollVar | | OK |
+| $adminAuthToken | presentationCollectionVar | plantTypeOutputPCollVar | | OK |
 | $adminAuthToken | metadataCollectionVariable | flowerTypeCollectionVar | | OK |
 | $adminAuthToken | metadataCollectionVariable | treeTypeCollectionVar | | OK |
 | $adminAuthToken | metadataCollectionVariable | plantTypeCollectionVar | | OK |
