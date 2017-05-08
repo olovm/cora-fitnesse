@@ -31,21 +31,22 @@ Metadata for recordLinks(metadataRecordLink) is a standard part of the system, s
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | metadataItemCollection | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"subBushTypeItemCollection"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"nameInData","value":"subBushType"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"smallBigItemCollectionText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"smallBigItemCollectionDefText"}]},{"name":"collectionItemReferences","children":[{"name":"ref","repeatId":"0","children":[{"name":"linkedRecordType","value":"metadataCollectionItem"},{"name":"linkedRecordId","value":"smallItem"}]},{"name":"ref","repeatId":"1","children":[{"name":"linkedRecordType","value":"metadataCollectionItem"},{"name":"linkedRecordId","value":"bigItem"}]}]}],"attributes":{"type":"itemCollection"}} | | CREATED |
+| $adminAuthToken | metadataItemCollection | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"subBushTypeCollection"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"nameInData","value":"subBushType"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"smallBigItemCollectionText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"smallBigItemCollectionDefText"}]},{"name":"collectionItemReferences","children":[{"name":"ref","repeatId":"0","children":[{"name":"linkedRecordType","value":"metadataCollectionItem"},{"name":"linkedRecordId","value":"smallItem"}]},{"name":"ref","repeatId":"1","children":[{"name":"linkedRecordType","value":"metadataCollectionItem"},{"name":"linkedRecordId","value":"bigItem"}]}]}],"attributes":{"type":"itemCollection"}} | | CREATED |
 
 *!
 !***> Create collectionVariable (subBushTypeCollectionVar)
 
-!| RecordEndpointFixture |
+!| comment |
+| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | metadataCollectionVariable | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"subBushTypeCollectionVar"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"nameInData","value":"testType"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestText"}],"name":"textId"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestDefText"}],"name":"defTextId"},{"name":"refCollection","children":[{"name":"linkedRecordType","value":"metadataItemCollection"},{"name":"linkedRecordId","value":"subBushTypeItemCollection"}]}],"attributes":{"type":"collectionVariable"}} | {"record":{"data":{"children":[{"children":[{"name":"id","value":"subBushTypeCollectionVar"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/system/cora","accept":"application/vnd.uub.record+json"}},"name":"dataDivider"},{"name":"type","value":"metadataCollectionVariable"},{"name":"createdBy","value":"131313"}],"name":"recordInfo"},{"name":"nameInData","value":"testType"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestText"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/text/someTestText","accept":"application/vnd.uub.record+json"}},"name":"textId"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestDefText"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/text/someTestDefText","accept":"application/vnd.uub.record+json"}},"name":"defTextId"},{"children":[{"name":"linkedRecordType","value":"metadataItemCollection"},{"name":"linkedRecordId","value":"subBushTypeItemCollection"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/metadataItemCollection/subBushTypeItemCollection","accept":"application/vnd.uub.record+json"}},"name":"refCollection"}],"name":"metadata","attributes":{"type":"collectionVariable"}},"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/metadataCollectionVariable/subBushTypeCollectionVar","accept":"application/vnd.uub.record+json"},"read_incoming_links":{"requestMethod":"GET","rel":"read_incoming_links","url":"${systemUnderTestUrl}rest/record/metadataCollectionVariable/subBushTypeCollectionVar/incomingLinks","accept":"application/vnd.uub.recordList+json"},"update":{"requestMethod":"POST","rel":"update","contentType":"application/vnd.uub.record+json","url":"${systemUnderTestUrl}rest/record/metadataCollectionVariable/subBushTypeCollectionVar","accept":"application/vnd.uub.record+json"}}}} | CREATED |
+| $adminAuthToken | metadataCollectionVariable | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"subBushTypeCollectionVar"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"nameInData","value":"testType"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestText"}],"name":"textId"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestDefText"}],"name":"defTextId"},{"name":"refCollection","children":[{"name":"linkedRecordType","value":"metadataItemCollection"},{"name":"linkedRecordId","value":"subBushTypeCollection"}]}],"attributes":{"type":"collectionVariable"}} | {"record":{"data":{"children":[{"children":[{"name":"id","value":"subBushTypeCollectionVar"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/system/cora","accept":"application/vnd.uub.record+json"}},"name":"dataDivider"},{"name":"type","value":"metadataCollectionVariable"},{"name":"createdBy","value":"131313"}],"name":"recordInfo"},{"name":"nameInData","value":"testType"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestText"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/text/someTestText","accept":"application/vnd.uub.record+json"}},"name":"textId"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestDefText"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/text/someTestDefText","accept":"application/vnd.uub.record+json"}},"name":"defTextId"},{"children":[{"name":"linkedRecordType","value":"metadataItemCollection"},{"name":"linkedRecordId","value":"subBushTypeCollection"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/metadataItemCollection/subBushTypeCollection","accept":"application/vnd.uub.record+json"}},"name":"refCollection"}],"name":"metadata","attributes":{"type":"collectionVariable"}},"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/metadataCollectionVariable/subBushTypeCollectionVar","accept":"application/vnd.uub.record+json"},"read_incoming_links":{"requestMethod":"GET","rel":"read_incoming_links","url":"${systemUnderTestUrl}rest/record/metadataCollectionVariable/subBushTypeCollectionVar/incomingLinks","accept":"application/vnd.uub.recordList+json"},"update":{"requestMethod":"POST","rel":"update","contentType":"application/vnd.uub.record+json","url":"${systemUnderTestUrl}rest/record/metadataCollectionVariable/subBushTypeCollectionVar","accept":"application/vnd.uub.record+json"}}}} | CREATED |
 
 *!
 !***> Create collectionVariable (subBushSmallTypeCollectionVar)
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | metadataCollectionVariable | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"subBushSmallTypeCollectionVar"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"nameInData","value":"testType"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestText"}],"name":"textId"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestDefText"}],"name":"defTextId"},{"name":"refCollection","children":[{"name":"linkedRecordType","value":"metadataItemCollection"},{"name":"linkedRecordId","value":"subBushTypeItemCollection"}]},{"name":"refParentId","value":"subBushTypeCollectionVar"},{"name":"finalValue","value":"small"}],"attributes":{"type":"collectionVariable"}} | | CREATED |
+| $adminAuthToken | metadataCollectionVariable | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"subBushSmallTypeCollectionVar"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"nameInData","value":"testType"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestText"}],"name":"textId"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestDefText"}],"name":"defTextId"},{"name":"refCollection","children":[{"name":"linkedRecordType","value":"metadataItemCollection"},{"name":"linkedRecordId","value":"subBushTypeCollection"}]},{"name":"refParentId","value":"subBushTypeCollectionVar"},{"name":"finalValue","value":"small"}],"attributes":{"type":"collectionVariable"}} | | CREATED |
 
 *!
 !***> Create texts for recordLinks
@@ -220,8 +221,7 @@ Create metadata needed for link test.
 | authToken | type | json | testCreateRecord? | getStatusType? |
 | $adminAuthToken | metadataCollectionItem | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testAuthorItem"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"nameInData","value":"author"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"authorItemText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"authorItemDefText"}]}],"attributes":{"type":"collectionItem"}} | | CREATED |
 | $adminAuthToken | metadataCollectionItem | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testIllustratorItem"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"nameInData","value":"illustrator"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"illustratorItemText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"illustratorItemDefText"}]}],"attributes":{"type":"collectionItem"}} | | CREATED |
-| $adminAuthToken | metadataItemCollection | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testBookRelatedPersonTypeItemCollection"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"nameInData","value":"bookRelatedPersonType"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"bookRelatedPersonTypeItemCollectionText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"bookRelatedPersonTypeItemCollectionDefText"}]},{"name":"collectionItemReferences","children":[{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataCollectionItem"},{"name":"linkedRecordId","value":"authorItem"}],"repeatId":"0"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataCollectionItem"},{"name":"linkedRecordId","value":"illustratorItem"}],"repeatId":"1"}]}],"attributes":{"type":"itemCollection"}} | | CREATED |
-| $adminAuthToken | metadataCollectionVariable | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testBookRelatedPersonTypeCollectionVar"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"nameInData","value":"testType"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestText"}],"name":"textId"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestDefText"}],"name":"defTextId"},{"name":"refCollection","children":[{"name":"linkedRecordType","value":"metadataItemCollection"},{"name":"linkedRecordId","value":"bookRelatedPersonTypeItemCollection"}]}],"attributes":{"type":"collectionVariable"}} | | CREATED |
+| $adminAuthToken | metadataItemCollection | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testBookRelatedPersonTypeCollection"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"nameInData","value":"bookRelatedPersonType"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"bookRelatedPersonTypeItemCollectionText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"bookRelatedPersonTypeItemCollectionDefText"}]},{"name":"collectionItemReferences","children":[{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataCollectionItem"},{"name":"linkedRecordId","value":"authorItem"}],"repeatId":"0"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataCollectionItem"},{"name":"linkedRecordId","value":"illustratorItem"}],"repeatId":"1"}]}],"attributes":{"type":"itemCollection"}} | | CREATED |
 | $adminAuthToken | metadataCollectionVariable | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testBookRelatedPersonAuthorTypeCollectionVar"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"nameInData","value":"testType"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestText"}],"name":"textId"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestDefText"}],"name":"defTextId"},{"name":"refCollection","children":[{"name":"linkedRecordType","value":"metadataItemCollection"},{"name":"linkedRecordId","value":"bookRelatedPersonTypeItemCollection"}]},{"name":"refParentId","value":"bookRelatedPersonTypeCollectionVar"},{"name":"finalValue","value":"author"}],"attributes":{"type":"collectionVariable"}} | | CREATED |
 | $adminAuthToken | metadataCollectionVariable | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testBookRelatedPersonIllustratorTypeCollectionVar"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"nameInData","value":"testType"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestText"}],"name":"textId"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestDefText"}],"name":"defTextId"},{"name":"refCollection","children":[{"name":"linkedRecordType","value":"metadataItemCollection"},{"name":"linkedRecordId","value":"bookRelatedPersonTypeItemCollection"}]},{"name":"refParentId","value":"bookRelatedPersonTypeCollectionVar"},{"name":"finalValue","value":"illustrator"}],"attributes":{"type":"collectionVariable"}} | | CREATED |
 
@@ -288,10 +288,10 @@ Create metadata needed for link test.
 | $adminAuthToken | bush | bush2 | | OK |
 | $adminAuthToken | bush | bush1 | | OK |
 | $adminAuthToken | search | bushSearch | | OK |
-| $adminAuthToken | recordType | bush | | OK |
 | $adminAuthToken | search | bushLinkingToOtherBushSearch | | OK |
-| $adminAuthToken | recordType | bushLinkingToOtherBush | | OK |
 | $adminAuthToken | search | testPersonSearch | | OK |
+| $adminAuthToken | recordType | bush | | OK |
+| $adminAuthToken | recordType | bushLinkingToOtherBush | | OK |
 | $adminAuthToken | presentationRecordLink | testBookRelatedPersonAuthorPLink | | OK |
 | $adminAuthToken | presentationRecordLink | testBookRelatedPersonAuthorOutputPLink | | OK |
 | $adminAuthToken | metadataRecordLink | testBookRelatedPersonAuthorLink | | OK |
@@ -321,38 +321,40 @@ Create metadata needed for link test.
 | $adminAuthToken | metadataGroup | testBookGroup | | OK |
 | $adminAuthToken | presentationRecordLink | testPLink | | OK |
 | $adminAuthToken | presentationRecordLink | testOutputPLink | | OK |
-| $adminAuthToken | metadataRecordLink | testLink | | OK |
-| $adminAuthToken | metadataRecordLink | testLinkPathLink | | OK |
 | $adminAuthToken | presentationRecordLink | testParentFinalValuePLink | | OK |
 | $adminAuthToken | presentationRecordLink | testParentFinalValueOutputPLink | | OK |
-| $adminAuthToken | metadataRecordLink | testParentFinalValueLink | | OK |
 | $adminAuthToken | presentationRecordLink | testRecordPLink | | OK |
 | $adminAuthToken | presentationRecordLink | testRecordOutputPLink | | OK |
+| $adminAuthToken | metadataRecordLink | testParentFinalValueLink | | OK |
+| $adminAuthToken | metadataRecordLink | testLink | | OK |
+| $adminAuthToken | metadataRecordLink | testLinkPathLink | | OK |
 | $adminAuthToken | metadataRecordLink | testRecordLinkWithAttributeLink | | OK |
 | $adminAuthToken | presentationVar | testFirstNamePVar | | OK |
 | $adminAuthToken | presentationVar | testFirstNameOutputPVar | | OK |
-| $adminAuthToken | metadataTextVariable | testFirstNameTextVar | | OK |
 | $adminAuthToken | presentationVar | testLastNamePVar | | OK |
 | $adminAuthToken | presentationVar | testLastNameOutputPVar | | OK |
-| $adminAuthToken | metadataTextVariable | testLastNameTextVar | | OK |
 | $adminAuthToken | presentationVar | testBookTitlePVar | | OK |
 | $adminAuthToken | presentationVar | testBookTitleOutputPVar | | OK |
+| $adminAuthToken | metadataTextVariable | testFirstNameTextVar | | OK |
+| $adminAuthToken | metadataTextVariable | testLastNameTextVar | | OK |
 | $adminAuthToken | metadataTextVariable | testBookTitleTextVar | | OK |
-| $adminAuthToken | presentationCollectionVar | testTypePCollVar | | OK |
-| $adminAuthToken | presentationCollectionVar | testTypeOutputPCollVar | | OK |
+| $adminAuthToken | presentationCollectionVar | subBushSmallTypePCollVar | | OK |
 | $adminAuthToken | presentationCollectionVar | subBushTypePCollVar | | OK |
 | $adminAuthToken | presentationCollectionVar | subBushTypeOutputPCollVar | | OK |
+| $adminAuthToken | presentationCollectionVar | subBushSmallTypeOutputPCollVar | | OK |
+| $adminAuthToken | presentationCollectionVar | testBookRelatedPersonTypePCollVar | | OK |
+| $adminAuthToken | presentationCollectionVar | testBookRelatedPersonTypeOutputPCollVar | | OK |
+| $adminAuthToken | presentationCollectionVar | testBookRelatedPersonAuthorTypePCollVar | | OK |
+| $adminAuthToken | presentationCollectionVar | testBookRelatedPersonAuthorTypeOutputPCollVar | | OK |
+| $adminAuthToken | presentationCollectionVar | testBookRelatedPersonIllustratorTypePCollVar | | OK |
+| $adminAuthToken | presentationCollectionVar | testBookRelatedPersonIllustratorTypeOutputPCollVar | | OK |
 | $adminAuthToken | metadataCollectionVariable | subBushTypeCollectionVar | | OK |
 | $adminAuthToken | metadataCollectionVariable | subBushSmallTypeCollectionVar | | OK |
 | $adminAuthToken | metadataCollectionVariable | testBookRelatedPersonTypeCollectionVar | | OK |
 | $adminAuthToken | metadataCollectionVariable | testBookRelatedPersonAuthorTypeCollectionVar | | OK |
 | $adminAuthToken | metadataCollectionVariable | testBookRelatedPersonIllustratorTypeCollectionVar | | OK |
-| $adminAuthToken | metadataCollectionVariable | subBushTypeItemCollectionVar | | OK |
-| $adminAuthToken | metadataItemCollection | subBushTypeItemCollection | | OK |
-| $adminAuthToken | presentationCollectionVar | bookRelatedPersonTypeOutputPCollVar | | OK |
-| $adminAuthToken | presentationCollectionVar | bookRelatedPersonTypePCollVar | | OK |
-| $adminAuthToken | metadataCollectionVariable | testBookRelatedPersonTypeItemCollectionVar | | OK |
-| $adminAuthToken | metadataItemCollection | testBookRelatedPersonTypeItemCollection | | OK |
+| $adminAuthToken | metadataItemCollection | subBushTypeCollection | | OK |
+| $adminAuthToken | metadataItemCollection | testBookRelatedPersonTypeCollection | | OK |
 | $adminAuthToken | metadataCollectionItem | smallItem | | OK |
 | $adminAuthToken | metadataCollectionItem | bigItem | | OK |
 | $adminAuthToken | metadataCollectionItem | testAuthorItem | | OK |
@@ -365,12 +367,12 @@ Create metadata needed for link test.
 | $adminAuthToken | coraText | someTestDefText | | OK |
 | $adminAuthToken | coraText | testLinkText | | OK |
 | $adminAuthToken | coraText | testLinkDefText | | OK |
-| $adminAuthToken | coraText | testBookRelatedPersonTypeItemCollectionVarDefText | | OK |
-| $adminAuthToken | coraText | testBookRelatedPersonTypeItemCollectionVarText | | OK |
+| $adminAuthToken | coraText | testBookRelatedPersonTypeCollectionVarDefText | | OK |
+| $adminAuthToken | coraText | testBookRelatedPersonTypeCollectionVarText | | OK |
 | $adminAuthToken | coraText | someText | | OK |
 | $adminAuthToken | coraText | someDefText | | OK |
-| $adminAuthToken | coraText | subBushTypeItemCollectionVarDefText | | OK |
-| $adminAuthToken | coraText | subBushTypeItemCollectionVarText | | OK |
+| $adminAuthToken | coraText | subBushTypeCollectionVarDefText | | OK |
+| $adminAuthToken | coraText | subBushTypeCollectionVarText | | OK |
 | $adminAuthToken | metadataRecordLink | testRecordLinkWithNoDataLink | | OK |
 
 *!
