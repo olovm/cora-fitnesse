@@ -10,6 +10,14 @@ Create metadata needed for link test.
 
 Metadata for recordLinks(metadataRecordLink) is a standard part of the system, so we can use it right away.
 
+!***< Create metadataGroups for recordType Tree
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | metadataGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"treeGroup"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"tree"},{"name":"excludePGroupCreation","value":"true"},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"recordInfo"}]}],"repeatId":"0"}]}],"attributes":{"type":"group"}} | | CREATED |
+| $adminAuthToken | metadataGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"bigItem"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"nameInData","value":"big"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"bigItemText"}],"name":"textId"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"bigItemDefText"}],"name":"defTextId"}],"attributes":{"type":"collectionItem"}} | | CREATED |
+
+*!
 !***< Create collectionItems
 
 !| RecordEndpointFixture |
