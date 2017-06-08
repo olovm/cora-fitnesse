@@ -262,6 +262,10 @@ Try to create data that is invalid
 | $adminAuthToken | presentationVar | testTreeNamePVar | | OK |
 | $adminAuthToken | presentationVar | testTreeNameOutputPVar | | OK |
 | $adminAuthToken | metadataTextVariable | testTreeNameTextVar | | OK |
+| $adminAuthToken | coraText | subBushTypeCollectionVarText | | OK |
+| $adminAuthToken | coraText | subBushTypeCollectionVarDefText | | OK |
+| $adminAuthToken | coraText | bushUsingFinalValueParentLinkSearchText | | OK |
+| $adminAuthToken | coraText | bushUsingFinalValueParentLinkSearchDefText | | OK |
 
 *!
 !2 Links with attributes
@@ -294,8 +298,8 @@ Create metadata needed for link test.
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | metadataRecordLink | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testBookRelatedPersonAuthorLink"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"nameInData","value":"relatedPerson"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testLinkText"}],"name":"textId"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testLinkDefText"}],"name":"defTextId"},{"name":"attributeReferences","children":[{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataCollectionVariable"},{"name":"linkedRecordId","value":"testBookRelatedPersonAuthorTypeCollectionVar"}],"repeatId":"0"}]},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"testPerson"}],"name":"linkedRecordType"}],"attributes":{"type":"recordLink"}} | | CREATED |
-| $adminAuthToken | metadataRecordLink | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testBookRelatedPersonIllustratorLink"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"nameInData","value":"relatedPerson"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testLinkText"}],"name":"textId"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testLinkDefText"}],"name":"defTextId"},{"name":"attributeReferences","children":[{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataCollectionVariable"},{"name":"linkedRecordId","value":"testBookRelatedPersonIllustratorTypeCollectionVar"}],"repeatId":"0"}]},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"testPerson"}],"name":"linkedRecordType"}],"attributes":{"type":"recordLink"}} | | CREATED |
+| $adminAuthToken | metadataRecordLink | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testBookRelatedPersonAuthorLink"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"nameInData","value":"relatedPerson"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someFitnesseText"}],"name":"textId"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someFitnesseDefText"}],"name":"defTextId"},{"name":"attributeReferences","children":[{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataCollectionVariable"},{"name":"linkedRecordId","value":"testBookRelatedPersonAuthorTypeCollectionVar"}],"repeatId":"0"}]},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"testPerson"}],"name":"linkedRecordType"}],"attributes":{"type":"recordLink"}} | | CREATED |
+| $adminAuthToken | metadataRecordLink | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testBookRelatedPersonIllustratorLink"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"nameInData","value":"relatedPerson"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someFitnesseText"}],"name":"textId"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someFitnesseDefText"}],"name":"defTextId"},{"name":"attributeReferences","children":[{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataCollectionVariable"},{"name":"linkedRecordId","value":"testBookRelatedPersonIllustratorTypeCollectionVar"}],"repeatId":"0"}]},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"testPerson"}],"name":"linkedRecordType"}],"attributes":{"type":"recordLink"}} | | CREATED |
 
 *!
 !***> Create metadataTextVariables and metadataGroups and recordTypes for book (person will be linked from book as relatedAuthor and relatedIllustrator)
@@ -376,5 +380,7 @@ Create metadata needed for link test.
 | $adminAuthToken | presentationGroup | someFitnesseListPGroup | | OK |
 | $adminAuthToken | metadataGroup | treeGroup | | OK |
 | $adminAuthToken | metadataGroup | treeNewGroup | | OK |
+| $adminAuthToken | coraText | testBookRelatedPersonTypeCollectionVarText | | OK |
+| $adminAuthToken | coraText | testBookRelatedPersonTypeCollectionVarDefText | | OK |
 
 *!
