@@ -47,12 +47,20 @@ and metadata about the search, linking to the defined metadataGroup, and a list 
 *!
 then it is possible to do the search:
 
-!2 Perform a search
+!2 Update book to create index data!!!
+!***> Update user, fitnesseUser, setting status to inactive
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | book | book:33106877843047 | {"name":"book","children":[{"name":"recordInfo","children":[{"name":"id","value":"book:33106877843047"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"book"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"12345"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"bookTitle","value":"En  andra test bok"}]} | | OK |
+
+*!
+!2 Perform a search(use book for now as it has metadata for search)
 !***> Test searches that will work
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | aSearchId | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"text","value":""}]}]}]} | | OK |
+| $adminAuthToken | bookSearch | {"name":"bookSearch","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"searchTitle","value":"En*"}]}]}]} | | OK |
 
 *!
 The searchForm has to be filled out correctly or the search will not be done, but instead errors returned:
