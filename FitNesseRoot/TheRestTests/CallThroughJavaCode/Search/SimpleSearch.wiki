@@ -60,7 +60,7 @@ then it is possible to do the search:
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | bookSearch | {"name":"bookSearch","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"searchTitle","value":"En*"}]}]}]} | | OK |
+| $adminAuthToken | bookSearch | {"name":"bookSearch","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"titleSearchTerm","value":"En*"}]}]}]} | | OK |
 
 *!
 The searchForm has to be filled out correctly or the search will not be done, but instead errors returned:
