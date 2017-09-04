@@ -1,0 +1,187 @@
+---
+Test
+---
+!contents -R2 -g -p -f -h
+| import |
+| se.uu.ub.cora.fitnesse |
+
+add tests for:
+
+ * searchTerms connected to a data subGroup
+ * searchTerms connected to data that can be repeated
+ * searchTerms connected to choice from a collection
+ * two different searchTerms added to the same data, such as title to searchterm title and text
+ * more than one result
+ * no results
+ * remove data should no longer be found in search
+
+!1 Testing search type final
+Searching in Cora is based on two parts, retrieving specific data from a record for indexing, and searching in the indexed data. The data that is to be retrieved from a record is controlled by metadata, more precisely when a defined variable is added to a metadataGroup, a link to a searchTerm may also be added indicating that this variable is to be retrieved when collecting data for indexing.
+
+The example for this test will use testNews as recordType.
+
+!***> Create metadata for recordType testNews
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | recordType | {"name":"recordType","children":[{"name":"abstract","value":"false"},{"name":"recordInfo","children":[{"name":"id","value":"testNews"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"userSuppliedId","value":"true"}]} | | CREATED |
+
+*!
+!***> Create metadataTextVariable testNewsTitleTextVar
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | metadataTextVariable | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsTitleTextVar"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"testNewsTitle"},{"name":"regEx","value":"(^[0-9A-Za-z:-_\\s]{2,50}$)"}],"attributes":{"type":"textVariable"}} | | CREATED |
+
+*!
+!***> Create searchTerm testNewsTitleSearchTerm
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | searchTerm | {"name":"searchTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsTitleSearchTerm"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"searchTermType","value":"final"},{"name":"searchFieldRef","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testNewsTitleTextVar"}]},{"name":"indexType","value":"indexTypeString","repeatId":"0"}]} | | CREATED |
+
+*!
+!***> Add testNewsTitleTextVar to  autocreated testNews(New)Group with a link to testNewsTitleSearchTerm
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | metadataGroup | testNewsNewGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsNewGroup"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"metadataGroup"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"testNews"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testNewsNewGroupText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testNewsNewGroupDefText"}]},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"recordInfoNewGroup"}]}],"repeatId":"0"},{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testNewsTitleTextVar"}]},{"name":"childRefSearchTerm","children":[{"name":"linkedRecordType","value":"searchTerm"},{"name":"linkedRecordId","value":"testNewsTitleSearchTerm"}],"repeatId":"0"}],"repeatId":"1"}]},{"name":"excludePGroupCreation","value":"true"}],"attributes":{"type":"group"}} | | OK |
+| $adminAuthToken | metadataGroup | testNewsGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsGroup"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"metadataGroup"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"testNews"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testNewsGroupText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testNewsGroupDefText"}]},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"recordInfoGroup"}]}],"repeatId":"0"},{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testNewsTitleTextVar"}]},{"name":"childRefSearchTerm","children":[{"name":"linkedRecordType","value":"searchTerm"},{"name":"linkedRecordId","value":"testNewsTitleSearchTerm"}],"repeatId":"0"}],"repeatId":"1"}]},{"name":"excludePGroupCreation","value":"true"}],"attributes":{"type":"group"}} | | OK |
+
+*!
+A search in Cora needs metadata for the searchForm, a fully defined metadataGroup, and a fully defined presentation (not yet added):
+
+!2 
+!2 Add metadata for a new search
+!***> Create metadataTextVariable (testSearchTitleTextVar) Note, nameInData is must be the id of the searchTerm we want to search in
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | metadataTextVariable | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testSearchTitleTextVar"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"testNewsTitleSearchTerm"},{"name":"regEx","value":".*"}],"attributes":{"type":"textVariable"}} | | CREATED |
+
+*!
+!***> Create a metadataGroup(testUserIncludePartGroup, testUserIncludeGroup, testUserSearchGroup)
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | metadataGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsSearchIncludePartGroup"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"includePart"},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testSearchTitleTextVar"}]}],"repeatId":"0"}]}],"attributes":{"type":"group"}} | | CREATED |
+| $adminAuthToken | metadataGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsSearchIncludeGroup"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"nameInData","value":"include"},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testNewsSearchIncludePartGroup"}]}],"repeatId":"0"}]}],"attributes":{"type":"group"}} | | CREATED |
+| $adminAuthToken | metadataGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsSearchGroup"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"nameInData","value":"searchNewsExtended"},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testNewsSearchIncludeGroup"}]}],"repeatId":"0"}]}],"attributes":{"type":"group"}} | | CREATED |
+
+*!
+and metadata about the search, linking to the defined metadataGroup, and a list of linked recordTypes to search in:
+
+!2 Add a new search
+a search is automatically created for each recordType (testNewsSearch), so we call this one testNewsExtendedSearch
+
+!***> Create data of recordType search
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | search | {"name":"search","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsExtendedSearch"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"metadataId","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"testNewsSearchGroup"}]},{"name":"presentationId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"testNewsSearchPGroup"}]},{"name":"recordTypeToSearchIn","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"testNews"}],"repeatId":"0"},{"name":"searchGroup","value":"autocomplete"}]} | | CREATED |
+
+*!
+then it is possible to do the search:
+
+!2 Create testNews to create index data!!!
+!***> Create a testNews
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | testNews | {"name":"testNews","children":[{"name":"recordInfo","children":[{"name":"id","value":"news1"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"testNewsTitle","value":"En titel"}]} | | CREATED |
+
+*!
+!2 Perform a search
+!***> Test searches that will work
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | testNewsExtendedSearch | {"name":"searchNewsExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testNewsTitleSearchTerm","value":"En*"}]}]}]} | | OK |
+
+*!
+The searchForm has to be filled out correctly or the search will not be done, but instead errors returned:
+
+!2 Performing incorrect searches
+!***> Test searches that will not work (nonExisting searchId, missing searchData(json), broken searchData(json), not valid searchData(json)
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | aSearchIdThatDoesNotExist | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"text","value":""}]}]}]} | No record exists with recordId: aSearchIdThatDoesNotExist | NOT_FOUND |
+| $adminAuthToken | aSearchId | | Unable to parse json string | BAD_REQUEST |
+| $adminAuthToken | aSearchId | {"NOTname":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"text","value":""}]}]}]} | Error parsing jsonObject: Group data must contain key: name | BAD_REQUEST |
+| $userAuthToken | testNewsExtendedSearch | {"name":"search","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"text","value":""}]}]}]} | | FORBIDDEN |
+
+*!
+!1 Reset testdata
+Remove data created for this test
+
+!***> Delete created data
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | testNews | news1 | | OK |
+
+*!
+
+!***> Delete metadata for created search
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | search | testNewsExtendedSearch | | OK |
+| $adminAuthToken | coraText | testNewsExtendedSearchText | | OK |
+| $adminAuthToken | coraText | testNewsExtendedSearchDefText | | OK |
+| $adminAuthToken | search | testNewsSearch | | OK |
+| $adminAuthToken | coraText | testNewsSearchText | | OK |
+| $adminAuthToken | coraText | testNewsSearchDefText | | OK |
+| $adminAuthToken | presentationGroup | testNewsSearchPGroup | | OK |
+| $adminAuthToken | presentationGroup | testNewsSearchOutputPGroup | | OK |
+| $adminAuthToken | metadataGroup | testNewsSearchGroup | | OK |
+| $adminAuthToken | presentationGroup | testNewsSearchIncludePGroup | | OK |
+| $adminAuthToken | presentationGroup | testNewsSearchIncludeOutputPGroup | | OK |
+| $adminAuthToken | metadataGroup | testNewsSearchIncludeGroup | | OK |
+| $adminAuthToken | presentationGroup | testNewsSearchIncludePartPGroup | | OK |
+| $adminAuthToken | presentationGroup | testNewsSearchIncludePartOutputPGroup | | OK |
+| $adminAuthToken | metadataGroup | testNewsSearchIncludePartGroup | | OK |
+| $adminAuthToken | presentationVar | testSearchTitlePVar | | OK |
+| $adminAuthToken | presentationVar | testSearchTitleOutputPVar | | OK |
+| $adminAuthToken | metadataTextVariable | testSearchTitleTextVar | | OK |
+
+*!
+!***> Delete metadata for recordType testNews and autocreated surrounding metadata
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | coraText | testNewsText | | OK |
+| $adminAuthToken | coraText | testNewsDefText | | OK |
+| $adminAuthToken | coraText | testNewsGroupDefText | | OK |
+| $adminAuthToken | coraText | testNewsGroupText | | OK |
+| $adminAuthToken | coraText | testNewsNewGroupText | | OK |
+| $adminAuthToken | coraText | testNewsNewGroupDefText | | OK |
+| $adminAuthToken | recordType | testNews | | OK |
+| $adminAuthToken | presentationGroup | testNewsFormNewPGroup | | OK |
+| $adminAuthToken | presentationGroup | testNewsFormPGroup | | OK |
+| $adminAuthToken | presentationGroup | testNewsViewPGroup | | OK |
+| $adminAuthToken | presentationGroup | testNewsMenuPGroup | | OK |
+| $adminAuthToken | presentationGroup | testNewsListPGroup | | OK |
+| $adminAuthToken | metadataGroup | testNewsNewGroup | | OK |
+| $adminAuthToken | metadataGroup | testNewsGroup | | OK |
+
+*!
+!***> Delete metadata for additional metadata added to testNews
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | coraText | testNewsTitleTextVarText | | OK |
+| $adminAuthToken | coraText | testNewsTitleTextVarDefText | | OK |
+| $adminAuthToken | presentationVar | testNewsTitlePVar | | OK |
+| $adminAuthToken | presentationVar | testNewsTitleOutputPVar | | OK |
+| $adminAuthToken | metadataTextVariable | testNewsTitleTextVar | | OK |
+
+*!
+!***> Delete searchTerm
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | searchTerm | testNewsTitleSearchTerm | | OK |
+
+*!

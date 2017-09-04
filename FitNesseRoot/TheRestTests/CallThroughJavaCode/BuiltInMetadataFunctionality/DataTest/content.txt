@@ -55,7 +55,7 @@
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
 | $adminAuthToken | bike | monark | | OK |
-| $adminAuthToken | search | bikeSearch | | |
+| $adminAuthToken | search | bikeSearch | | OK |
 | $adminAuthToken | recordType | bike | | OK |
 | $adminAuthToken | presentationGroup | someFitnesseMenuPGroup | | OK |
 | $adminAuthToken | presentationGroup | someFitnesseListPGroup | | OK |

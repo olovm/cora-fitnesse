@@ -11,4 +11,4 @@ Search in Cora needs a few things to work:
 New searches can be defined at any time, as long as they use existing searchTerms 
 
 
-Tests for setting up and running searches can be found [[here.][>SimpleSearch]]
+Tests for setting up and running searches can be found [[here.][>SearchFinal]]
