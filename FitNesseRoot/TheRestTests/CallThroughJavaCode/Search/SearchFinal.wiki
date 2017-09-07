@@ -27,26 +27,37 @@ The example for this test will use testNews as recordType.
 | $adminAuthToken | recordType | {"name":"recordType","children":[{"name":"abstract","value":"false"},{"name":"recordInfo","children":[{"name":"id","value":"testNews"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"userSuppliedId","value":"true"}]} | | CREATED |
 
 *!
-!***> Create metadataTextVariable testNewsTitleTextVar
+!***> Create metadataTextVariable testNewsTitleTextVar, testNewsSubTitleTextVar, testNewsHeadingTextVar
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
 | $adminAuthToken | metadataTextVariable | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsTitleTextVar"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"testNewsTitle"},{"name":"regEx","value":"(^[0-9A-Za-z:-_\\s]{2,50}$)"}],"attributes":{"type":"textVariable"}} | | CREATED |
+| $adminAuthToken | metadataTextVariable | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsSubTitleTextVar"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"testNewsSubTitle"},{"name":"regEx","value":"(^[0-9A-Za-z:-_\\s]{2,50}$)"}],"attributes":{"type":"textVariable"}} | | CREATED |
+| $adminAuthToken | metadataTextVariable | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsHeadingTextVar"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"testNewsHeading"},{"name":"regEx","value":"(^[0-9A-Za-z:-_\\s]{2,50}$)"}],"attributes":{"type":"textVariable"}} | | CREATED |
 
 *!
-!***> Create searchTerm testNewsTitleSearchTerm
+!***> Create searchTerm testNewsTitleSearchTerm, testNewsSubTitleSearchTerm, testNewsHeadingSearchTerm
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
 | $adminAuthToken | searchTerm | {"name":"searchTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsTitleSearchTerm"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"searchTermType","value":"final"},{"name":"searchFieldRef","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testNewsTitleTextVar"}]},{"name":"indexType","value":"indexTypeString","repeatId":"0"}]} | | CREATED |
+| $adminAuthToken | searchTerm | {"name":"searchTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsSubTitleSearchTerm"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"searchTermType","value":"final"},{"name":"searchFieldRef","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testNewsSubTitleTextVar"}]},{"name":"indexType","value":"indexTypeString","repeatId":"0"}]} | | CREATED |
+| $adminAuthToken | searchTerm | {"name":"searchTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsHeadingSearchTerm"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"searchTermType","value":"final"},{"name":"searchFieldRef","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testNewsHeadingTextVar"}]},{"name":"indexType","value":"indexTypeString","repeatId":"0"}]} | | CREATED |
+
+*!
+!***> Create metadataGroup testNewsSectionGroup
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | metadataGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsSectionGroup"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"testNewsSectionGroup"},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testNewsHeadingTextVar"}]},{"name":"childRefSearchTerm","children":[{"name":"linkedRecordType","value":"searchTerm"},{"name":"linkedRecordId","value":"testNewsHeadingSearchTerm"}],"repeatId":"0"}],"repeatId":"0"}]}],"attributes":{"type":"group"}} | | CREATED |
 
 *!
 !***> Add testNewsTitleTextVar to  autocreated testNews(New)Group with a link to testNewsTitleSearchTerm
 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | metadataGroup | testNewsNewGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsNewGroup"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"metadataGroup"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"testNews"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testNewsNewGroupText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testNewsNewGroupDefText"}]},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"recordInfoNewGroup"}]}],"repeatId":"0"},{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testNewsTitleTextVar"}]},{"name":"childRefSearchTerm","children":[{"name":"linkedRecordType","value":"searchTerm"},{"name":"linkedRecordId","value":"testNewsTitleSearchTerm"}],"repeatId":"0"}],"repeatId":"1"}]},{"name":"excludePGroupCreation","value":"true"}],"attributes":{"type":"group"}} | | OK |
-| $adminAuthToken | metadataGroup | testNewsGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsGroup"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"metadataGroup"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"testNews"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testNewsGroupText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testNewsGroupDefText"}]},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"recordInfoGroup"}]}],"repeatId":"0"},{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testNewsTitleTextVar"}]},{"name":"childRefSearchTerm","children":[{"name":"linkedRecordType","value":"searchTerm"},{"name":"linkedRecordId","value":"testNewsTitleSearchTerm"}],"repeatId":"0"}],"repeatId":"1"}]},{"name":"excludePGroupCreation","value":"true"}],"attributes":{"type":"group"}} | | OK |
+| $adminAuthToken | metadataGroup | testNewsNewGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsNewGroup"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"metadataGroup"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"testNews"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testNewsNewGroupText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testNewsNewGroupDefText"}]},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"recordInfoNewGroup"}]}],"repeatId":"0"},{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testNewsTitleTextVar"}]},{"name":"childRefSearchTerm","children":[{"name":"linkedRecordType","value":"searchTerm"},{"name":"linkedRecordId","value":"testNewsTitleSearchTerm"}],"repeatId":"0"}],"repeatId":"1"},{"name":"childReference","children":[{"name":"repeatMin","value":"0"},{"name":"repeatMax","value":"X"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testNewsSubTitleTextVar"}]},{"name":"childRefSearchTerm","children":[{"name":"linkedRecordType","value":"searchTerm"},{"name":"linkedRecordId","value":"testNewsSubTitleSearchTerm"}],"repeatId":"0"}],"repeatId":"2"},{"name":"childReference","children":[{"name":"repeatMin","value":"0"},{"name":"repeatMax","value":"X"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testNewsSectionGroup"}]}],"repeatId":"3"}]},{"name":"excludePGroupCreation","value":"true"}],"attributes":{"type":"group"}} | | OK |
+| $adminAuthToken | metadataGroup | testNewsGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsGroup"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"metadataGroup"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"testNews"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testNewsGroupText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testNewsGroupDefText"}]},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"recordInfoGroup"}]}],"repeatId":"0"},{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testNewsTitleTextVar"}]},{"name":"childRefSearchTerm","children":[{"name":"linkedRecordType","value":"searchTerm"},{"name":"linkedRecordId","value":"testNewsTitleSearchTerm"}],"repeatId":"0"}],"repeatId":"1"},{"name":"childReference","children":[{"name":"repeatMin","value":"0"},{"name":"repeatMax","value":"X"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testNewsSubTitleTextVar"}]},{"name":"childRefSearchTerm","children":[{"name":"linkedRecordType","value":"searchTerm"},{"name":"linkedRecordId","value":"testNewsSubTitleSearchTerm"}],"repeatId":"0"}],"repeatId":"2"},{"name":"childReference","children":[{"name":"repeatMin","value":"0"},{"name":"repeatMax","value":"X"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testNewsSectionGroup"}]}],"repeatId":"3"}]},{"name":"excludePGroupCreation","value":"true"}],"attributes":{"type":"group"}} | | OK |
 
 *!
 A search in Cora needs metadata for the searchForm, a fully defined metadataGroup, and a fully defined presentation (not yet added):
@@ -60,7 +71,7 @@ A search in Cora needs metadata for the searchForm, a fully defined metadataGrou
 | $adminAuthToken | metadataTextVariable | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testSearchTitleTextVar"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"testNewsTitleSearchTerm"},{"name":"regEx","value":".*"}],"attributes":{"type":"textVariable"}} | | CREATED |
 
 *!
-!***> Create a metadataGroup(testUserIncludePartGroup, testUserIncludeGroup, testUserSearchGroup)
+!***> Create a metadataGroup(testNewsSearchIncludePartGroup, testNewsSearchIncludeGroup, testNewsSearchGroup)
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
@@ -83,19 +94,51 @@ a search is automatically created for each recordType (testNewsSearch), so we ca
 *!
 then it is possible to do the search:
 
-!2 Create testNews to create index data!!!
-!***> Create a testNews
+!2 Perform a search before any data is indexed for the configured searchterms (DISABLED)
+Some search implementations might not handle searching before any data has been indexed, this test makes sure we get back a result with no hits instead of an error. It is for instance possible to get these kind of errors when using Solr in schemaless mode, if it is not handled correctly server side, as Solr autoconfigures fields based on indexed data and will throw an error on searches using autoconfigured fields that has had no data indexed for them yet.
+
+!***> Test searching before any data is indexed
+
+!| Comment |
+| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | testNewsExtendedSearch | {"name":"searchNewsExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testNewsTitleSearchTerm","value":"NOT_FOUND"}]}]}]} | {"dataList":{"fromNo":"0","data":[],"totalNo":"0","containDataOfType":"mix","toNo":"0"}} | OK |
+
+*!
+!2 Create and remove testNews there should be no indexed record left (DISABLED)
+!***> Create and remove a testNews, then search should give no hits
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
 | $adminAuthToken | testNews | {"name":"testNews","children":[{"name":"recordInfo","children":[{"name":"id","value":"news1"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"testNewsTitle","value":"En titel"}]} | | CREATED |
 
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | testNews | news1 | | OK |
+
+!| Comment |
+| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | testNewsExtendedSearch | {"name":"searchNewsExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testNewsTitleSearchTerm","value":"En*"}]}]}]} | {"dataList":{"fromNo":"0","data":[],"totalNo":"0","containDataOfType":"mix","toNo":"0"}} | OK |
+
 *!
-!2 Perform a search
+!2 Create testNews to create index data
+!***> Create a testNews
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | testNews | {"name":"testNews","children":[{"name":"recordInfo","children":[{"name":"id","value":"news1"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"testNewsTitle","value":"En titel"}]} | | CREATED |
+| $adminAuthToken | testNews | {"name":"testNews","children":[{"name":"recordInfo","children":[{"name":"id","value":"news2"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"testNewsTitle","value":"En annan"}]} | | CREATED |
+| $adminAuthToken | testNews | {"name":"testNews","children":[{"name":"recordInfo","children":[{"name":"id","value":"newsSub1"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"testNewsTitle","value":"A title with a sub title"},{"name":"testNewsSubTitle","value":"A sub title","repeatId":"0"},{"name":"testNewsSubTitle","value":"The second sub title","repeatId":"1"}]} | | CREATED |
+| $adminAuthToken | testNews | {"name":"testNews","children":[{"name":"recordInfo","children":[{"name":"id","value":"newsHeading1"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"testNewsTitle","value":"A title with a heading"},{"name":"testNewsSubTitle","value":"A sub title","repeatId":"0"},{"name":"testNewsSubTitle","value":"The second sub title before a heading","repeatId":"1"},{"name":"testNewsSectionGroup","children":[{"name":"testNewsHeading","value":"A news heading"}],"repeatId":"0"}]} | | CREATED |
+
+*!
+!2 Perform searches
 !***> Test searches that will work
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | testNewsExtendedSearch | {"name":"searchNewsExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testNewsTitleSearchTerm","value":"NOT_FOUND"}]}]}]} | | OK |
 | $adminAuthToken | testNewsExtendedSearch | {"name":"searchNewsExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testNewsTitleSearchTerm","value":"En*"}]}]}]} | | OK |
 
 *!
@@ -120,9 +163,11 @@ Remove data created for this test
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
 | $adminAuthToken | testNews | news1 | | OK |
+| $adminAuthToken | testNews | news2 | | OK |
+| $adminAuthToken | testNews | newsSub1 | | OK |
+| $adminAuthToken | testNews | newsHeading1 | | OK |
 
 *!
-
 !***> Delete metadata for created search
 
 !| RecordEndpointFixture |
@@ -145,6 +190,9 @@ Remove data created for this test
 | $adminAuthToken | presentationVar | testSearchTitlePVar | | OK |
 | $adminAuthToken | presentationVar | testSearchTitleOutputPVar | | OK |
 | $adminAuthToken | metadataTextVariable | testSearchTitleTextVar | | OK |
+| $adminAuthToken | presentationVar | testNewsSubTitlePVar | | OK |
+| $adminAuthToken | presentationVar | testNewsSubTitleOutputPVar | | OK |
+| $adminAuthToken | metadataTextVariable | testNewsSubTitleTextVar | | OK |
 
 *!
 !***> Delete metadata for recordType testNews and autocreated surrounding metadata
@@ -165,6 +213,9 @@ Remove data created for this test
 | $adminAuthToken | presentationGroup | testNewsListPGroup | | OK |
 | $adminAuthToken | metadataGroup | testNewsNewGroup | | OK |
 | $adminAuthToken | metadataGroup | testNewsGroup | | OK |
+| $adminAuthToken | presentationGroup | testNewsSectionPGroup | | OK |
+| $adminAuthToken | presentationGroup | testNewsSectionOutputPGroup | | OK |
+| $adminAuthToken | metadataGroup | testNewsSectionGroup | | OK |
 
 *!
 !***> Delete metadata for additional metadata added to testNews
@@ -176,6 +227,9 @@ Remove data created for this test
 | $adminAuthToken | presentationVar | testNewsTitlePVar | | OK |
 | $adminAuthToken | presentationVar | testNewsTitleOutputPVar | | OK |
 | $adminAuthToken | metadataTextVariable | testNewsTitleTextVar | | OK |
+| $adminAuthToken | presentationVar | testNewsHeadingPVar | | OK |
+| $adminAuthToken | presentationVar | testNewsHeadingOutputPVar | | OK |
+| $adminAuthToken | metadataTextVariable | testNewsHeadingTextVar | | OK |
 
 *!
 !***> Delete searchTerm
@@ -183,5 +237,7 @@ Remove data created for this test
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
 | $adminAuthToken | searchTerm | testNewsTitleSearchTerm | | OK |
+| $adminAuthToken | searchTerm | testNewsSubTitleSearchTerm | | OK |
+| $adminAuthToken | searchTerm | testNewsHeadingSearchTerm | | OK |
 
 *!

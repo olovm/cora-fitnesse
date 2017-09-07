@@ -2,3 +2,10 @@
 Test
 ---
 !contents -R2 -g -p -f -h
+Add tests for combinations of searches such as:
+
+ * Title and x
+ * Title or x
+ * include 
+ * exclude 
+ * etc...
