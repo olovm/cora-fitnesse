@@ -94,13 +94,12 @@ a search is automatically created for each recordType (testNewsSearch), so we ca
 *!
 then it is possible to do the search:
 
-!2 Perform a search before any data is indexed for the configured searchterms (DISABLED)
+!2 Perform a search before any data is indexed for the configured searchterms
 Some search implementations might not handle searching before any data has been indexed, this test makes sure we get back a result with no hits instead of an error. It is for instance possible to get these kind of errors when using Solr in schemaless mode, if it is not handled correctly server side, as Solr autoconfigures fields based on indexed data and will throw an error on searches using autoconfigured fields that has had no data indexed for them yet.
 
 !***> Test searching before any data is indexed
 
-!| Comment |
-| RecordEndpointFixture |
+!| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
 | $adminAuthToken | testNewsExtendedSearch | {"name":"searchNewsExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testNewsTitleSearchTerm","value":"NOT_FOUND"}]}]}]} | {"dataList":{"fromNo":"0","data":[],"totalNo":"0","containDataOfType":"mix","toNo":"0"}} | OK |
 
