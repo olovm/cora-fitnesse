@@ -104,7 +104,7 @@ Some search implementations might not handle searching before any data has been 
 | $adminAuthToken | testNewsExtendedSearch | {"name":"searchNewsExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testNewsTitleSearchTerm","value":"NOT_FOUND"}]}]}]} | {"dataList":{"fromNo":"0","data":[],"totalNo":"0","containDataOfType":"mix","toNo":"0"}} | OK |
 
 *!
-!2 Create and remove testNews there should be no indexed record left (DISABLED)
+!2 Create and remove testNews there should be no indexed record left
 !***> Create and remove a testNews, then search should give no hits
 
 !| RecordEndpointFixture |
@@ -115,8 +115,7 @@ Some search implementations might not handle searching before any data has been 
 | authToken | type | id | testDeleteRecord? | getStatusType? |
 | $adminAuthToken | testNews | news1 | | OK |
 
-!| Comment |
-| RecordEndpointFixture |
+!| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
 | $adminAuthToken | testNewsExtendedSearch | {"name":"searchNewsExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testNewsTitleSearchTerm","value":"En*"}]}]}]} | {"dataList":{"fromNo":"0","data":[],"totalNo":"0","containDataOfType":"mix","toNo":"0"}} | OK |
 
