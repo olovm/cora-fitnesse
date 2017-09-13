@@ -40,21 +40,21 @@
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | collectIndexTerm | {"name":"collectTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"someIndexTerm"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"someName"},{"name":"extraData","children":[{"name":"indexType","value":"indexTypeId"}]}],"attributes":{"type":"index"}} | | CREATED |
+| $adminAuthToken | collectIndexTerm | {"name":"collectTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"someTestIndexTerm"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"someName"},{"name":"extraData","children":[{"name":"indexType","value":"indexTypeId"}]}],"attributes":{"type":"index"}} | | CREATED |
 
 *!
 !***> Read collectIndexTerm
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | collectIndexTerm | someIndexTerm | | OK |
+| $adminAuthToken | collectIndexTerm | someTestIndexTerm | | OK |
 
 *!
 !***> Update data of recordType collectIndexTerm
 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | collectIndexTerm | someIndexTerm | {"name":"collectTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"someIndexTerm"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"collectIndexTerm"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"someName"},{"name":"extraData","children":[{"name":"indexType","value":"indexTypeBoolean"}]}],"attributes":{"type":"index"}} | | OK |
+| $adminAuthToken | collectIndexTerm | someTestIndexTerm | {"name":"collectTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"someTestIndexTerm"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"collectIndexTerm"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"someName"},{"name":"extraData","children":[{"name":"indexType","value":"indexTypeBoolean"}]}],"attributes":{"type":"index"}} | | OK |
 
 *!
 !***> List recordType collectIndexTerm
@@ -84,21 +84,21 @@
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | collectPermissionTerm | {"name":"collectPermissionTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"somePersmissionTerm"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"somePermission"},{"name":"extraData","children":[{"name":"permissionName","value":"somePermissionName"}]}],"attributes":{"type":"permission"}} | | CREATED |
+| $adminAuthToken | collectPermissionTerm | {"name":"collectPermissionTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"someTestPersmissionTerm"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"somePermission"},{"name":"extraData","children":[{"name":"permissionName","value":"somePermissionName"}]}],"attributes":{"type":"permission"}} | | CREATED |
 
 *!
 !***> Read collectPermissionTerm
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | collectPermissionTerm | somePersmissionTerm | | OK |
+| $adminAuthToken | collectPermissionTerm | someTestPersmissionTerm | | OK |
 
 *!
 !***> Update data of recordType collectPermissionTerm
 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | collectPermissionTerm | somePersmissionTerm | {"name":"collectPermissionTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"somePersmissionTerm"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"collectPermissionTerm"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"somePermission"},{"name":"extraData","children":[{"name":"permissionName","value":"someNewPermissionName"}]}],"attributes":{"type":"permission"}} | | OK |
+| $adminAuthToken | collectPermissionTerm | someTestPersmissionTerm | {"name":"collectPermissionTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"someTestPersmissionTerm"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"collectPermissionTerm"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"somePermission"},{"name":"extraData","children":[{"name":"permissionName","value":"someNewPermissionName"}]}],"attributes":{"type":"permission"}} | | OK |
 
 *!
 !***> List recordType collectPermissionTerm
@@ -112,7 +112,7 @@
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $adminAuthToken | collectIndexTerm | someIndexTerm | | OK |
-| $adminAuthToken | collectPermissionTerm | somePersmissionTerm | | OK |
+| $adminAuthToken | collectIndexTerm | someTestIndexTerm | | OK |
+| $adminAuthToken | collectPermissionTerm | someTestPersmissionTerm | | OK |
 
 *!
