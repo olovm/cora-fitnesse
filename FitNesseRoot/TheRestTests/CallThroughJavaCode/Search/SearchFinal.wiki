@@ -20,6 +20,14 @@ Searching in Cora is based on two parts, retrieving specific data from a record 
 
 The example for this test will use testNews as recordType.
 
+Basic layout:!-
+-!testNewsGroup!-
+-!recordInfoGroup (1-1)!-
+-!testNewsTitleTextVar (1-1) > testNewsTitleSearchTerm!-
+-!testNewsSubTitleTextVar (0-X) > testNewsSubTitleSearchTerm!-
+-!testNewsSectionGroup (0-X)!-
+-!testNewsHeadingTextVar (1-1) > testNewsHeadingSearchTerm
+
 !***> Create metadata for recordType testNews
 
 !| RecordEndpointFixture |
@@ -69,13 +77,15 @@ A search in Cora needs metadata for the searchForm, a fully defined metadataGrou
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
 | $adminAuthToken | metadataTextVariable | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testSearchTitleTextVar"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"testNewsTitleSearchTerm"},{"name":"regEx","value":".*"}],"attributes":{"type":"textVariable"}} | | CREATED |
+| $adminAuthToken | metadataTextVariable | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testSearchSubTitleTextVar"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"testNewsSubTitleSearchTerm"},{"name":"regEx","value":".*"}],"attributes":{"type":"textVariable"}} | | CREATED |
+| $adminAuthToken | metadataTextVariable | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testSearchHeadingTextVar"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"testNewsHeadingSearchTerm"},{"name":"regEx","value":".*"}],"attributes":{"type":"textVariable"}} | | CREATED |
 
 *!
 !***> Create a metadataGroup(testNewsSearchIncludePartGroup, testNewsSearchIncludeGroup, testNewsSearchGroup)
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | metadataGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsSearchIncludePartGroup"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"includePart"},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testSearchTitleTextVar"}]}],"repeatId":"0"}]}],"attributes":{"type":"group"}} | | CREATED |
+| $adminAuthToken | metadataGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsSearchIncludePartGroup"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"includePart"},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"0"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testSearchTitleTextVar"}]}],"repeatId":"0"},{"name":"childReference","children":[{"name":"repeatMin","value":"0"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testSearchSubTitleTextVar"}]}],"repeatId":"1"},{"name":"childReference","children":[{"name":"repeatMin","value":"0"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testSearchHeadingTextVar"}]}],"repeatId":"2"}]}],"attributes":{"type":"group"}} | | CREATED |
 | $adminAuthToken | metadataGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsSearchIncludeGroup"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"nameInData","value":"include"},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testNewsSearchIncludePartGroup"}]}],"repeatId":"0"}]}],"attributes":{"type":"group"}} | | CREATED |
 | $adminAuthToken | metadataGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsSearchGroup"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"nameInData","value":"searchNewsExtended"},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testNewsSearchIncludeGroup"}]}],"repeatId":"0"}]}],"attributes":{"type":"group"}} | | CREATED |
 
@@ -121,23 +131,44 @@ Some search implementations might not handle searching before any data has been 
 
 *!
 !2 Create testNews to create index data
-!***> Create a testNews
+!***> Create test data news1 (title), news2 (title), newsSub1(title, subTitle, subTitle), newsHeading (title, subTitle, subTitle, section (title) )
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
 | $adminAuthToken | testNews | {"name":"testNews","children":[{"name":"recordInfo","children":[{"name":"id","value":"news1"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"testNewsTitle","value":"En titel"}]} | | CREATED |
 | $adminAuthToken | testNews | {"name":"testNews","children":[{"name":"recordInfo","children":[{"name":"id","value":"news2"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"testNewsTitle","value":"En annan"}]} | | CREATED |
 | $adminAuthToken | testNews | {"name":"testNews","children":[{"name":"recordInfo","children":[{"name":"id","value":"newsSub1"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"testNewsTitle","value":"A title with a sub title"},{"name":"testNewsSubTitle","value":"A sub title","repeatId":"0"},{"name":"testNewsSubTitle","value":"The second sub title","repeatId":"1"}]} | | CREATED |
-| $adminAuthToken | testNews | {"name":"testNews","children":[{"name":"recordInfo","children":[{"name":"id","value":"newsHeading1"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"testNewsTitle","value":"A title with a heading"},{"name":"testNewsSubTitle","value":"A sub title","repeatId":"0"},{"name":"testNewsSubTitle","value":"The second sub title before a heading","repeatId":"1"},{"name":"testNewsSectionGroup","children":[{"name":"testNewsHeading","value":"A news heading"}],"repeatId":"0"}]} | | CREATED |
+| $adminAuthToken | testNews | {"name":"testNews","children":[{"name":"recordInfo","children":[{"name":"id","value":"newsHeading1"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"testNewsTitle","value":"A title with a heading"},{"name":"testNewsSubTitle","value":"A sub title with a heading","repeatId":"0"},{"name":"testNewsSubTitle","value":"The second sub title with a heading","repeatId":"1"},{"name":"testNewsSectionGroup","children":[{"name":"testNewsHeading","value":"A news heading"}],"repeatId":"0"}]} | | CREATED |
 
 *!
 !2 Perform searches
-!***> Test searches that will work
+!***> A search with no results
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
 | $adminAuthToken | testNewsExtendedSearch | {"name":"searchNewsExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testNewsTitleSearchTerm","value":"NOT_FOUND"}]}]}]} | | OK |
+
+*!
+!***> A search searching for title using "En*"
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
 | $adminAuthToken | testNewsExtendedSearch | {"name":"searchNewsExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testNewsTitleSearchTerm","value":"En*"}]}]}]} | | OK |
+
+*!
+!***> A search searching for subTitle using "A title with a sub title" and then "The second sub title" both should give the same result
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | testNewsExtendedSearch | {"name":"searchNewsExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testNewsSubTitleSearchTerm","value":"\"A sub title\""}]}]}]} | {"dataList":{"fromNo":"0","data":[{"record":{"data":{"children":[{"children":[{"name":"id","value":"newsSub1"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"http://localhost:8080/therest/rest/record/system/testSystem","accept":"application/vnd.uub.record+json"}},"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"testNews"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"http://localhost:8080/therest/rest/record/recordType/testNews","accept":"application/vnd.uub.record+json"}},"name":"type"},{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"http://localhost:8080/therest/rest/record/user/131313","accept":"application/vnd.uub.record+json"}},"name":"createdBy"}],"name":"recordInfo"},{"name":"testNewsTitle","value":"A title with a sub title"},{"repeatId":"0","name":"testNewsSubTitle","value":"A sub title"},{"repeatId":"1","name":"testNewsSubTitle","value":"The second sub title"}],"name":"testNews"},"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"http://localhost:8080/therest/rest/record/testNews/newsSub1","accept":"application/vnd.uub.record+json"},"update":{"requestMethod":"POST","rel":"update","contentType":"application/vnd.uub.record+json","url":"http://localhost:8080/therest/rest/record/testNews/newsSub1","accept":"application/vnd.uub.record+json"},"delete":{"requestMethod":"DELETE","rel":"delete","url":"http://localhost:8080/therest/rest/record/testNews/newsSub1"}}}}],"totalNo":"1","containDataOfType":"mix","toNo":"1"}} | OK |
+| $adminAuthToken | testNewsExtendedSearch | {"name":"searchNewsExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testNewsSubTitleSearchTerm","value":"\"The second sub title\""}]}]}]} | {"dataList":{"fromNo":"0","data":[{"record":{"data":{"children":[{"children":[{"name":"id","value":"newsSub1"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"http://localhost:8080/therest/rest/record/system/testSystem","accept":"application/vnd.uub.record+json"}},"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"testNews"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"http://localhost:8080/therest/rest/record/recordType/testNews","accept":"application/vnd.uub.record+json"}},"name":"type"},{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"http://localhost:8080/therest/rest/record/user/131313","accept":"application/vnd.uub.record+json"}},"name":"createdBy"}],"name":"recordInfo"},{"name":"testNewsTitle","value":"A title with a sub title"},{"repeatId":"0","name":"testNewsSubTitle","value":"A sub title"},{"repeatId":"1","name":"testNewsSubTitle","value":"The second sub title"}],"name":"testNews"},"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"http://localhost:8080/therest/rest/record/testNews/newsSub1","accept":"application/vnd.uub.record+json"},"update":{"requestMethod":"POST","rel":"update","contentType":"application/vnd.uub.record+json","url":"http://localhost:8080/therest/rest/record/testNews/newsSub1","accept":"application/vnd.uub.record+json"},"delete":{"requestMethod":"DELETE","rel":"delete","url":"http://localhost:8080/therest/rest/record/testNews/newsSub1"}}}}],"totalNo":"1","containDataOfType":"mix","toNo":"1"}} | OK |
+
+*!
+!***> A search searching for testNewsHeadingSearchTerm
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | testNewsExtendedSearch | {"name":"searchNewsExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testNewsHeadingSearchTerm","value":"\"A news heading\""}]}]}]} | =~/"toNo":"1"/ | OK |
 
 *!
 The searchForm has to be filled out correctly or the search will not be done, but instead errors returned:
@@ -157,6 +188,8 @@ The searchForm has to be filled out correctly or the search will not be done, bu
 Remove data created for this test
 
 !***> Delete created data
+
+!
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
@@ -188,9 +221,15 @@ Remove data created for this test
 | $adminAuthToken | presentationVar | testSearchTitlePVar | | OK |
 | $adminAuthToken | presentationVar | testSearchTitleOutputPVar | | OK |
 | $adminAuthToken | metadataTextVariable | testSearchTitleTextVar | | OK |
+| $adminAuthToken | presentationVar | testSearchSubTitlePVar | | OK |
+| $adminAuthToken | presentationVar | testSearchSubTitleOutputPVar | | OK |
+| $adminAuthToken | metadataTextVariable | testSearchSubTitleTextVar | | OK |
 | $adminAuthToken | presentationVar | testNewsSubTitlePVar | | OK |
 | $adminAuthToken | presentationVar | testNewsSubTitleOutputPVar | | OK |
 | $adminAuthToken | metadataTextVariable | testNewsSubTitleTextVar | | OK |
+| $adminAuthToken | presentationVar | testSearchHeadingPVar | | OK |
+| $adminAuthToken | presentationVar | testSearchHeadingOutputPVar | | OK |
+| $adminAuthToken | metadataTextVariable | testSearchHeadingTextVar | | OK |
 
 *!
 !***> Delete metadata for recordType testNews and autocreated surrounding metadata
