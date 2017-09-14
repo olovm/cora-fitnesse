@@ -84,7 +84,7 @@
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | collectPermissionTerm | {"name":"collectPermissionTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"someTestPersmissionTerm"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"somePermission"},{"name":"extraData","children":[{"name":"permissionName","value":"somePermissionName"}]}],"attributes":{"type":"permission"}} | | CREATED |
+| $adminAuthToken | collectPermissionTerm | {"name":"collectPermissionTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"someTestPersmissionTerm"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"somePermission"},{"name":"extraData","children":[{"name":"permissionKey","value":"somePermissionKey"}]}],"attributes":{"type":"permission"}} | | CREATED |
 
 *!
 !***> Read collectPermissionTerm
@@ -98,7 +98,7 @@
 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | collectPermissionTerm | someTestPersmissionTerm | {"name":"collectPermissionTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"someTestPersmissionTerm"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"collectPermissionTerm"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"somePermission"},{"name":"extraData","children":[{"name":"permissionName","value":"someNewPermissionName"}]}],"attributes":{"type":"permission"}} | | OK |
+| $adminAuthToken | collectPermissionTerm | someTestPersmissionTerm | {"name":"collectPermissionTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"someTestPersmissionTerm"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"collectPermissionTerm"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"somePermission"},{"name":"extraData","children":[{"name":"permissionKey","value":"someNewPermissionKey"}]}],"attributes":{"type":"permission"}} | | OK |
 
 *!
 !***> List recordType collectPermissionTerm
