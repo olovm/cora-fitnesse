@@ -327,11 +327,46 @@ Create metadata needed for link test.
 | $adminAuthToken | testBook | book1 | {"name":"book","children":[{"name":"recordInfo","children":[{"name":"id","value":"book1"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"testBook"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"bookTitle","value":"Harry Potter"},{"name":"relatedPerson","children":[{"name":"linkedRecordType","value":"testPerson"},{"name":"linkedRecordId","value":"person1"}],"attributes":{"testType":"author"}},{"name":"relatedPerson","children":[{"name":"linkedRecordType","value":"testPerson"},{"name":"linkedRecordId","value":"person3"}],"attributes":{"testType":"illustrator"}}]} | {"record":{"data":{"children":[{"children":[{"name":"id","value":"book1"},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"testBook"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/recordType/testBook","accept":"application/vnd.uub.record+json"}},"name":"type"},{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/user/131313","accept":"application/vnd.uub.record+json"}},"name":"createdBy"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/system/testSystem","accept":"application/vnd.uub.record+json"}},"name":"dataDivider"}],"name":"recordInfo"},{"name":"bookTitle","value":"Harry Potter"},{"children":[{"name":"linkedRecordType","value":"testPerson"},{"name":"linkedRecordId","value":"person1"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/testPerson/person1","accept":"application/vnd.uub.record+json"}},"name":"relatedPerson","attributes":{"testType":"author"}},{"children":[{"name":"linkedRecordType","value":"testPerson"},{"name":"linkedRecordId","value":"person3"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/testPerson/person3","accept":"application/vnd.uub.record+json"}},"name":"relatedPerson","attributes":{"testType":"illustrator"}}],"name":"book"},"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/testBook/book1","accept":"application/vnd.uub.record+json"},"update":{"requestMethod":"POST","rel":"update","contentType":"application/vnd.uub.record+json","url":"${systemUnderTestUrl}rest/record/testBook/book1","accept":"application/vnd.uub.record+json"},"delete":{"requestMethod":"DELETE","rel":"delete","url":"${systemUnderTestUrl}rest/record/testBook/book1"}}}} | OK |
 
 *!
+!***> Create rule and role for fitnesseUser to be able to read testBook
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | permissionRule | {"name":"permissionRule","children":[{"name":"recordInfo","children":[{"name":"id","value":"testBookRead"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.read","repeatId":"0"}],"attributes":{"type":"action"}},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.testBook","repeatId":"0"}],"attributes":{"type":"recordType"}},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.*","repeatId":"0"}],"attributes":{"type":"delete"}},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.*","repeatId":"0"}],"attributes":{"type":"publish"}},{"name":"activeStatus","value":"active"}]} | | CREATED |
+| $adminAuthToken | permissionRole | {"name":"permissionRole","children":[{"name":"recordInfo","children":[{"name":"id","value":"testBookRead"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"permissionRuleLink","children":[{"name":"linkedRecordType","value":"permissionRule"},{"name":"linkedRecordId","value":"testBookRead"}],"repeatId":"0"},{"name":"activeStatus","value":"active"}]} | | CREATED |
+
+*!
+!***> Update user, fitnesse to have access to read book but not person
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | systemOneUser | 121212 | {"name":"user","children":[{"name":"recordInfo","children":[{"name":"id","value":"121212"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"systemOneUser"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"userId","value":"fitnesseUser@system.cora.uu.se"},{"name":"userFirstname","value":"Fitnesse"},{"name":"userLastname","value":"User"},{"name":"userRole","children":[{"name":"userRole","children":[{"name":"linkedRecordType","value":"permissionRole"},{"name":"linkedRecordId","value":"fitnesseTextAdmin"}]},{"name":"userRoleRulePart","children":[{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.","repeatId":"0"}],"attributes":{"type":"organisation"}}]}],"repeatId":"7175775086411621"},{"name":"activeStatus","value":"active"},{"name":"userAppTokenGroup","children":[{"name":"appTokenLink","children":[{"name":"linkedRecordType","value":"appToken"},{"name":"linkedRecordId","value":"appToken:7175774276485719"}]},{"name":"note","value":"For   fitnesse"}],"repeatId":"7175775086411619"},{"name":"userRole","children":[{"name":"userRole","children":[{"name":"linkedRecordType","value":"permissionRole"},{"name":"linkedRecordId","value":"testBookRead"}]},{"name":"userRoleRulePart","children":[{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.","repeatId":"0"}],"attributes":{"type":"organisation"}}]}],"repeatId":"7175775086411622"}]} | | OK |
+
+*!
+!***> Read book
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | systemOneUser | 121212 | | |
+| $userAuthToken | testBook | book1 | | OK |
+
+*!
+!2 Reset fitnesseUser
+Update user, fitnesseUser to be as it was before testing
+
+!***> Update user, fitnesseUser, restoring original state
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | systemOneUser | 121212 | {"name":"user","children":[{"name":"recordInfo","children":[{"name":"id","value":"121212"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"systemOneUser"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"userId","value":"fitnesseUser@system.cora.uu.se"},{"name":"userFirstname","value":"Fitnesse"},{"name":"userLastname","value":"User"},{"name":"userRole","children":[{"name":"userRole","children":[{"name":"linkedRecordType","value":"permissionRole"},{"name":"linkedRecordId","value":"fitnesseTextAdmin"}]},{"name":"userRoleRulePart","children":[{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.","repeatId":"0"}],"attributes":{"type":"organisation"}}]}],"repeatId":"7175775086411621"},{"name":"activeStatus","value":"active"},{"name":"userAppTokenGroup","children":[{"name":"appTokenLink","children":[{"name":"linkedRecordType","value":"appToken"},{"name":"linkedRecordId","value":"appToken:7175774276485719"}]},{"name":"note","value":"For fitnesse"}],"repeatId":"7175775086411619"}]} | | OK |
+
+*!
 !2 Clean up created data
 !***> Clean up created data
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | permissionRole | testBookRead | | OK |
+| $adminAuthToken | permissionRule | testBookRead | | OK |
 | $adminAuthToken | testBook | book1 | | OK |
 | $adminAuthToken | testPerson | person1 | | OK |
 | $adminAuthToken | testPerson | person3 | | OK |
