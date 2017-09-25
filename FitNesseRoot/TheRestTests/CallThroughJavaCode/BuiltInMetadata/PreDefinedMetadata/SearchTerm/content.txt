@@ -57,41 +57,10 @@
 | $adminAuthToken | searchTerm | myTestSearchTerm | {"name":"searchTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"myTestSearchTerm"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"searchTerm"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"searchTermType","value":"linkedData"},{"name":"searchFieldRef","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"refTextVar"}]},{"name":"indexType","value":"indexTypeNumber","repeatId":"0"},{"name":"searchInCollection","children":[{"name":"linkedRecordType","value":"metadataCollectionVariable"},{"name":"linkedRecordId","value":"testSomeCollectionToSearchInCollectionVar"}]},{"name":"searchInRecordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"person"}]}]} | | OK |
 
 *!
-!2 Test using the created searchTerm
-!***> Create a metadataGroup with a childreference that has a searchTerm
-
-!| RecordEndpointFixture |
-| authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | metadataGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testBookGroup"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"nameInData","value":"book"},{"name":"excludePGroupCreation","value":"true"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestDefText"}]},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"recordInfoGroup"}]}],"repeatId":"0"},{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"bookTitleTextVar"}]},{"name":"childRefSearchTerm","children":[{"name":"linkedRecordType","value":"searchTerm"},{"name":"linkedRecordId","value":"myTestSearchTerm"}],"repeatId":"0"}],"repeatId":"1"}]}],"attributes":{"type":"group"}} | | CREATED |
-
-*!
-!***> Create a recordType(testBook)
-
-!| RecordEndpointFixture |
-| authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | recordType | {"name":"recordType","children":[{"name":"recordInfo","children":[{"name":"id","value":"testBook"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"metadataId","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"testBookGroup"}]},{"name":"abstract","value":"false"},{"name":"presentationViewId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnesseViewPGroup"}]},{"name":"presentationFormId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnesseFormPGroup"}]},{"name":"newMetadataId","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"testBookGroup"}]},{"name":"newPresentationFormId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnesseFormNewPGroup"}]},{"name":"menuPresentationViewId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnesseMenuPGroup"}]},{"name":"listPresentationViewId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnesseListPGroup"}]},{"name":"userSuppliedId","value":"true"},{"name":"selfPresentationViewId","value":"someFitnesseViewSelfPGroup"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestDefText"}]},{"name":"search","children":[{"name":"linkedRecordType","value":"search"},{"name":"linkedRecordId","value":"recordTypeSearch"}]}]} | | CREATED |
-
-*!
-!***> Create a testBook
-
-!| RecordEndpointFixture |
-| authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | testBook | {"name":"book","children":[{"name":"recordInfo","children":[{"name":"id","value":"aBook"},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"12345"}]},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"bookTitle","value":"En andra test bok"}]} | | CREATED |
-
-*!
 !***> Delete created metadataGroup and searchTerm
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $adminAuthToken | testBook | aBook | | OK |
-| $adminAuthToken | search | testBookSearch | | OK |
-| $adminAuthToken | recordType | testBook | | OK |
-| $adminAuthToken | presentationGroup | someFitnesseMenuPGroup | | OK |
-| $adminAuthToken | presentationGroup | someFitnesseListPGroup | | OK |
-| $adminAuthToken | presentationGroup | someFitnesseFormPGroup | | OK |
-| $adminAuthToken | presentationGroup | someFitnesseFormNewPGroup | | OK |
-| $adminAuthToken | presentationGroup | someFitnesseViewPGroup | | OK |
-| $adminAuthToken | metadataGroup | testBookGroup | | OK |
 | $adminAuthToken | searchTerm | myTestSearchTerm | | OK |
 | $adminAuthToken | presentationCollectionVar | testSomeCollectionToSearchInPCollVar | | OK |
 | $adminAuthToken | presentationCollectionVar | testSomeCollectionToSearchInOutputPCollVar | | OK |
