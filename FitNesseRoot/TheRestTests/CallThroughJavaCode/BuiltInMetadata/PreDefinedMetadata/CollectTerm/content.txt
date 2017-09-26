@@ -40,7 +40,7 @@
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | collectIndexTerm | {"name":"collectTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"someTestIndexTerm"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"someName"},{"name":"extraData","children":[{"name":"indexType","value":"indexTypeId"}]}],"attributes":{"type":"index"}} | | CREATED |
+| $adminAuthToken | collectIndexTerm | {"name":"collectTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"someTestIndexTerm"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"someName"},{"name":"extraData","children":[{"name":"indexFieldName","value":"someIndexField"},{"name":"indexType","value":"indexTypeId"}]}],"attributes":{"type":"index"}} | | CREATED |
 
 *!
 !***> Read collectIndexTerm
@@ -54,7 +54,7 @@
 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | collectIndexTerm | someTestIndexTerm | {"name":"collectTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"someTestIndexTerm"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"collectIndexTerm"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"someName"},{"name":"extraData","children":[{"name":"indexType","value":"indexTypeBoolean"}]}],"attributes":{"type":"index"}} | | OK |
+| $adminAuthToken | collectIndexTerm | someTestIndexTerm | {"name":"collectTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"someTestIndexTerm"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"collectIndexTerm"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"someName"},{"name":"extraData","children":[{"name":"indexFieldName","value":"someBooleanField"},{"name":"indexType","value":"indexTypeBoolean"}]}],"attributes":{"type":"index"}} | | OK |
 
 *!
 !***> List recordType collectIndexTerm
