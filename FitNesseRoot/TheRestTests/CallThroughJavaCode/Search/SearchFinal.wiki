@@ -452,8 +452,7 @@ When searching using articleExtendedSearch we should only get the article as a r
 
 !***> One search searching for title in article and on search searching for title in student thesis
 
-!| comment |
-| RecordEndpointFixture |
+!| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
 | $adminAuthToken | testArticleExtendedSearch | {"name":"searchTitleExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testTitleSearchTerm","value":"En titel"}]}]}]} | =~/"toNo":"1"/ | OK |
 | $adminAuthToken | testStudentThesisExtendedSearch | {"name":"searchTitleExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testTitleSearchTerm","value":"En titel"}]}]}]} | =~/"toNo":"1"/ | OK |
