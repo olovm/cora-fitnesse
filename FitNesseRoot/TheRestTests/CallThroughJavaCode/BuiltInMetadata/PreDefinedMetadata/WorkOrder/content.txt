@@ -35,6 +35,20 @@
 | $adminAuthToken | workOrder | $createdId | {"record":{"data":{"children":[{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/system/testSystem","accept":"application/vnd.uub.record+json"}},"name":"dataDivider"},{"name":"id","value":"$createdId"},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"workOrder"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/recordType/workOrder","accept":"application/vnd.uub.record+json"}},"name":"type"},{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/user/131313","accept":"application/vnd.uub.record+json"}},"name":"createdBy"}],"name":"recordInfo"},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"coraText"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/recordType/coraText","accept":"application/vnd.uub.record+json"}},"name":"recordType"},{"name":"recordId","value":"testForWorkOrderText"},{"name":"type","value":"index"}],"name":"workOrder"},"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/workOrder/$createdId","accept":"application/vnd.uub.record+json"},"update":{"requestMethod":"POST","rel":"update","contentType":"application/vnd.uub.record+json","url":"${systemUnderTestUrl}rest/record/workOrder/$createdId","accept":"application/vnd.uub.record+json"},"index":{"requestMethod":"POST","rel":"index","body":{"children":[{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"workOrder"}],"name":"recordType"},{"name":"recordId","value":"$createdId"},{"name":"type","value":"index"}],"name":"workOrder"},"contentType":"application/vnd.uub.record+json","url":"${systemUnderTestUrl}rest/record/workOrder/","accept":"application/vnd.uub.record+json"},"delete":{"requestMethod":"DELETE","rel":"delete","url":"${systemUnderTestUrl}rest/record/workOrder/$createdId"}}}} | OK |
 
 *!
+!***> Create data of recordType workOrder without recordInfo. It is ok, since it is autocreated using extended functionality
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"coraText"}]},{"name":"recordId","value":"testForWorkOrderText"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+
+*!
+!***> Read workOrder
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | workOrder | $createdId2 | {"record":{"data":{"children":[{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"coraText"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/recordType/coraText","accept":"application/vnd.uub.record+json"}},"name":"recordType"},{"name":"recordId","value":"testForWorkOrderText"},{"name":"type","value":"index"},{"children":[{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/system/cora","accept":"application/vnd.uub.record+json"}},"name":"dataDivider"},{"name":"id","value":"$createdId2"},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"workOrder"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/recordType/workOrder","accept":"application/vnd.uub.record+json"}},"name":"type"},{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}],"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/user/131313","accept":"application/vnd.uub.record+json"}},"name":"createdBy"}],"name":"recordInfo"}],"name":"workOrder"},"actionLinks":{"read":{"requestMethod":"GET","rel":"read","url":"${systemUnderTestUrl}rest/record/workOrder/$createdId2","accept":"application/vnd.uub.record+json"},"update":{"requestMethod":"POST","rel":"update","contentType":"application/vnd.uub.record+json","url":"${systemUnderTestUrl}rest/record/workOrder/$createdId2","accept":"application/vnd.uub.record+json"},"index":{"requestMethod":"POST","rel":"index","body":{"children":[{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"workOrder"}],"name":"recordType"},{"name":"recordId","value":"$createdId2"},{"name":"type","value":"index"}],"name":"workOrder"},"contentType":"application/vnd.uub.record+json","url":"${systemUnderTestUrl}rest/record/workOrder/","accept":"application/vnd.uub.record+json"},"delete":{"requestMethod":"DELETE","rel":"delete","url":"${systemUnderTestUrl}rest/record/workOrder/$createdId2"}}}} | OK |
+
+*!
 !***> List recordType workOrder
 
 !| RecordEndpointFixture |
@@ -47,6 +61,7 @@
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
 | $adminAuthToken | workOrder | $createdId | | OK |
+| $adminAuthToken | workOrder | $createdId2 | | OK |
 | $adminAuthToken | coraText | testForWorkOrderText | | OK |
 
 *!
