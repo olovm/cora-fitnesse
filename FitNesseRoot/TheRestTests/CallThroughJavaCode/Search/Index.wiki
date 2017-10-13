@@ -113,14 +113,37 @@ No data is indexed, since no indexTerms has been added to the metadata for testN
 | $adminAuthToken | testNewsExtendedSearch | {"name":"searchNewsExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testNewsTitleSearchTerm","value":"En titel"}]}]}]} | {"dataList":{"fromNo":"0","data":[],"totalNo":"0","containDataOfType":"mix","toNo":"0"}} | OK |
 
 *!
+Update rule for user, to enable the user to created a workOrder
+
+!***> Update permissionRule textAdmin, adding workOrder as recordType
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | permissionRule | textAdmin | {"name":"permissionRule","children":[{"name":"recordInfo","children":[{"name":"id","value":"textAdmin"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"permissionRule"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.*","repeatId":"0"},{"name":"permissionRulePartValue","value":"system.search","repeatId":"1"}],"attributes":{"type":"action"}},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.text","repeatId":"0"},{"name":"permissionRulePartValue","value":"system.textSystemOne","repeatId":"1"},{"name":"permissionRulePartValue","value":"system.coraText","repeatId":"2"},{"name":"permissionRulePartValue","value":"system.workOrder","repeatId":"3"}],"attributes":{"type":"recordType"}},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.*","repeatId":"0"}],"attributes":{"type":"delete"}},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.*","repeatId":"0"}],"attributes":{"type":"publish"}},{"name":"activeStatus","value":"active"}]} | | OK |
+
+*!
+!***> Try to reindex by creating a workOrder as a user (not admin). This should not work since the user don't have permission to index book data
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
+| $userAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"testNews"}]},{"name":"recordId","value":"news1"},{"name":"type","value":"index"}]} | | CREATED | $createdId= |
+
+*!
+!***> Test searching again, this will result in no hits since the data has not been reindexed
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | testNewsExtendedSearch | {"name":"searchNewsExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testNewsTitleSearchTerm","value":"En titel"}]}]}]} | =~/"toNo":"0"/ | OK |
+
+*!
 !***> Reindex by creating a workOrder
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
-| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"testNews"}]},{"name":"recordId","value":"news1"},{"name":"type","value":"index"}]} | | CREATED | $createdId= |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"testNews"}]},{"name":"recordId","value":"news1"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
 
 *!
-!***> Test searching again, still no hits since data has not been indexed after adding collectIndexTerm
+!***> Test searching again, this will result in one hit, since the data has been reindexed
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
@@ -128,15 +151,23 @@ No data is indexed, since no indexTerms has been added to the metadata for testN
 
 *!
 !1 Reset testdata
-Remove data created for this test
+Reset rule for user
 
+!***> Reset permissionRule textAdmin, removing workOrder as recordType
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | permissionRule | textAdmin | {"name":"permissionRule","children":[{"name":"recordInfo","children":[{"name":"id","value":"textAdmin"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"permissionRule"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.*","repeatId":"0"},{"name":"permissionRulePartValue","value":"system.search","repeatId":"1"}],"attributes":{"type":"action"}},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.text","repeatId":"0"},{"name":"permissionRulePartValue","value":"system.textSystemOne","repeatId":"1"},{"name":"permissionRulePartValue","value":"system.coraText","repeatId":"2"}],"attributes":{"type":"recordType"}},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.*","repeatId":"0"}],"attributes":{"type":"delete"}},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.*","repeatId":"0"}],"attributes":{"type":"publish"}},{"name":"activeStatus","value":"active"}]} | | OK |
+
+*!
 !***> Update metadataGroups for testNews, remove indexTerm, otherwise it won't be possible to delete
 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
 | $adminAuthToken | metadataGroup | testNewsGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsGroup"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"metadataGroup"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"testNews"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testNewsGroupText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testNewsGroupDefText"}]},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"recordInfoGroup"}]}],"repeatId":"0"},{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testNewsTitleTextVar"}]}],"repeatId":"1"}]}],"attributes":{"type":"group"}} | | OK |
-
 *!
+Remove data created for this test
+
 !***> Delete created data
 
 !| RecordEndpointFixture |
@@ -164,6 +195,7 @@ Remove data created for this test
 | $adminAuthToken | coraText | testNewsTitleTextVarDefText | | OK |
 | $adminAuthToken | search | testNewsSearch | | OK |
 | $adminAuthToken | workOrder | $createdId | | OK |
+| $adminAuthToken | workOrder | $createdId2 | | OK |
 | $adminAuthToken | recordType | testNews | | OK |
 | $adminAuthToken | presentationGroup | testNewsFormPGroup | | OK |
 | $adminAuthToken | presentationGroup | testNewsFormNewPGroup | | OK |
