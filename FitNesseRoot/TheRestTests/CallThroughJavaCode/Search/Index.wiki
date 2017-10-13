@@ -1,0 +1,211 @@
+---
+Test
+---
+!contents -R2 -g -p -f -h
+| import |
+| se.uu.ub.cora.fitnesse |
+
+!1 Testing to index data using workOrder
+!2 Create metadata for data to index
+!***> Create metadata for recordType testNews
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | recordType | {"name":"recordType","children":[{"name":"abstract","value":"false"},{"name":"recordInfo","children":[{"name":"id","value":"testNews"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"userSuppliedId","value":"true"}]} | | CREATED |
+
+*!
+!***> Create metadataTextVariable testNewsTitleTextVar
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | metadataTextVariable | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsTitleTextVar"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"testNewsTitle"},{"name":"regEx","value":"(^[0-9A-Za-z:-_\\s]{2,50}$)"}],"attributes":{"type":"textVariable"}} | | CREATED |
+
+*!
+!***> Create collectIndexTerms testNewsTitleIndexTerm
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | collectIndexTerm | {"name":"collectTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsTitleIndexTerm"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"testNewsTitleIndexTerm"},{"name":"extraData","children":[{"name":"indexFieldName","value":"newsTitle"},{"name":"indexType","value":"indexTypeString"}]}],"attributes":{"type":"index"}} | | CREATED |
+
+*!
+!***> Update metadataGroups for testNews, adding testNewsTitleTextVar
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | metadataGroup | testNewsNewGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsNewGroup"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"metadataGroup"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"testNews"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testNewsNewGroupText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testNewsNewGroupDefText"}]},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"recordInfoNewGroup"}]}],"repeatId":"0"},{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testNewsTitleTextVar"}]}],"repeatId":"1"}]}],"attributes":{"type":"group"}} | | OK |
+| $adminAuthToken | metadataGroup | testNewsGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsGroup"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"metadataGroup"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"testNews"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testNewsGroupText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testNewsGroupDefText"}]},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"recordInfoGroup"}]}],"repeatId":"0"},{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testNewsTitleTextVar"}]}],"repeatId":"1"}]}],"attributes":{"type":"group"}} | | OK |
+
+*!
+A search in Cora needs metadata for the searchForm, a fully defined metadataGroup, and a fully defined presentation (not yet added):
+
+!2 Create metadata for a new search
+Three different parts are needed to perform a search: An instance of recordType search, containing a list of recordTypes to search in and a link to a metadataGroup. The second part is the metadataGroup (linked from search),!-
+-!its child metadataGroups and the metadataTextVariables defining the search parameters that can be used in this search. The third part is the searchTerms which are read based on the nameInData from each search parameter, and contains information about the indexType that is used to index the data. All this information is used to compose the search query correctly.
+
+!3 Create metadataTextVariable and metadataGroups
+!***> Create metadataTextVariable (testSearchTitleTextVar) Note, nameInData is must be the id of the searchTerm we want to search in
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | metadataTextVariable | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testSearchTitleTextVar"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"testNewsTitleSearchTerm"},{"name":"regEx","value":".*"}],"attributes":{"type":"textVariable"}} | | CREATED |
+
+*!
+!***> Create a metadataGroup(testNewsSearchIncludePartGroup, testNewsSearchIncludeGroup, testNewsSearchGroup)
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | metadataGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsSearchIncludePartGroup"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"includePart"},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"0"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testSearchTitleTextVar"}]}],"repeatId":"0"}]}],"attributes":{"type":"group"}} | | CREATED |
+| $adminAuthToken | metadataGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsSearchIncludeGroup"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"nameInData","value":"include"},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testNewsSearchIncludePartGroup"}]}],"repeatId":"0"}]}],"attributes":{"type":"group"}} | | CREATED |
+| $adminAuthToken | metadataGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsSearchGroup"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"nameInData","value":"searchNewsExtended"},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testNewsSearchIncludeGroup"}]}],"repeatId":"0"}]}],"attributes":{"type":"group"}} | | CREATED |
+
+*!
+!3 Create searchTerms
+!***> Create searchTerm testNewsTitleSearchTerm
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | searchTerm | {"name":"searchTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsTitleSearchTerm"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"searchTermType","value":"final"},{"name":"indexType","value":"indexTypeString","repeatId":"0"},{"name":"indexTerm","children":[{"name":"linkedRecordType","value":"collectIndexTerm"},{"name":"linkedRecordId","value":"testNewsTitleIndexTerm"}]}]} | | CREATED |
+
+*!
+!3 Create a new search that uses the metadataGroup created above
+a search is automatically created for each recordType (testNewsSearch), so we call this one testNewsExtendedSearch
+
+!***> Create data of recordType search
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | search | {"name":"search","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsExtendedSearch"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"metadataId","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"testNewsSearchGroup"}]},{"name":"presentationId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"testNewsSearchPGroup"}]},{"name":"recordTypeToSearchIn","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"testNews"}],"repeatId":"0"},{"name":"searchGroup","value":"autocomplete"}]} | | CREATED |
+
+*!
+then it is possible to do the search:
+
+!2 Perform a search before any data is indexed for testNews
+No data is indexed, since no indexTerms has been added to the metadata for testNews
+
+!2 Perform searches
+!3 Create testNews. This will give no index since data, since no index information exists in metadata
+!***> Create test data news1 (title)
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | testNews | {"name":"testNews","children":[{"name":"recordInfo","children":[{"name":"id","value":"news1"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"testNewsTitle","value":"En titel"}]} | | CREATED |
+
+*!
+!***> Test searching before any data is indexed
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | testNewsExtendedSearch | {"name":"searchNewsExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testNewsTitleSearchTerm","value":"En titel"}]}]}]} | {"dataList":{"fromNo":"0","data":[],"totalNo":"0","containDataOfType":"mix","toNo":"0"}} | OK |
+
+*!
+!3 Perform reindex to make the title searchable
+!***> Update metadataGroups for testNews, adding indexTerm
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | metadataGroup | testNewsGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsGroup"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"metadataGroup"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"testNews"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testNewsGroupText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testNewsGroupDefText"}]},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"recordInfoGroup"}]}],"repeatId":"0"},{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testNewsTitleTextVar"}]},{"name":"childRefCollectTerm","children":[{"name":"linkedRecordType","value":"collectIndexTerm"},{"name":"linkedRecordId","value":"testNewsTitleIndexTerm"}],"attributes":{"type":"index"},"repeatId":"0"}],"repeatId":"1"}]}],"attributes":{"type":"group"}} | | OK |
+
+*!
+!***> Test searching again, still no hits since data has not been indexed after adding collectIndexTerm
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | testNewsExtendedSearch | {"name":"searchNewsExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testNewsTitleSearchTerm","value":"En titel"}]}]}]} | {"dataList":{"fromNo":"0","data":[],"totalNo":"0","containDataOfType":"mix","toNo":"0"}} | OK |
+
+*!
+Update rule for user, to enable the user to created a workOrder
+
+!***> Update permissionRule textAdmin, adding workOrder as recordType
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | permissionRule | textAdmin | {"name":"permissionRule","children":[{"name":"recordInfo","children":[{"name":"id","value":"textAdmin"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"permissionRule"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.*","repeatId":"0"},{"name":"permissionRulePartValue","value":"system.search","repeatId":"1"}],"attributes":{"type":"action"}},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.text","repeatId":"0"},{"name":"permissionRulePartValue","value":"system.textSystemOne","repeatId":"1"},{"name":"permissionRulePartValue","value":"system.coraText","repeatId":"2"},{"name":"permissionRulePartValue","value":"system.workOrder","repeatId":"3"}],"attributes":{"type":"recordType"}},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.*","repeatId":"0"}],"attributes":{"type":"delete"}},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.*","repeatId":"0"}],"attributes":{"type":"publish"}},{"name":"activeStatus","value":"active"}]} | | OK |
+
+*!
+!***> Try to reindex by creating a workOrder as a user (not admin). This should not work since the user don't have permission to index book data
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
+| $userAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"testNews"}]},{"name":"recordId","value":"news1"},{"name":"type","value":"index"}]} | | CREATED | $createdId= |
+
+*!
+!***> Test searching again, this will result in no hits since the data has not been reindexed
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | testNewsExtendedSearch | {"name":"searchNewsExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testNewsTitleSearchTerm","value":"En titel"}]}]}]} | =~/"toNo":"0"/ | OK |
+
+*!
+!***> Reindex by creating a workOrder
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"testNews"}]},{"name":"recordId","value":"news1"},{"name":"type","value":"index"}]} | | CREATED | $createdId2= |
+
+*!
+!***> Test searching again, this will result in one hit, since the data has been reindexed
+
+!| RecordEndpointFixture |
+| authToken | searchId | json | testSearchRecord? | getStatusType? |
+| $adminAuthToken | testNewsExtendedSearch | {"name":"searchNewsExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testNewsTitleSearchTerm","value":"En titel"}]}]}]} | =~/"toNo":"1"/ | OK |
+
+*!
+!1 Reset testdata
+Reset rule for user
+
+!***> Reset permissionRule textAdmin, removing workOrder as recordType
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | permissionRule | textAdmin | {"name":"permissionRule","children":[{"name":"recordInfo","children":[{"name":"id","value":"textAdmin"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"permissionRule"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.*","repeatId":"0"},{"name":"permissionRulePartValue","value":"system.search","repeatId":"1"}],"attributes":{"type":"action"}},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.text","repeatId":"0"},{"name":"permissionRulePartValue","value":"system.textSystemOne","repeatId":"1"},{"name":"permissionRulePartValue","value":"system.coraText","repeatId":"2"}],"attributes":{"type":"recordType"}},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.*","repeatId":"0"}],"attributes":{"type":"delete"}},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.*","repeatId":"0"}],"attributes":{"type":"publish"}},{"name":"activeStatus","value":"active"}]} | | OK |
+
+*!
+!***> Update metadataGroups for testNews, remove indexTerm, otherwise it won't be possible to delete
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | metadataGroup | testNewsGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsGroup"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"metadataGroup"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"testNews"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testNewsGroupText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testNewsGroupDefText"}]},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"recordInfoGroup"}]}],"repeatId":"0"},{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testNewsTitleTextVar"}]}],"repeatId":"1"}]}],"attributes":{"type":"group"}} | | OK |
+*!
+Remove data created for this test
+
+!***> Delete created data
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | testNews | news1 | | OK |
+| $adminAuthToken | search | testNewsExtendedSearch | | OK |
+| $adminAuthToken | searchTerm | testNewsTitleSearchTerm | | OK |
+| $adminAuthToken | presentationGroup | testNewsSearchPGroup | | OK |
+| $adminAuthToken | presentationGroup | testNewsSearchOutputPGroup | | OK |
+| $adminAuthToken | metadataGroup | testNewsSearchGroup | | OK |
+| $adminAuthToken | presentationGroup | testNewsSearchIncludePGroup | | OK |
+| $adminAuthToken | presentationGroup | testNewsSearchIncludeOutputPGroup | | OK |
+| $adminAuthToken | metadataGroup | testNewsSearchIncludeGroup | | OK |
+| $adminAuthToken | presentationGroup | testNewsSearchIncludePartPGroup | | OK |
+| $adminAuthToken | presentationGroup | testNewsSearchIncludePartOutputPGroup | | OK |
+| $adminAuthToken | metadataGroup | testNewsSearchIncludePartGroup | | OK |
+| $adminAuthToken | presentationVar | testSearchTitleOutputPVar | | OK |
+| $adminAuthToken | presentationVar | testSearchTitlePVar | | OK |
+| $adminAuthToken | metadataTextVariable | testSearchTitleTextVar | | OK |
+| $adminAuthToken | collectIndexTerm | testNewsTitleIndexTerm | | OK |
+| $adminAuthToken | presentationVar | testNewsTitlePVar | | OK |
+| $adminAuthToken | presentationVar | testNewsTitleOutputPVar | | OK |
+| $adminAuthToken | metadataTextVariable | testNewsTitleTextVar | | OK |
+| $adminAuthToken | coraText | testNewsTitleTextVarText | | OK |
+| $adminAuthToken | coraText | testNewsTitleTextVarDefText | | OK |
+| $adminAuthToken | search | testNewsSearch | | OK |
+| $adminAuthToken | workOrder | $createdId | | OK |
+| $adminAuthToken | workOrder | $createdId2 | | OK |
+| $adminAuthToken | recordType | testNews | | OK |
+| $adminAuthToken | presentationGroup | testNewsFormPGroup | | OK |
+| $adminAuthToken | presentationGroup | testNewsFormNewPGroup | | OK |
+| $adminAuthToken | presentationGroup | testNewsViewPGroup | | OK |
+| $adminAuthToken | presentationGroup | testNewsListPGroup | | OK |
+| $adminAuthToken | presentationGroup | testNewsMenuPGroup | | OK |
+| $adminAuthToken | presentationGroup | testNewsAutocompletePGroup | | OK |
+| $adminAuthToken | metadataGroup | testNewsGroup | | OK |
+| $adminAuthToken | metadataGroup | testNewsNewGroup | | OK |
+| $adminAuthToken | coraText | testNewsText | | OK |
+| $adminAuthToken | coraText | testNewsDefText | | OK |
+
+*!
