@@ -165,6 +165,7 @@ Reset rule for user
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
 | $adminAuthToken | metadataGroup | testNewsGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testNewsGroup"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"metadataGroup"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"testNews"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testNewsGroupText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testNewsGroupDefText"}]},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"recordInfoGroup"}]}],"repeatId":"0"},{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testNewsTitleTextVar"}]}],"repeatId":"1"}]}],"attributes":{"type":"group"}} | | OK |
+
 *!
 Remove data created for this test
 
@@ -190,9 +191,6 @@ Remove data created for this test
 | $adminAuthToken | collectIndexTerm | testNewsTitleIndexTerm | | OK |
 | $adminAuthToken | presentationVar | testNewsTitlePVar | | OK |
 | $adminAuthToken | presentationVar | testNewsTitleOutputPVar | | OK |
-| $adminAuthToken | metadataTextVariable | testNewsTitleTextVar | | OK |
-| $adminAuthToken | coraText | testNewsTitleTextVarText | | OK |
-| $adminAuthToken | coraText | testNewsTitleTextVarDefText | | OK |
 | $adminAuthToken | search | testNewsSearch | | OK |
 | $adminAuthToken | workOrder | $createdId | | OK |
 | $adminAuthToken | workOrder | $createdId2 | | OK |
@@ -205,6 +203,9 @@ Remove data created for this test
 | $adminAuthToken | presentationGroup | testNewsAutocompletePGroup | | OK |
 | $adminAuthToken | metadataGroup | testNewsGroup | | OK |
 | $adminAuthToken | metadataGroup | testNewsNewGroup | | OK |
+| $adminAuthToken | metadataTextVariable | testNewsTitleTextVar | | OK |
+| $adminAuthToken | coraText | testNewsTitleTextVarText | | OK |
+| $adminAuthToken | coraText | testNewsTitleTextVarDefText | | OK |
 | $adminAuthToken | coraText | testNewsText | | OK |
 | $adminAuthToken | coraText | testNewsDefText | | OK |
 

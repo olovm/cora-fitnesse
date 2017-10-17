@@ -62,9 +62,9 @@
 | $adminAuthToken | presentationGroup | someFitnesseFormPGroup | | OK |
 | $adminAuthToken | presentationGroup | someFitnesseFormNewPGroup | | OK |
 | $adminAuthToken | presentationGroup | someFitnesseViewPGroup | | OK |
-| $adminAuthToken | metadataGroup | someSubGroup | | OK |
 | $adminAuthToken | metadataGroup | bikeNewGroup | | OK |
 | $adminAuthToken | metadataGroup | bikeGroup | | OK |
+| $adminAuthToken | metadataGroup | someSubGroup | | OK |
 | $adminAuthToken | presentationVar | somePVar | | OK |
 | $adminAuthToken | presentationVar | someOutputPVar | | OK |
 | $adminAuthToken | presentationVar | someOtherPVar | | OK |
