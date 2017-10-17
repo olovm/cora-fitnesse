@@ -288,9 +288,6 @@ Remove data created for this test
 | $adminAuthToken | presentationVar | testSearchSubTitlePVar | | OK |
 | $adminAuthToken | presentationVar | testSearchSubTitleOutputPVar | | OK |
 | $adminAuthToken | metadataTextVariable | testSearchSubTitleTextVar | | OK |
-| $adminAuthToken | presentationVar | testNewsSubTitlePVar | | OK |
-| $adminAuthToken | presentationVar | testNewsSubTitleOutputPVar | | OK |
-| $adminAuthToken | metadataTextVariable | testNewsSubTitleTextVar | | OK |
 | $adminAuthToken | presentationVar | testSearchHeadingPVar | | OK |
 | $adminAuthToken | presentationVar | testSearchHeadingOutputPVar | | OK |
 | $adminAuthToken | metadataTextVariable | testSearchHeadingTextVar | | OK |
@@ -306,12 +303,6 @@ Remove data created for this test
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $adminAuthToken | coraText | testNewsText | | OK |
-| $adminAuthToken | coraText | testNewsDefText | | OK |
-| $adminAuthToken | coraText | testNewsGroupDefText | | OK |
-| $adminAuthToken | coraText | testNewsGroupText | | OK |
-| $adminAuthToken | coraText | testNewsNewGroupText | | OK |
-| $adminAuthToken | coraText | testNewsNewGroupDefText | | OK |
 | $adminAuthToken | recordType | testNews | | OK |
 | $adminAuthToken | presentationGroup | testNewsFormNewPGroup | | OK |
 | $adminAuthToken | presentationGroup | testNewsFormPGroup | | OK |
@@ -324,14 +315,21 @@ Remove data created for this test
 | $adminAuthToken | presentationGroup | testNewsSectionPGroup | | OK |
 | $adminAuthToken | presentationGroup | testNewsSectionOutputPGroup | | OK |
 | $adminAuthToken | metadataGroup | testNewsSectionGroup | | OK |
+| $adminAuthToken | presentationVar | testNewsSubTitlePVar | | OK |
+| $adminAuthToken | presentationVar | testNewsSubTitleOutputPVar | | OK |
+| $adminAuthToken | metadataTextVariable | testNewsSubTitleTextVar | | OK |
+| $adminAuthToken | coraText | testNewsText | | OK |
+| $adminAuthToken | coraText | testNewsDefText | | OK |
+| $adminAuthToken | coraText | testNewsGroupDefText | | OK |
+| $adminAuthToken | coraText | testNewsGroupText | | OK |
+| $adminAuthToken | coraText | testNewsNewGroupText | | OK |
+| $adminAuthToken | coraText | testNewsNewGroupDefText | | OK |
 
 *!
 !***> Delete metadata for additional metadata added to testNews
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $adminAuthToken | coraText | testNewsTitleTextVarText | | OK |
-| $adminAuthToken | coraText | testNewsTitleTextVarDefText | | OK |
 | $adminAuthToken | presentationVar | testNewsTitlePVar | | OK |
 | $adminAuthToken | presentationVar | testNewsTitleOutputPVar | | OK |
 | $adminAuthToken | metadataTextVariable | testNewsTitleTextVar | | OK |
@@ -341,6 +339,8 @@ Remove data created for this test
 | $adminAuthToken | presentationVar | testNewsContentOutputPVar | | OK |
 | $adminAuthToken | presentationVar | testNewsContentPVar | | OK |
 | $adminAuthToken | metadataTextVariable | testNewsContentTextVar | | OK |
+| $adminAuthToken | coraText | testNewsTitleTextVarText | | OK |
+| $adminAuthToken | coraText | testNewsTitleTextVarDefText | | OK |
 
 *!
 !***> Delete searchTerm
@@ -508,21 +508,7 @@ Remove data created for this test
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $adminAuthToken | coraText | testArticleText | | OK |
-| $adminAuthToken | coraText | testArticleDefText | | OK |
-| $adminAuthToken | coraText | testArticleGroupDefText | | OK |
-| $adminAuthToken | coraText | testArticleGroupText | | OK |
-| $adminAuthToken | coraText | testArticleNewGroupText | | OK |
-| $adminAuthToken | coraText | testArticleNewGroupDefText | | OK |
-| $adminAuthToken | coraText | testTitleTextVarText | | OK |
-| $adminAuthToken | coraText | testTitleTextVarDefText | | OK |
 | $adminAuthToken | recordType | testArticle | | OK |
-| $adminAuthToken | coraText | testStudentThesisText | | OK |
-| $adminAuthToken | coraText | testStudentThesisDefText | | OK |
-| $adminAuthToken | coraText | testStudentThesisGroupDefText | | OK |
-| $adminAuthToken | coraText | testStudentThesisGroupText | | OK |
-| $adminAuthToken | coraText | testStudentThesisNewGroupText | | OK |
-| $adminAuthToken | coraText | testStudentThesisNewGroupDefText | | OK |
 | $adminAuthToken | recordType | testStudentThesis | | OK |
 | $adminAuthToken | presentationGroup | testArticleFormNewPGroup | | OK |
 | $adminAuthToken | presentationGroup | testArticleFormPGroup | | OK |
@@ -543,6 +529,20 @@ Remove data created for this test
 | $adminAuthToken | presentationVar | testTitlePVar | | OK |
 | $adminAuthToken | presentationVar | testTitleOutputPVar | | OK |
 | $adminAuthToken | metadataTextVariable | testTitleTextVar | | OK |
+| $adminAuthToken | coraText | testArticleText | | OK |
+| $adminAuthToken | coraText | testArticleDefText | | OK |
+| $adminAuthToken | coraText | testArticleGroupDefText | | OK |
+| $adminAuthToken | coraText | testArticleGroupText | | OK |
+| $adminAuthToken | coraText | testArticleNewGroupText | | OK |
+| $adminAuthToken | coraText | testArticleNewGroupDefText | | OK |
+| $adminAuthToken | coraText | testTitleTextVarText | | OK |
+| $adminAuthToken | coraText | testTitleTextVarDefText | | OK |
+| $adminAuthToken | coraText | testStudentThesisText | | OK |
+| $adminAuthToken | coraText | testStudentThesisDefText | | OK |
+| $adminAuthToken | coraText | testStudentThesisGroupDefText | | OK |
+| $adminAuthToken | coraText | testStudentThesisGroupText | | OK |
+| $adminAuthToken | coraText | testStudentThesisNewGroupText | | OK |
+| $adminAuthToken | coraText | testStudentThesisNewGroupDefText | | OK |
 
 *!
 !***> Delete searchTerm
