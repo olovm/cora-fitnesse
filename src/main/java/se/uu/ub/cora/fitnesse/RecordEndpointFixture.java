@@ -29,6 +29,10 @@ import java.nio.charset.StandardCharsets;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.StatusType;
 
+import org.codehaus.jettison.json.JSONArray;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
+
 import se.uu.ub.cora.httphandler.HttpHandler;
 import se.uu.ub.cora.httphandler.HttpMultiPartUploader;
 
@@ -195,6 +199,46 @@ public class RecordEndpointFixture {
 		int streamIdIndex = responseText.lastIndexOf("\"name\":\"token\"")
 				+ DISTANCE_TO_START_OF_TOKEN;
 		return responseText.substring(streamIdIndex, responseText.indexOf('"', streamIdIndex));
+	}
+
+	public String testCreateRecordCreatedType() {
+		String url = baseUrl + type;
+		url = addAuthTokenToUrl(url);
+
+		HttpHandler httpHandler = factory.factorHttpHandler(url);
+		httpHandler.setRequestMethod("POST");
+		httpHandler.setRequestProperty(ACCEPT, APPLICATION_UUB_RECORD_JSON);
+		httpHandler.setRequestProperty("Content-Type", APPLICATION_UUB_RECORD_JSON);
+		httpHandler.setOutput(json);
+
+		statusType = Response.Status.fromStatusCode(httpHandler.getResponseCode());
+		if (statusType.equals(Response.Status.CREATED)) {
+			String responseText = httpHandler.getResponseText();
+			JSONObject jsonObject;
+			String recordType = "";
+			try {
+				jsonObject = new JSONObject(responseText);
+				JSONObject record = jsonObject.getJSONObject("record");
+				JSONObject data = record.getJSONObject("data");
+				JSONArray children = data.getJSONArray("children");
+
+				JSONObject recordInfo = children.getJSONObject(0);
+				// OrgJsonValueFactory.createFromOrgJsonObject(children);
+				// TODO: använd vår json, parser eftersom recordinfo innhåller
+				// chlldren igen
+				recordType = recordInfo.getJSONObject("type").toString();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			// OrgJsonValueFactory.createFromOrgJsonObject(jsonArray);
+
+			createdId = extractCreatedIdFromLocationHeader(httpHandler.getHeaderField("Location"));
+			token = tryToExtractCreatedTokenFromResponseText(responseText);
+
+			return recordType;
+		}
+		return httpHandler.getErrorText();
 	}
 
 	public String testUpdateRecord() {

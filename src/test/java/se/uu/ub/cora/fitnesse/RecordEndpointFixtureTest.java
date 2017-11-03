@@ -103,7 +103,8 @@ public class RecordEndpointFixtureTest {
 		HttpHandlerSpy httpHandlerSpy = httpHandlerFactorySpy.httpHandlerSpy;
 		assertEquals(httpHandlerSpy.requestMetod, "POST");
 		assertEquals(httpHandlerSpy.outputString, "{\"name\":\"value\"}");
-		assertEquals(httpHandlerSpy.requestProperties.get("Accept"), "application/vnd.uub.record+json");
+		assertEquals(httpHandlerSpy.requestProperties.get("Accept"),
+				"application/vnd.uub.record+json");
 		assertEquals(httpHandlerSpy.requestProperties.get("Content-Type"),
 				"application/vnd.uub.record+json");
 		assertEquals(httpHandlerSpy.requestProperties.size(), 2);
@@ -122,7 +123,8 @@ public class RecordEndpointFixtureTest {
 		HttpHandlerSpy httpHandlerSpy = httpHandlerFactorySpy.httpHandlerSpy;
 		assertEquals(httpHandlerSpy.requestMetod, "POST");
 		assertEquals(httpHandlerSpy.outputString, "{\"name\":\"value\"}");
-		assertEquals(httpHandlerSpy.requestProperties.get("Accept"), "application/vnd.uub.record+json");
+		assertEquals(httpHandlerSpy.requestProperties.get("Accept"),
+				"application/vnd.uub.record+json");
 		assertEquals(httpHandlerSpy.requestProperties.get("Content-Type"),
 				"application/vnd.uub.record+json");
 		assertEquals(httpHandlerSpy.requestProperties.size(), 2);
@@ -145,6 +147,14 @@ public class RecordEndpointFixtureTest {
 	}
 
 	@Test
+	public void testCreateRecordCreatedType() {
+		httpHandlerFactorySpy.setResponseCode(201);
+		fixture.setType("someRecordType");
+		String createdType = fixture.testCreateRecordCreatedType();
+		assertEquals(createdType, "someRecordType");
+	}
+
+	@Test
 	public void testUpdateRecordDataForFactoryIsOk() {
 		fixture.setType("someType");
 		fixture.setId("someId");
@@ -154,7 +164,8 @@ public class RecordEndpointFixtureTest {
 		HttpHandlerSpy httpHandlerSpy = httpHandlerFactorySpy.httpHandlerSpy;
 		assertEquals(httpHandlerSpy.requestMetod, "POST");
 		assertEquals(httpHandlerSpy.outputString, "{\"name\":\"value\"}");
-		assertEquals(httpHandlerSpy.requestProperties.get("Accept"), "application/vnd.uub.record+json");
+		assertEquals(httpHandlerSpy.requestProperties.get("Accept"),
+				"application/vnd.uub.record+json");
 		assertEquals(httpHandlerSpy.requestProperties.get("Content-Type"),
 				"application/vnd.uub.record+json");
 		assertEquals(httpHandlerSpy.requestProperties.size(), 2);
