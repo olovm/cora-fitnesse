@@ -29,12 +29,13 @@ import java.nio.charset.StandardCharsets;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.StatusType;
 
-import org.codehaus.jettison.json.JSONArray;
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
-
 import se.uu.ub.cora.httphandler.HttpHandler;
 import se.uu.ub.cora.httphandler.HttpMultiPartUploader;
+import se.uu.ub.cora.json.parser.JsonArray;
+import se.uu.ub.cora.json.parser.JsonObject;
+import se.uu.ub.cora.json.parser.JsonParser;
+import se.uu.ub.cora.json.parser.JsonValue;
+import se.uu.ub.cora.json.parser.org.OrgJsonParser;
 
 public class RecordEndpointFixture {
 	private static final int DISTANCE_TO_START_OF_TOKEN = 24;
@@ -214,31 +215,53 @@ public class RecordEndpointFixture {
 		statusType = Response.Status.fromStatusCode(httpHandler.getResponseCode());
 		if (statusType.equals(Response.Status.CREATED)) {
 			String responseText = httpHandler.getResponseText();
-			JSONObject jsonObject;
-			String recordType = "";
-			try {
-				jsonObject = new JSONObject(responseText);
-				JSONObject record = jsonObject.getJSONObject("record");
-				JSONObject data = record.getJSONObject("data");
-				JSONArray children = data.getJSONArray("children");
-
-				JSONObject recordInfo = children.getJSONObject(0);
-				// OrgJsonValueFactory.createFromOrgJsonObject(children);
-				// TODO: använd vår json, parser eftersom recordinfo innhåller
-				// chlldren igen
-				recordType = recordInfo.getJSONObject("type").toString();
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			// OrgJsonValueFactory.createFromOrgJsonObject(jsonArray);
-
 			createdId = extractCreatedIdFromLocationHeader(httpHandler.getHeaderField("Location"));
 			token = tryToExtractCreatedTokenFromResponseText(responseText);
 
-			return recordType;
+			return getRecordTypeFromResponseText(responseText);
 		}
 		return httpHandler.getErrorText();
+
+	}
+
+	private String getRecordTypeFromResponseText(String responseText) {
+		JsonObject data = extractDataAsJsonObjectFromResponseText(responseText);
+		try {
+			return getRecordTypeFromData(data);
+
+		} catch (ChildNotFoundException e) {
+			return "";
+		}
+	}
+
+	private JsonObject extractDataAsJsonObjectFromResponseText(String responseText) {
+		JsonParser jsonParser = new OrgJsonParser();
+		JsonValue jsonValue = jsonParser.parseString(responseText);
+		JsonObject textAsJsonObject = (JsonObject) jsonValue;
+		JsonObject record = textAsJsonObject.getValueAsJsonObject("record");
+		return record.getValueAsJsonObject("data");
+	}
+
+	private String getRecordTypeFromData(JsonObject data) {
+		JsonObject recordInfo = tryToGetChildFromChildrenArrayByNameInData(data, "recordInfo");
+		JsonObject typeObject = tryToGetChildFromChildrenArrayByNameInData(recordInfo, "type");
+
+		JsonObject linkedRecordId = tryToGetChildFromChildrenArrayByNameInData(typeObject,
+				"linkedRecordId");
+		return linkedRecordId.getValueAsJsonString("value").getStringValue();
+	}
+
+	private JsonObject tryToGetChildFromChildrenArrayByNameInData(JsonObject jsonObject,
+			String nameInData) {
+		JsonArray children = jsonObject.getValueAsJsonArray("children");
+		for (JsonValue child : children) {
+			JsonObject jsonChildObject = (JsonObject) child;
+			String name = jsonChildObject.getValueAsJsonString("name").getStringValue();
+			if (nameInData.equals(name)) {
+				return jsonChildObject;
+			}
+		}
+		throw new ChildNotFoundException("child with name: " + nameInData + "not found");
 	}
 
 	public String testUpdateRecord() {

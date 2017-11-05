@@ -155,6 +155,20 @@ public class RecordEndpointFixtureTest {
 	}
 
 	@Test
+	public void testCreateRecordCreatedTypeNotOk() {
+		httpHandlerFactorySpy.changeFactoryToFactorInvalidHttpHandlers();
+		assertEquals(fixture.testCreateRecordCreatedType(), "bad things happend");
+	}
+
+	@Test
+	public void testCreateRecordCreatedTypeNotFoundInJson() {
+		httpHandlerFactorySpy.setResponseCode(201);
+		fixture.setType("someWrongRecordTypeWrongJson");
+		String createdType = fixture.testCreateRecordCreatedType();
+		assertEquals(createdType, "");
+	}
+
+	@Test
 	public void testUpdateRecordDataForFactoryIsOk() {
 		fixture.setType("someType");
 		fixture.setId("someId");

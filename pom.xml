@@ -24,6 +24,7 @@
 	<name>Fitnesse</name>
 
 	<properties>
+	<json.version>0.3-SNAPSHOT</json.version>
 		<httphandler.version>0.2-SNAPSHOT</httphandler.version>
 		<javax.ws.rs.version>2.0.1</javax.ws.rs.version>
 <!-- 		<jersey.version>2.23.2</jersey.version> -->
@@ -57,6 +58,12 @@
 			<artifactId>testng</artifactId>
 			<version>${testng.version}</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>se.uu.ub.cora</groupId>
+			<artifactId>json</artifactId>
+			<version>${json.version}</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>se.uu.ub.cora</groupId>
