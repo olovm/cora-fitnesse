@@ -391,7 +391,7 @@ The first user has permission to also read recordType system, which is linked to
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | coraText | metadataIdTextVarText | =~/"rel":"read","url":"${systemUnderTestUrl}rest/record/system/cora"/ | OK |
-| $userAuthToken | coraText | metadataIdTextVarText | =~/"rel":"read","url":"${systemUnderTestUrl}rest/record/system/cora"/ | OK |
+| $adminAuthToken | coraText | metadataIdTextVarText | =~/["rel":"read","url":"${systemUnderTestUrl}rest/record/system/cora"]/ | OK |
+| $userAuthToken | coraText | metadataIdTextVarText | | OK |
 
 *!
