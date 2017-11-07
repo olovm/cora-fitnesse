@@ -164,14 +164,7 @@ public class RecordEndpointFixture {
 	}
 
 	public String testCreateRecord() {
-		String url = baseUrl + type;
-		url = addAuthTokenToUrl(url);
-
-		HttpHandler httpHandler = factory.factorHttpHandler(url);
-		httpHandler.setRequestMethod("POST");
-		httpHandler.setRequestProperty(ACCEPT, APPLICATION_UUB_RECORD_JSON);
-		httpHandler.setRequestProperty("Content-Type", APPLICATION_UUB_RECORD_JSON);
-		httpHandler.setOutput(json);
+		HttpHandler httpHandler = setUpHttpHandlerForCreate();
 
 		statusType = Response.Status.fromStatusCode(httpHandler.getResponseCode());
 		if (statusType.equals(Response.Status.CREATED)) {
@@ -182,6 +175,18 @@ public class RecordEndpointFixture {
 			return responseText;
 		}
 		return httpHandler.getErrorText();
+	}
+
+	private HttpHandler setUpHttpHandlerForCreate() {
+		String url = baseUrl + type;
+		url = addAuthTokenToUrl(url);
+
+		HttpHandler httpHandler = factory.factorHttpHandler(url);
+		httpHandler.setRequestMethod("POST");
+		httpHandler.setRequestProperty(ACCEPT, APPLICATION_UUB_RECORD_JSON);
+		httpHandler.setRequestProperty("Content-Type", APPLICATION_UUB_RECORD_JSON);
+		httpHandler.setOutput(json);
+		return httpHandler;
 	}
 
 	private String extractCreatedIdFromLocationHeader(String locationHeader) {
@@ -203,14 +208,7 @@ public class RecordEndpointFixture {
 	}
 
 	public String testCreateRecordCreatedType() {
-		String url = baseUrl + type;
-		url = addAuthTokenToUrl(url);
-
-		HttpHandler httpHandler = factory.factorHttpHandler(url);
-		httpHandler.setRequestMethod("POST");
-		httpHandler.setRequestProperty(ACCEPT, APPLICATION_UUB_RECORD_JSON);
-		httpHandler.setRequestProperty("Content-Type", APPLICATION_UUB_RECORD_JSON);
-		httpHandler.setOutput(json);
+		HttpHandler httpHandler = setUpHttpHandlerForCreate();
 
 		statusType = Response.Status.fromStatusCode(httpHandler.getResponseCode());
 		if (statusType.equals(Response.Status.CREATED)) {
