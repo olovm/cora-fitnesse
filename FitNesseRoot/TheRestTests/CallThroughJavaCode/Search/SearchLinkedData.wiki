@@ -7,7 +7,7 @@ Test
 
 !1 Testing search type linked data
 !2 Create metadata for data to index
-!***> Create metadata for recordType testNews
+!***> Create metadata for recordType testMovie and testActor
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
@@ -47,14 +47,14 @@ Three different parts are needed to perform a search: An instance of recordType 
 -!its child metadataGroups and the metadataTextVariables defining the search parameters that can be used in this search. The third part is the searchTerms which are read based on the nameInData from each search parameter, and contains information about the indexType that is used to index the data. All this information is used to compose the search query correctly.
 
 !3 Create metadataTextVariables and metadataGroups
-!***> Create metadataTextVariable (testSearchTitleTextVar) Note, nameInData is must be the id of the searchTerm we want to search in
+!***> Create metadataTextVariable (testMovieSearchTextVar) Note, nameInData is must be the id of the searchTerm we want to search in
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
 | $adminAuthToken | metadataTextVariable | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testMovieSearchTextVar"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"testMovieSearchTerm"},{"name":"regEx","value":".*"}],"attributes":{"type":"textVariable"}} | | CREATED |
 
 *!
-!***> Create a metadataGroup(testNewsSearchIncludePartGroup, testNewsSearchIncludeGroup, testNewsSearchGroup)
+!***> Create a metadataGroup(testMovieSearchIncludePartGroup, testMovieSearchIncludeGroup, testMovieSearchGroup)
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
@@ -64,7 +64,7 @@ Three different parts are needed to perform a search: An instance of recordType 
 
 *!
 !3 Create searchTerms
-!***> Create searchTerm testNewsTitleSearchTerm, testNewsSubTitleSearchTerm, testNewsHeadingSearchTerm
+!***> Create searchTerm testMovieSearchTerm
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
@@ -83,7 +83,7 @@ a search is automatically created for each recordType (testMovieSearch), so we c
 *!
 !2 Perform searches
 !3 Create testNews to create index data
-!***> Create test data news1 (title), news2 (title), newsSub1(title, subTitle, subTitle), newsHeading (title, subTitle, subTitle, section (title) )
+!***> Create test data for actor and movie
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
@@ -91,7 +91,7 @@ a search is automatically created for each recordType (testMovieSearch), so we c
 | $adminAuthToken | testMovie | {"name":"testMovie","children":[{"name":"recordInfo","children":[{"name":"id","value":"someMovie"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"movieTitle","value":"The rock"},{"name":"actor","children":[{"name":"linkedRecordType","value":"testActor"},{"name":"linkedRecordId","value":"someActor"}],"repeatId":"0"}]} | | CREATED |
 
 *!
-!***> A search searching for title using "Sean*"
+!***> A search searching for movies with an actor named "Sean*"
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
@@ -140,5 +140,7 @@ Remove data created for this test
 | $adminAuthToken | coraText | testMovieNewGroupDefText | | OK |
 | $adminAuthToken | coraText | testMovieGroupText | | OK |
 | $adminAuthToken | coraText | testMovieGroupDefText | | OK |
+| $adminAuthToken | coraText | someFitnesseText | | OK |
+| $adminAuthToken | coraText | someFitnesseDefText | | OK |
 
 *!
