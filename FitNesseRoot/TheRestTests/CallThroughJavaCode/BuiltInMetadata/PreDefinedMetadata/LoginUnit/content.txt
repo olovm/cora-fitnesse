@@ -1,0 +1,88 @@
+!***> Read RecordType loginUnit
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | recordType | loginUnit | =~/"name":"linkedRecordId","value":"loginUnitGroup".*"name":"linkedRecordId","value":"loginUnitNewGroup".*"name":"linkedRecordId","value":"loginUnitViewPGroup".*"name":"linkedRecordId","value":"loginUnitFormPGroup".*"name":"linkedRecordId","value":"loginUnitFormNewPGroup".*"name":"linkedRecordId","value":"loginUnitMenuPGroup".*"name":"linkedRecordId","value":"loginUnitListPGroup"/ | OK |
+
+*!
+!***> Read metadataGroups (loginGroup, loginWebRedirectNewGroup, loginWebRedirectGroup)
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | metadataGroup | loginUnitGroup | =~/"name":"linkedRecordType","value":"metadata".*"name":"linkedRecordId","value":"recordInfoGroup".*"name":"linkedRecordType","value":"metadata".*"name":"linkedRecordId","value":"loginUnitLoginInfoGroup"/ | OK |
+| $adminAuthToken | metadataGroup | loginUnitNewGroup | =~/"name":"linkedRecordType","value":"metadata".*"name":"linkedRecordId","value":"recordInfoNewGroup".*"name":"linkedRecordType","value":"metadata".*"name":"linkedRecordId","value":"loginUnitLoginInfoGroup"/ | OK |
+| $adminAuthToken | metadataGroup | loginUnitLoginInfoGroup | =~/"name":"linkedRecordType","value":"metadata".*"name":"linkedRecordId","value":"loginLink".*"name":"linkedRecordType","value":"metadata".*"name":"linkedRecordId","value":"loginDescriptionLink"/ | OK |
+
+*!
+!***> Read metadataRecordLinks (loginLink, loginDescriptionLink)
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | metadataRecordLink | loginLink | =~/"name":"linkedRecordType","value":"recordType".*"name":"linkedRecordId","value":"login"/ | OK |
+| $adminAuthToken | metadataRecordLink | loginDescriptionLink | =~/"name":"linkedRecordType","value":"recordType".*"name":"linkedRecordId","value":"text"/ | OK |
+
+*!
+!2 Test with new loginUnit
+!3 Create a loginWebRedirect and a text
+This is needed since loginUnit requires a link to an instance of login an a link to an instance of text
+
+!***> Create data of recordType loginWebRedirect
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecordCreatedType? | getStatusType? |
+| $adminAuthToken | loginWebRedirect | {"name":"login","children":[{"name":"recordInfo","children":[{"name":"id","value":"testwr"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"loginName","value":"Test web"},{"name":"url","value":"someUrl/something"}],"attributes":{"type":"webRedirect"}} | loginWebRedirect | CREATED |
+
+*!
+!***> Create data of recordType text (coraText)
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | coraText | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"testLoginWebRedirectDescriptionText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"},"children":[{"name":"text","value":"Min text för loginWebRedirectLink"}]}]} | | CREATED |
+
+*!
+!3 Create a loginUnit
+!***> Create data of recordType loginUnit
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecordCreatedType? | getStatusType? |
+| $adminAuthToken | loginUnit | {"name":"loginUnit","children":[{"name":"recordInfo","children":[{"name":"id","value":"testLoginUnit"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"loginInfo","children":[{"name":"login","children":[{"name":"linkedRecordType","value":"login"},{"name":"linkedRecordId","value":"testwr"}]},{"name":"loginDescription","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testLoginWebRedirectDescriptionText"}]}]}]} | loginUnit | CREATED |
+
+*!
+!***> Read loginUnit
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | loginUnit | testLoginUnit | | OK |
+
+*!
+!***> List recordType login and loginWebRedirect
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | loginUnit | | OK |
+
+*!
+!***> Update data of recordType loginUnit
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | loginUnit | testLoginUnit | {"name":"loginUnit","children":[{"name":"recordInfo","children":[{"name":"id","value":"testLoginUnit"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"loginUnit"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"loginInfo","children":[{"name":"login","children":[{"name":"linkedRecordType","value":"login"},{"name":"linkedRecordId","value":"testwr"}]},{"name":"loginDescription","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testLoginWebRedirectDescriptionText"}]}]}]} | | OK |
+
+*!
+!***> Delete created loginUnit, loginWebRedirect and text
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | loginUnit | testLoginUnit | | OK |
+| $adminAuthToken | loginWebRedirect | testwr | | OK |
+| $adminAuthToken | coraText | testLoginWebRedirectDescriptionText | | OK |
+
+*!
+!2 Test with incorrect data
+!***> Try create data of recodType loginUnit. Should fail since data is missing
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | login | {"name":"login","children":[{"name":"recordInfo","children":[{"name":"id","value":"testwr"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"loginName","value":"Test web"},{"name":"url","value":"someUrl/something"}],"attributes":{"type":"webRedirect"}} | | METHOD_NOT_ALLOWED |
+
+*!
