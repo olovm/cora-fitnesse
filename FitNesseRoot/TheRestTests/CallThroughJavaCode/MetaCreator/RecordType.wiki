@@ -102,11 +102,11 @@ Read presentationGroups again to see that they have been created
 
 !| RecordEndpointFixture |
 | id | type | testReadRecord? | getStatusType? |
-| fitnesseBookViewPGroup | presentationGroup | | OK |
-| fitnesseBookFormPGroup | presentationGroup | | OK |
-| fitnesseBookFormNewPGroup | presentationGroup | | OK |
-| fitnesseBookMenuPGroup | presentationGroup | | OK |
-| fitnesseBookListPGroup | presentationGroup | | OK |
+| fitnesseBookViewPGroup | presentationGroup | =~/"name":"linkedRecordId","value":"recordInfoOutputPGroup".*"name":"refGroup"/ | OK |
+| fitnesseBookFormPGroup | presentationGroup | =~/name":"linkedRecordId","value":"recordInfoPGroup".*"name":"refGroup"/ | OK |
+| fitnesseBookFormNewPGroup | presentationGroup | =~/"name":"linkedRecordId","value":"recordInfoNewPGroup".*"name":"refGroup"/ | OK |
+| fitnesseBookMenuPGroup | presentationGroup | =~/"name":"linkedRecordId","value":"recordInfoOutputPGroup".*"name":"refGroup"/ | OK |
+| fitnesseBookListPGroup | presentationGroup | =~/"name":"linkedRecordId","value":"recordInfoOutputPGroup".*"name":"refGroup"/ | OK |
 
 *!
 !1 Reset testdata

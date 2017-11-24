@@ -259,8 +259,6 @@ Try to create data that is invalid
 | $adminAuthToken | metadataItemCollection | subBushTypeCollection | | OK |
 | $adminAuthToken | metadataCollectionItem | smallItem | | OK |
 | $adminAuthToken | metadataCollectionItem | bigItem | | OK |
-| $adminAuthToken | presentationVar | testTreeNamePVar | | OK |
-| $adminAuthToken | presentationVar | testTreeNameOutputPVar | | OK |
 | $adminAuthToken | coraText | subBushTypeCollectionVarText | | OK |
 | $adminAuthToken | coraText | subBushTypeCollectionVarDefText | | OK |
 | $adminAuthToken | coraText | bushUsingFinalValueParentLinkSearchText | | OK |
@@ -377,6 +375,8 @@ Create metadata needed for link test.
 | $adminAuthToken | presentationGroup | someFitnesseListPGroup | | OK |
 | $adminAuthToken | metadataGroup | treeNewGroup | | OK |
 | $adminAuthToken | metadataGroup | treeGroup | | OK |
+| $adminAuthToken | presentationVar | testTreeNamePVar | | OK |
+| $adminAuthToken | presentationVar | testTreeNameOutputPVar | | OK |
 | $adminAuthToken | metadataTextVariable | testTreeNameTextVar | | OK |
 | $adminAuthToken | coraText | someFitnesseText | | OK |
 | $adminAuthToken | coraText | someFitnesseDefText | | OK |
