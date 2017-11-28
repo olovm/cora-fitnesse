@@ -102,11 +102,11 @@ Read presentationGroups again to see that they have been created
 
 !| RecordEndpointFixture |
 | id | type | testReadRecord? | getStatusType? |
-| fitnesseBookViewPGroup | presentationGroup | =~/"name":"linkedRecordId","value":"recordInfoOutputPGroup".*"name":"refGroup"/ | OK |
-| fitnesseBookFormPGroup | presentationGroup | =~/name":"linkedRecordId","value":"recordInfoPGroup".*"name":"refGroup"/ | OK |
-| fitnesseBookFormNewPGroup | presentationGroup | =~/"name":"linkedRecordId","value":"recordInfoNewPGroup".*"name":"refGroup"/ | OK |
-| fitnesseBookMenuPGroup | presentationGroup | =~/"name":"linkedRecordId","value":"recordInfoOutputPGroup".*"name":"refGroup"/ | OK |
-| fitnesseBookListPGroup | presentationGroup | =~/"name":"linkedRecordId","value":"recordInfoOutputPGroup".*"name":"refGroup"/ | OK |
+| fitnesseBookViewPGroup | presentationGroup | =~/"name":"linkedRecordId","value":"recordInfoOutputPGroup".*"name":"refGroup".*"name":"mode".*"value":"output"/ | OK |
+| fitnesseBookFormPGroup | presentationGroup | =~/name":"linkedRecordId","value":"recordInfoPGroup".*"name":"refGroup".*"name":"mode".*"value":"input"/ | OK |
+| fitnesseBookFormNewPGroup | presentationGroup | =~/"name":"linkedRecordId","value":"recordInfoNewPGroup".*"name":"refGroup".*"name":"mode".*"value":"input"/ | OK |
+| fitnesseBookMenuPGroup | presentationGroup | =~/"name":"linkedRecordId","value":"recordInfoOutputPGroup".*"name":"refGroup".*"name":"mode".*"value":"output"/ | OK |
+| fitnesseBookListPGroup | presentationGroup | =~/"name":"linkedRecordId","value":"recordInfoOutputPGroup".*"name":"refGroup".*"name":"mode".*"value":"output"/ | OK |
 
 *!
 !2 Delete some data
