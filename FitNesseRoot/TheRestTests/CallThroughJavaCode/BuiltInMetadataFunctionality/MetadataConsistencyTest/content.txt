@@ -2,8 +2,7 @@
 | import |
 | se.uu.ub.cora.fitnesse |
 
-Metadata consistency test
-
+!1 Metadata consistency test
 A metadataGroup that has a parent cannot contain children that are not present i the parent metadataGroup
 
 !***> Create textVariables testCakeNameTextVar and testCakeColourTextVar
@@ -16,7 +15,7 @@ A metadataGroup that has a parent cannot contain children that are not present i
 *!
 Create testCakeGroup, which contains child testCakeNameTextVar
 
-!***> Create a metadataGroups for testCake and testChocolateCake
+!***> Create a metadataGroup testCakeGroup
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
