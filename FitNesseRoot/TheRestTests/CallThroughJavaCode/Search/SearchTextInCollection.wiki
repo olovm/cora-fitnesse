@@ -9,14 +9,14 @@ Add tests that searches a string "sv" and preprocesses / joins it to language_id
 
 !1 Testing search type text in collection
 !2 Create metadata for data to index
-!***> Create metadata for recordType testWrittenext
+!***> Create metadata for recordType testWrittenText
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
 | $adminAuthToken | recordType | {"name":"recordType","children":[{"name":"recordInfo","children":[{"name":"id","value":"testWrittenText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"metadataId","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"testWrittenTextGroup"}]},{"name":"abstract","value":"false"},{"name":"presentationViewId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"testWrittenTextPGroup"}]},{"name":"presentationFormId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"testWrittenTextPGroup"}]},{"name":"newMetadataId","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"testWrittenTextNewGroup"}]},{"name":"newPresentationFormId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"testWrittenTextPGroup"}]},{"name":"menuPresentationViewId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"testWrittenTextPGroup"}]},{"name":"listPresentationViewId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"testWrittenTextPGroup"}]},{"name":"autocompletePresentationView","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"testWrittenTextPGroup"}]},{"name":"userSuppliedId","value":"true"},{"name":"selfPresentationViewId","value":"testWrittenTextPGroup"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someFitnesseText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someFitnesseDefText"}]},{"name":"search","children":[{"name":"linkedRecordType","value":"search"},{"name":"linkedRecordId","value":"recordTypeSearch"}]},{"name":"groupOfRecordType","value":"metadata","repeatId":"0"}]} | | CREATED |
 
 *!
-!***> Create metadataTextVariable testMovieTitleTextVar, testActorNameTextVar
+!***> Create texts, metadataCollectionItem and a metadataItemCollection (metadataCollectionVariable will be autocreated)
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
@@ -29,14 +29,14 @@ Add tests that searches a string "sv" and preprocesses / joins it to language_id
 | $adminAuthToken | metadataItemCollection | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testLanguageCollection"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"bibsys"}]}]},{"name":"nameInData","value":"language"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someFitnesseText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someFitnesseDefText"}]},{"name":"collectionItemReferences","children":[{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataCollectionItem"},{"name":"linkedRecordId","value":"testSvItem"}],"repeatId":"0"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataCollectionItem"},{"name":"linkedRecordId","value":"testEnItem"}],"repeatId":"1"}]}],"attributes":{"type":"itemCollection"}} | | CREATED |
 
 *!
-!***> Create collectIndexTerms linkedActorIndexTerm, textActorNameIndexTerm
+!***> Create collectIndexTerms testCatLanguageIndexTerm
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
 | $adminAuthToken | collectIndexTerm | {"name":"collectTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"testCatLanguageIndexTerm"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"nameInData","value":"testCatLanguageIndexTerm"},{"name":"extraData","children":[{"name":"indexFieldName","value":"catLang"},{"name":"indexType","value":"indexTypeText"}]}],"attributes":{"type":"index"}} | | CREATED |
 
 *!
-!***> Update testMovieGroup and testActorGroup and add created metadataCollectionVariable
+!***> Update testWrittenTextNewGroup and testWrittenTextGroup and add created metadataCollectionVariable
 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
@@ -49,14 +49,14 @@ Three different parts are needed to perform a search: An instance of recordType 
 -!its child metadataGroups and the metadataTextVariables defining the search parameters that can be used in this search. The third part is the searchTerms which are read based on the nameInData from each search parameter, and contains information about the indexType that is used to index the data. All this information is used to compose the search query correctly.
 
 !3 Create metadataTextVariables and metadataGroups
-!***> Create metadataTextVariable (testMovieSearchTextVar) Note, nameInData is must be the id of the searchTerm we want to search in
+!***> Create metadataTextVariable (testWrittenTextCatLanguageSearchTextVar). Note, nameInData is must be the id of the searchTerm we want to search in
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
 | $adminAuthToken | metadataTextVariable | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testWrittenTextCatLanguageSearchTextVar"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"nameInData","value":"testWrittenTextCatLanguageSearchTerm"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someFitnesseText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someFitnesseDefText"}]},{"name":"regEx","value":".*"}],"attributes":{"type":"textVariable"}} | | CREATED |
 
 *!
-!***> Create a metadataGroup(testMovieSearchIncludePartGroup, testMovieSearchIncludeGroup, testMovieSearchGroup)
+!***> Create a metadataGroup(testWrittenTextSearchIncludePartGroup, testWrittenTextSearchIncludeGroup, testWrittenTextSearchGroup)
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
@@ -66,11 +66,11 @@ Three different parts are needed to perform a search: An instance of recordType 
 
 *!
 !3 Create searchTerms
-!***> Create searchTerm testWrittenTextCatLannguageSearchTerm
+!***> Create searchTerm testWrittenTextCatLanguageSearchTerm
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | searchTerm | {"name":"searchTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"testWrittenTextCatLannguageSearchTerm"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"searchTermType","value":"textInCollection"},{"name":"indexType","value":"indexTypeText","repeatId":"0"},{"name":"searchInRecordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"testWrittenText"}]},{"name":"indexTerm","children":[{"name":"linkedRecordType","value":"collectIndexTerm"},{"name":"linkedRecordId","value":"swedishIndexTerm"}]},{"name":"searchInCollection","children":[{"name":"linkedRecordType","value":"metadataCollectionVariable"},{"name":"linkedRecordId","value":"testLanguageCollectionVar"}]}]} | | CREATED |
+| $adminAuthToken | searchTerm | {"name":"searchTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"testWrittenTextCatLanguageSearchTerm"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"searchTermType","value":"textInCollection"},{"name":"indexType","value":"indexTypeText","repeatId":"0"},{"name":"searchInRecordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"testWrittenText"}]},{"name":"indexTerm","children":[{"name":"linkedRecordType","value":"collectIndexTerm"},{"name":"linkedRecordId","value":"swedishIndexTerm"}]},{"name":"searchInCollection","children":[{"name":"linkedRecordType","value":"metadataCollectionVariable"},{"name":"linkedRecordId","value":"testLanguageCollectionVar"}]}]} | | CREATED |
 
 *!
 !3 Create a new search that uses the metadataGroup created above
@@ -85,13 +85,11 @@ a search is automatically created for each recordType (testWrittenTextSearch), s
 *!
 !2 Perform searches
 !3 Create testNews to create index data
-!***> Create test data for actor and movie
+!***> Create test data testWrittenText
 
-!| comment |
-| RecordEndpointFixture |
+!| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | testActor | {"name":"testActor","children":[{"name":"recordInfo","children":[{"name":"id","value":"someActor"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"actorName","value":"Sean Connery"}]} | | CREATED |
-| $adminAuthToken | testMovie | {"name":"testMovie","children":[{"name":"recordInfo","children":[{"name":"id","value":"someMovie"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"movieTitle","value":"The rock"},{"name":"actor","children":[{"name":"linkedRecordType","value":"testActor"},{"name":"linkedRecordId","value":"someActor"}],"repeatId":"0"}]} | | CREATED |
+| $adminAuthToken | testWrittenText | {"name":"testWrittenText","children":[{"name":"recordInfo","children":[{"name":"id","value":"someWrittenText"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"language","value":"sv"}]} | | CREATED |
 
 *!
 !***> A search searching for movies with an actor named "Sean*"
@@ -109,40 +107,42 @@ Remove data created for this test
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | testWrittenText | someWrittenText | | OK |
 | $adminAuthToken | search | testWrittenTextExtendedSearch | | OK |
 | $adminAuthToken | search | testWrittenTextSearch | | OK |
+| $adminAuthToken | searchTerm | testWrittenTextCatLanguageSearchTerm | | OK |
 | $adminAuthToken | recordType | testWrittenText | | OK |
 | $adminAuthToken | presentationGroup | testWrittenTextPGroup | | OK |
 | $adminAuthToken | metadataGroup | testWrittenTextNewGroup | | OK |
 | $adminAuthToken | metadataGroup | testWrittenTextGroup | | OK |
-| $adminAuthToken | presentationCollectionVar | testLanguageCollectionPCollVar | | OK |
-| $adminAuthToken | presentationCollectionVar | testLanguageCollectionOutputPCollVar | | OK |
+| $adminAuthToken | presentationCollectionVar | testLanguagePCollVar | | OK |
+| $adminAuthToken | presentationCollectionVar | testLanguageOutputPCollVar | | OK |
 | $adminAuthToken | metadataCollectionVariable | testLanguageCollectionVar | | OK |
 | $adminAuthToken | metadataItemCollection | testLanguageCollection | | OK |
 | $adminAuthToken | metadataCollectionItem | testSvItem | | OK |
 | $adminAuthToken | metadataCollectionItem | testEnItem | | OK |
-| $adminAuthToken | searchTerm | testMovieSearchTerm | | OK |
-| $adminAuthToken | search | testActorSearch | | OK |
-| $adminAuthToken | recordType | testActor | | OK |
-| $adminAuthToken | presentationGroup | testActorPGroup | | OK |
-| $adminAuthToken | metadataGroup | testActorNewGroup | | OK |
-| $adminAuthToken | metadataGroup | testActorGroup | | OK |
-| $adminAuthToken | presentationVar | testActorNamePVar | | OK |
-| $adminAuthToken | presentationVar | testActorNameOutputPVar | | OK |
-| $adminAuthToken | metadataTextVariable | testActorNameTextVar | | OK |
-| $adminAuthToken | collectIndexTerm | linkedActorIndexTerm | | OK |
-| $adminAuthToken | collectIndexTerm | textActorNameIndexTerm | | OK |
-| $adminAuthToken | metadataGroup | testMovieSearchGroup | | OK |
-| $adminAuthToken | metadataGroup | testMovieSearchIncludeGroup | | OK |
-| $adminAuthToken | metadataGroup | testMovieSearchIncludePartGroup | | OK |
-| $adminAuthToken | presentationVar | testMovieSearchOutputPVar | | OK |
-| $adminAuthToken | presentationVar | testMovieSearchPVar | | OK |
-| $adminAuthToken | metadataTextVariable | testMovieSearchTextVar | | OK |
-| $adminAuthToken | coraText | testMovieNewGroupText | | OK |
-| $adminAuthToken | coraText | testMovieNewGroupDefText | | OK |
-| $adminAuthToken | coraText | testMovieGroupText | | OK |
-| $adminAuthToken | coraText | testMovieGroupDefText | | OK |
+| $adminAuthToken | collectIndexTerm | testCatLanguageIndexTerm | | OK |
+| $adminAuthToken | presentationGroup | testWrittenTextSearchPGroup | | OK |
+| $adminAuthToken | presentationGroup | testWrittenTextSearchOutputPGroup | | OK |
+| $adminAuthToken | presentationGroup | testWrittenTextSearchIncludePGroup | | OK |
+| $adminAuthToken | presentationGroup | testWrittenTextSearchIncludeOutputPGroup | | OK |
+| $adminAuthToken | presentationGroup | testWrittenTextSearchIncludePartPGroup | | OK |
+| $adminAuthToken | presentationGroup | testWrittenTextSearchIncludePartOutputPGroup | | OK |
+| $adminAuthToken | metadataGroup | testWrittenTextSearchGroup | | OK |
+| $adminAuthToken | metadataGroup | testWrittenTextSearchIncludeGroup | | OK |
+| $adminAuthToken | metadataGroup | testWrittenTextSearchIncludePartGroup | | OK |
+| $adminAuthToken | presentationVar | testWrittenTextCatLanguageSearchOutputPVar | | OK |
+| $adminAuthToken | presentationVar | testWrittenTextCatLanguageSearchPVar | | OK |
+| $adminAuthToken | metadataTextVariable | testWrittenTextCatLanguageSearchTextVar | | OK |
+| $adminAuthToken | coraText | testWrittenTextNewGroupText | | OK |
+| $adminAuthToken | coraText | testWrittenTextNewGroupDefText | | OK |
+| $adminAuthToken | coraText | testWrittenTextGroupText | | OK |
+| $adminAuthToken | coraText | testWrittenTextGroupDefText | | OK |
 | $adminAuthToken | coraText | someFitnesseText | | OK |
 | $adminAuthToken | coraText | someFitnesseDefText | | OK |
+| $adminAuthToken | coraText | testSvItemText | | OK |
+| $adminAuthToken | coraText | testSvItemDefText | | OK |
+| $adminAuthToken | coraText | testEnItemText | | OK |
+| $adminAuthToken | coraText | testEnItemDefText | | OK |
 
 *!
