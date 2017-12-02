@@ -72,7 +72,7 @@
 | $adminAuthToken | recordType | collectPermissionTerm | =~/"name":"linkedRecordId","value":"collectPermissionTermGroup"/ | OK |
 
 *!
-!***> Read metadataGroups (collectIndexTermGroup, collectIndexTermNewGroup)
+!***> Read metadataGroups (collectPermissionTermGroup, collectPermissionTermNewGroup)
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
@@ -108,11 +108,62 @@
 | $adminAuthToken | collectPermissionTerm | | OK |
 
 *!
-!***> Delete created metadataGroup and searchTerm
+!***> Delete created collectIndexTerm and collectPermissionTerm
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
 | $adminAuthToken | collectIndexTerm | someTestIndexTerm | | OK |
 | $adminAuthToken | collectPermissionTerm | someTestPersmissionTerm | | OK |
+
+*!
+!2 CollectStorageTerm
+!***> Read [[ RecordType][RecordType]] collectStorageTerm
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | recordType | collectStorageTerm | =~/"name":"linkedRecordId","value":"collectStorageTermGroup"/ | OK |
+
+*!
+!***> Read metadataGroups (collectStorageTermGroup, collectStorageTermNewGroup)
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | metadataGroup | collectStorageTermGroup | =~/"name":"linkedRecordId","value":"collectStorageTermExtraDataGroup"/ | OK |
+| $adminAuthToken | metadataGroup | collectStorageTermNewGroup | | OK |
+
+*!
+!***> Create data of recordType collectStorageTerm
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | collectStorageTerm | {"name":"collectStorageTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"someTestStorageTerm"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"extraData","children":[{"name":"storageKey","value":"someStorageKey"}]}],"attributes":{"type":"storage"}} | | CREATED |
+
+*!
+!***> Read collectPermissionTerm
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | collectStorageTerm | someTestStorageTerm | | OK |
+
+*!
+!***> Update data of recordType collectStorageTerm
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | collectStorageTerm | someTestStorageTerm | {"name":"collectStorageTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"someTestStorageTerm"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"collectStorageTerm"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"extraData","children":[{"name":"storageKey","value":"someNewStorageKey"}]}],"attributes":{"type":"storage"}} | | OK |
+
+*!
+!***> List recordType collectPermissionTerm
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | collectStorageTerm | | OK |
+
+*!
+!***> Delete created collectStorageTerm
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | collectStorageTerm | someTestStorageTerm | | OK |
 
 *!
