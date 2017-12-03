@@ -70,7 +70,7 @@
 
 *!
 !3 Setup data
-!***> Create a !-DataGroup-!
+!***> Create an instance of recordType parent
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
@@ -166,11 +166,19 @@
 | $adminAuthToken | recordType | {"name":"recordType","children":[{"name":"recordInfo","children":[{"name":"id","value":"testBook"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"metadataId","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"testBookGroup"}]},{"name":"abstract","value":"false"},{"name":"presentationViewId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnessePGroup"}]},{"name":"presentationFormId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnessePGroup"}]},{"name":"newMetadataId","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"testBookNewGroup"}]},{"name":"newPresentationFormId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnesseNewPGroup"}]},{"name":"menuPresentationViewId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnessePGroup"}]},{"name":"listPresentationViewId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnessePGroup"}]},{"name":"autocompletePresentationView","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnessePGroup"}]},{"name":"userSuppliedId","value":"true"},{"name":"selfPresentationViewId","value":"someFitnessePGroup"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someDefText"}]},{"name":"search","children":[{"name":"linkedRecordType","value":"search"},{"name":"linkedRecordId","value":"recordTypeSearch"}]},{"name":"groupOfRecordType","value":"metadata","repeatId":"0"}]} | | CREATED |
 
 *!
+!***> Create a testBook
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | testBook | {"name":"book","children":[{"name":"recordInfo","children":[{"name":"id","value":"aBestsellerBook"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}],"name":"dataDivider"}]},{"name":"text","attributes":{"type":"testText"},"children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someText"}],"repeatId":"0"}]} | | CREATED |
+
+*!
 !2 Clean up created data
 !***> Clean up created data
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | testBook | aBestsellerBook | | OK |
 | $adminAuthToken | search | testBookSearch | | OK |
 | $adminAuthToken | recordType | testBook | | OK |
 | $adminAuthToken | presentationGroup | someFitnessePGroup | | OK |
