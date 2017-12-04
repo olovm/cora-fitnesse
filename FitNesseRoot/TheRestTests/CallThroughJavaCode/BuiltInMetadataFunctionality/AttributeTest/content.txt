@@ -70,7 +70,7 @@
 
 *!
 !3 Setup data
-!***> Create a !-DataGroup-!
+!***> Create an instance of recordType parent
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
@@ -122,5 +122,81 @@
 | $adminAuthToken | coraText | someTestDefText | | OK |
 | $adminAuthToken | coraText | firstItemCollectionVarText | | OK |
 | $adminAuthToken | coraText | firstItemCollectionVarDefText | | OK |
+
+*!
+!3 Create attributes without final value
+!***> Create texts for collectionItems
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | coraText | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"testTextItemText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"} ,"children":[{"name":"text","value":"Text"}]}]} | | CREATED |
+| $adminAuthToken | coraText | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"testDefTextItemText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"} ,"children":[{"name":"text","value":"DefText"}]}]} | | CREATED |
+| $adminAuthToken | coraText | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"someDefText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"}  ,"children":[{"name":"text","value":"En deftext"}]}]} | | CREATED |
+| $adminAuthToken | coraText | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"someText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"}  ,"children":[{"name":"text","value":"En text"}]}]} | | CREATED |
+
+*!
+!***> Create two collectionItems (text and defText)
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | metadataCollectionItem | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testTextItem"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"nameInData","value":"testText"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testTextItemText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someDefText"}]}],"attributes":{"type":"collectionItem"}} | | CREATED |
+| $adminAuthToken | metadataCollectionItem | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testDefTextItem"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"nameInData","value":"testDefText"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testDefTextItemText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someDefText"}]}],"attributes":{"type":"collectionItem"}} | | CREATED |
+
+*!
+!***> Create one !-ItemCollection with two items-!
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | metadataItemCollection | {"name":"metadata","attributes":{"type":"itemCollection"},"children":[{"name":"recordInfo","children":[{"name":"id","value":"testTextTypeCollection"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestDefText"}]},{"name":"nameInData","value":"type"},{"name":"collectionItemReferences","children":[{"name":"ref","repeatId":"0","children":[{"name":"linkedRecordType","value":"metadataCollectionItem"},{"name":"linkedRecordId","value":"testTextItem"}]},{"name":"ref","repeatId":"1","children":[{"name":"linkedRecordType","value":"metadataCollectionItem"},{"name":"linkedRecordId","value":"testDefTextItem"}]}]}]} | | CREATED |
+
+*!
+!***> Create a recordLink with an attribute
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | metadataRecordLink | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testTextLink"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"text"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someText"}],"name":"textId"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someDefText"}],"name":"defTextId"},{"name":"attributeReferences","children":[{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataCollectionVariable"},{"name":"linkedRecordId","value":"testTextTypeCollectionVar"}],"repeatId":"0"}]},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"coraText"}],"name":"linkedRecordType"}],"attributes":{"type":"recordLink"}} | | CREATED |
+
+*!
+!***> Create metadataGroups and recordTypes for testBook
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | metadataGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testBookGroup"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"book"},{"name":"excludePGroupCreation","value":"true"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someDefText"}]},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"recordInfoGroup"}]},{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"}],"repeatId":"0"},{"name":"childReference","children":[{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testTextLink"}]},{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"2"}],"repeatId":"1"}]}],"attributes":{"type":"group"}} | | CREATED |
+| $adminAuthToken | metadataGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testBookNewGroup"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]}]},{"name":"nameInData","value":"book"},{"name":"excludePGroupCreation","value":"true"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someDefText"}]},{"name":"refParentId","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"testBookGroup"}]},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"recordInfoNewGroup"}]},{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"}],"repeatId":"0"},{"name":"childReference","children":[{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testTextLink"}]},{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"2"}],"repeatId":"1"}]}],"attributes":{"type":"group"}} | | CREATED |
+| $adminAuthToken | recordType | {"name":"recordType","children":[{"name":"recordInfo","children":[{"name":"id","value":"testBook"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"metadataId","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"testBookGroup"}]},{"name":"abstract","value":"false"},{"name":"presentationViewId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnessePGroup"}]},{"name":"presentationFormId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnessePGroup"}]},{"name":"newMetadataId","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"testBookNewGroup"}]},{"name":"newPresentationFormId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnesseNewPGroup"}]},{"name":"menuPresentationViewId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnessePGroup"}]},{"name":"listPresentationViewId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnessePGroup"}]},{"name":"autocompletePresentationView","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnessePGroup"}]},{"name":"userSuppliedId","value":"true"},{"name":"selfPresentationViewId","value":"someFitnessePGroup"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someDefText"}]},{"name":"search","children":[{"name":"linkedRecordType","value":"search"},{"name":"linkedRecordId","value":"recordTypeSearch"}]},{"name":"groupOfRecordType","value":"metadata","repeatId":"0"}]} | | CREATED |
+
+*!
+!***> Create a testBook
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | testBook | {"name":"book","children":[{"name":"recordInfo","children":[{"name":"id","value":"aBestsellerBook"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}],"name":"dataDivider"}]},{"name":"text","attributes":{"type":"testText"},"children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someText"}],"repeatId":"0"}]} | | CREATED |
+
+*!
+!2 Clean up created data
+!***> Clean up created data
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | testBook | aBestsellerBook | | OK |
+| $adminAuthToken | search | testBookSearch | | OK |
+| $adminAuthToken | recordType | testBook | | OK |
+| $adminAuthToken | presentationGroup | someFitnessePGroup | | OK |
+| $adminAuthToken | presentationGroup | someFitnesseNewPGroup | | OK |
+| $adminAuthToken | metadataGroup | testBookNewGroup | | OK |
+| $adminAuthToken | metadataGroup | testBookGroup | | OK |
+| $adminAuthToken | presentationRecordLink | testTextOutputPLink | | OK |
+| $adminAuthToken | presentationRecordLink | testTextPLink | | OK |
+| $adminAuthToken | metadataRecordLink | testTextLink | | OK |
+| $adminAuthToken | presentationCollectionVar | testTextTypePCollVar | | OK |
+| $adminAuthToken | presentationCollectionVar | testTextTypeOutputPCollVar | | OK |
+| $adminAuthToken | metadataCollectionVariable | testTextTypeCollectionVar | | OK |
+| $adminAuthToken | metadataItemCollection | testTextTypeCollection | | OK |
+| $adminAuthToken | metadataCollectionItem | testTextItem | | OK |
+| $adminAuthToken | metadataCollectionItem | testDefTextItem | | OK |
+| $adminAuthToken | coraText | testTextItemText | | OK |
+| $adminAuthToken | coraText | testDefTextItemText | | OK |
+| $adminAuthToken | coraText | someText | | OK |
+| $adminAuthToken | coraText | someDefText | | OK |
 
 *!
