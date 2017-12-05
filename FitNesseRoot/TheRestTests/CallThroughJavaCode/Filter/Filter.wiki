@@ -1,0 +1,65 @@
+---
+Test
+---
+!contents -R2 -g -p -f -h
+| import |
+| se.uu.ub.cora.fitnesse |
+
+!1 Testing using storageTerm to filter data
+!2 Create metadata
+!***> Create metadata for recordType testMovie
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | recordType | {"name":"recordType","children":[{"name":"recordInfo","children":[{"name":"id","value":"testMovie"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"metadataId","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"testMovieGroup"}]},{"name":"abstract","value":"false"},{"name":"presentationViewId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"testMoviePGroup"}]},{"name":"presentationFormId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"testMoviePGroup"}]},{"name":"newMetadataId","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"testMovieNewGroup"}]},{"name":"newPresentationFormId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"testMoviePGroup"}]},{"name":"menuPresentationViewId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"testMoviePGroup"}]},{"name":"listPresentationViewId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"testMoviePGroup"}]},{"name":"autocompletePresentationView","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"testMoviePGroup"}]},{"name":"userSuppliedId","value":"true"},{"name":"selfPresentationViewId","value":"testMoviePGroup"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someFitnesseText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someFitnesseDefText"}]},{"name":"search","children":[{"name":"linkedRecordType","value":"search"},{"name":"linkedRecordId","value":"recordTypeSearch"}]},{"name":"groupOfRecordType","value":"metadata","repeatId":"0"}]} | | CREATED |
+
+*!
+!***> Create metadataTextVariable testMovieTitleTextVar
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | metadataTextVariable | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testMovieTitleTextVar"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"movieTitle"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someFitnesseText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someFitnesseDefText"}]},{"name":"regEx","value":"(^[0-9A-Za-z:-_\\s]{2,50}$)"}],"attributes":{"type":"textVariable"}} | | CREATED |
+
+*!
+!***> Create collectStorageTerms testMovieTitleStorageTerm
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | collectStorageTerm | {"name":"collectStorageTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"testMovieTitleStorageTerm"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"extraData","children":[{"name":"storageKey","value":"movieTitle"}]}],"attributes":{"type":"storage"}} | | CREATED |
+
+*!
+!***> Update testMovieGroup and add created textVar and storageTerm
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | metadataGroup | testMovieNewGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testMovieNewGroup"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"metadataGroup"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"testMovie"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testMovieNewGroupText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testMovieNewGroupDefText"}]},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"recordInfoNewGroup"}]}],"repeatId":"0"},{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testMovieTitleTextVar"}]},{"name":"childRefStorageTerm","children":[{"name":"linkedRecordType","value":"collectStorageTerm"},{"name":"linkedRecordId","value":"testMovieTitleStorageTerm"}],"attributes":{"type":"storage"}}],"repeatId":"1"}]},{"name":"excludePGroupCreation","value":"true"}],"attributes":{"type":"group"}} | | OK |
+| $adminAuthToken | metadataGroup | testMovieGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testMovieGroup"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"metadataGroup"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"testMovie"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testMovieGroupText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testMovieGroupDefText"}]},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"recordInfoGroup"}]}],"repeatId":"0"},{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testMovieTitleTextVar"}]},{"name":"childRefStorageTerm","children":[{"name":"linkedRecordType","value":"collectStorageTerm"},{"name":"linkedRecordId","value":"testMovieTitleStorageTerm"}],"attributes":{"type":"storage"}}],"repeatId":"1"}]},{"name":"excludePGroupCreation","value":"true"}],"attributes":{"type":"group"}} | | OK |
+
+*!
+!1 Reset testdata
+Remove data created for this test
+
+!***> Delete created data
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | testMovie | someMovie | | OK |
+| $adminAuthToken | recordType | testMovie | | OK |
+| $adminAuthToken | presentationGroup | testMoviePGroup | | OK |
+| $adminAuthToken | metadataGroup | testMovieNewGroup | | OK |
+| $adminAuthToken | metadataGroup | testMovieGroup | | OK |
+| $adminAuthToken | presentationVar | testMovieTitlePVar | | OK |
+| $adminAuthToken | presentationVar | testMovieTitleOutputPVar | | OK |
+| $adminAuthToken | metadataTextVariable | testMovieTitleTextVar | | OK |
+| $adminAuthToken | presentationVar | testMovieSearchOutputPVar | | OK |
+| $adminAuthToken | presentationVar | testMovieSearchPVar | | OK |
+| $adminAuthToken | metadataTextVariable | testMovieSearchTextVar | | OK |
+| $adminAuthToken | collectStorageTerm | testMovieTitleStorageTerm | | OK |
+| $adminAuthToken | coraText | testMovieNewGroupText | | OK |
+| $adminAuthToken | coraText | testMovieNewGroupDefText | | OK |
+| $adminAuthToken | coraText | testMovieGroupText | | OK |
+| $adminAuthToken | coraText | testMovieGroupDefText | | OK |
+| $adminAuthToken | coraText | someFitnesseText | | OK |
+| $adminAuthToken | coraText | someFitnesseDefText | | OK |
+
+*!
