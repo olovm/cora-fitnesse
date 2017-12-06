@@ -365,4 +365,19 @@ public class RecordEndpointFixture {
 		return httpHandler.getErrorText();
 	}
 
+	public String testReadRecordListWithFilter() throws UnsupportedEncodingException {
+		String url = baseUrl + type;
+		url = addAuthTokenToUrl(url);
+		url += "&filter=" + URLEncoder.encode(json, "UTF-8");
+
+		HttpHandler httpHandler = factory.factorHttpHandler(url);
+		httpHandler.setRequestMethod("GET");
+
+		statusType = Response.Status.fromStatusCode(httpHandler.getResponseCode());
+		if (statusType.equals(Response.Status.OK)) {
+			return httpHandler.getResponseText();
+		}
+		return httpHandler.getErrorText();
+	}
+
 }

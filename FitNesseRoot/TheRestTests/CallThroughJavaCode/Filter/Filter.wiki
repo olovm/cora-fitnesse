@@ -36,6 +36,21 @@ Test
 | $adminAuthToken | metadataGroup | testMovieGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testMovieGroup"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"metadataGroup"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"testMovie"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testMovieGroupText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"testMovieGroupDefText"}]},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"recordInfoGroup"}]}],"repeatId":"0"},{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"testMovieTitleTextVar"}]},{"name":"childRefStorageTerm","children":[{"name":"linkedRecordType","value":"collectStorageTerm"},{"name":"linkedRecordId","value":"testMovieTitleStorageTerm"}],"attributes":{"type":"storage"}}],"repeatId":"1"}]},{"name":"excludePGroupCreation","value":"true"}],"attributes":{"type":"group"}} | | OK |
 
 *!
+!2 Test with new testMovie
+!***> Create data of recordType systemOneUser
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecordCreatedType? | getStatusType? |
+| $adminAuthToken | testMovie | {"name":"testMovie","children":[{"name":"recordInfo","children":[{"name":"id","value":"someMovie"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"movieTitle","value":"The rock"}]} | testMovie | CREATED |
+
+*!
+!***> List data(systemOneUser)
+
+!| RecordEndpointFixture |
+| authToken | type | json | testReadRecordListWithFilter? | getStatusType? |
+| $adminAuthToken | testMovie | {"name":"filter","children":[{"name":"part","children":[{"name":"key","value":"movieTitle"},{"name":"value","value":"The rock"}],"repeatId":"0"}]} | | OK |
+
+*!
 !1 Reset testdata
 Remove data created for this test
 
@@ -44,6 +59,7 @@ Remove data created for this test
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
 | $adminAuthToken | testMovie | someMovie | | OK |
+| $adminAuthToken | search | testMovieSearch | | OK |
 | $adminAuthToken | recordType | testMovie | | OK |
 | $adminAuthToken | presentationGroup | testMoviePGroup | | OK |
 | $adminAuthToken | metadataGroup | testMovieNewGroup | | OK |
@@ -51,9 +67,6 @@ Remove data created for this test
 | $adminAuthToken | presentationVar | testMovieTitlePVar | | OK |
 | $adminAuthToken | presentationVar | testMovieTitleOutputPVar | | OK |
 | $adminAuthToken | metadataTextVariable | testMovieTitleTextVar | | OK |
-| $adminAuthToken | presentationVar | testMovieSearchOutputPVar | | OK |
-| $adminAuthToken | presentationVar | testMovieSearchPVar | | OK |
-| $adminAuthToken | metadataTextVariable | testMovieSearchTextVar | | OK |
 | $adminAuthToken | collectStorageTerm | testMovieTitleStorageTerm | | OK |
 | $adminAuthToken | coraText | testMovieNewGroupText | | OK |
 | $adminAuthToken | coraText | testMovieNewGroupDefText | | OK |
