@@ -12,3 +12,11 @@
 | metadataGroupGroup | metadataGroup | | OK |
 
 *!
+!***> childReferences and childReference
+
+!| RecordEndpointFixture |
+| id | type | testReadRecord? | getStatusType? |
+| childReferencesGroup | metadataGroup | =~/"value":"childReferenceGroup".*"name":"ref".*"name":"childReference"/ | OK |
+| childReferenceGroup | metadataGroup | =~/"value":"repeatMinTextVar".*"name":"ref".*"value":"repeatMaxTextVar".*"name":"ref".*"value":"refMetadataLink".*"name":"ref".*"value":"childRefCollectIndexTermLink".*"name":"ref".*"value":"childRefCollectPermissionTermLink".*"name":"ref".*"value":"childRefCollectStorageTermLink".*"name":"ref"/ | OK |
+
+*!
