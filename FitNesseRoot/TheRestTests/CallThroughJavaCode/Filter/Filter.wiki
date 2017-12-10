@@ -37,24 +37,25 @@ Test
 
 *!
 !2 Test with new testMovie
-!***> Create data of recordType systemOneUser
+!***> Create data of recordType testMovie
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecordCreatedType? | getStatusType? |
 | $adminAuthToken | testMovie | {"name":"testMovie","children":[{"name":"recordInfo","children":[{"name":"id","value":"someMovie"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"movieTitle","value":"The rock"}]} | testMovie | CREATED |
+| $adminAuthToken | testMovie | {"name":"testMovie","children":[{"name":"recordInfo","children":[{"name":"id","value":"someOldMovie"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"movieTitle","value":"Gone with the wind"}]} | testMovie | CREATED |
 
 *!
 !***> List testMovie with filter that matches the created testMovie
 
 !| RecordEndpointFixture |
-| authToken | type | json | testReadRecordListWithFilter? | getStatusType? |
+| authToken | type | json | testReadRecordList? | getStatusType? |
 | $adminAuthToken | testMovie | {"name":"filter","children":[{"name":"part","children":[{"name":"key","value":"movieTitle"},{"name":"value","value":"The rock"}],"repeatId":"0"}]} | =~/"toNo":"1"/ | OK |
 
 *!
 !***> List testMovie with a filter that does not match the created testMovie
 
 !| RecordEndpointFixture |
-| authToken | type | json | testReadRecordListWithFilter? | getStatusType? |
+| authToken | type | json | testReadRecordList? | getStatusType? |
 | $adminAuthToken | testMovie | {"name":"filter","children":[{"name":"part","children":[{"name":"key","value":"movieTitle"},{"name":"value","value":"Another movie"}],"repeatId":"0"}]} | =~/"toNo":"0"/ | OK |
 
 *!
@@ -68,14 +69,14 @@ Test
 !***> List testMovie with same filter that matched before. Since the title has been updated it should no longer match
 
 !| RecordEndpointFixture |
-| authToken | type | json | testReadRecordListWithFilter? | getStatusType? |
+| authToken | type | json | testReadRecordList? | getStatusType? |
 | $adminAuthToken | testMovie | {"name":"filter","children":[{"name":"part","children":[{"name":"key","value":"movieTitle"},{"name":"value","value":"The rock"}],"repeatId":"0"}]} | =~/"toNo":"0"/ | OK |
 
 *!
 !***> List testMovie with filter that matches the updated title.
 
 !| RecordEndpointFixture |
-| authToken | type | json | testReadRecordListWithFilter? | getStatusType? |
+| authToken | type | json | testReadRecordList? | getStatusType? |
 | $adminAuthToken | testMovie | {"name":"filter","children":[{"name":"part","children":[{"name":"key","value":"movieTitle"},{"name":"value","value":"Jumanji"}],"repeatId":"0"}]} | =~/"toNo":"1"/ | OK |
 
 *!
@@ -84,11 +85,12 @@ Test
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
 | $adminAuthToken | testMovie | someMovie | | OK |
+
 *!
 !***> List testMovie again with filter that matches. Since the movie has been deleted, no matches should be found.
 
 !| RecordEndpointFixture |
-| authToken | type | json | testReadRecordListWithFilter? | getStatusType? |
+| authToken | type | json | testReadRecordList? | getStatusType? |
 | $adminAuthToken | testMovie | {"name":"filter","children":[{"name":"part","children":[{"name":"key","value":"movieTitle"},{"name":"value","value":"Jumanji"}],"repeatId":"0"}]} | =~/"toNo":"0"/ | OK |
 
 *!
@@ -99,6 +101,7 @@ Remove data created for this test
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | testMovie | someOldMovie | | OK |
 | $adminAuthToken | search | testMovieSearch | | OK |
 | $adminAuthToken | recordType | testMovie | | OK |
 | $adminAuthToken | presentationGroup | testMoviePGroup | | OK |
