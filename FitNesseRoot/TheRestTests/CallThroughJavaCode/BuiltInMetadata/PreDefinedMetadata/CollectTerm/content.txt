@@ -16,8 +16,8 @@
 !***> List recordType collectTerm
 
 !| RecordEndpointFixture |
-| authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | collectTerm | | OK |
+| authToken | type | json | testReadRecordList? | getStatusType? |
+| $adminAuthToken | collectTerm | {"name":"filter","children":[]} | | OK |
 
 *!
 !2 CollectIndexTerm

@@ -73,22 +73,38 @@ public class RecordEndpointFixtureTest {
 	}
 
 	@Test
-	public void testReadRecordListDataForFactoryIsOk() {
+	public void testReadRecordListDataForFactoryIsOk() throws UnsupportedEncodingException {
 		fixture.setType("someType");
 		fixture.setAuthToken("someToken");
+
 		fixture.testReadRecordList();
 		assertEquals(httpHandlerFactorySpy.httpHandlerSpy.requestMetod, "GET");
+
 		assertEquals(httpHandlerFactorySpy.urlString,
 				"http://localhost:8080/therest/rest/record/someType?authToken=someToken");
 	}
 
 	@Test
-	public void testReadRecordListOk() {
+	public void testReadRecordListNoFilterOk() throws UnsupportedEncodingException {
 		assertEquals(fixture.testReadRecordList(), "Everything ok");
 	}
 
 	@Test
-	public void testReadRecordListNotOk() {
+	public void testReadRecordListWithAddedFilterOk() throws UnsupportedEncodingException {
+		fixture.setType("someType");
+		fixture.setAuthToken("someToken");
+		String json = "{\"name\":\"filter\",\"children\":[{\"name\":\"part\",\"children\":[{\"name\":\"key\",\"value\":\"idFromLogin\"},{\"name\":\"value\",\"value\":\"someId\"}],\"repeatId\":\"0\"}]}";
+
+		fixture.setJson(json);
+		String encodedJson = URLEncoder.encode(json, "UTF-8");
+		assertEquals(fixture.testReadRecordList(), "Everything ok");
+		assertEquals(httpHandlerFactorySpy.urlString,
+				"http://localhost:8080/therest/rest/record/someType?authToken=someToken&filter="
+						+ encodedJson);
+	}
+
+	@Test
+	public void testReadRecordListNotOk() throws UnsupportedEncodingException {
 		httpHandlerFactorySpy.changeFactoryToFactorInvalidHttpHandlers();
 		assertEquals(fixture.testReadRecordList(), "bad things happend");
 	}
