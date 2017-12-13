@@ -68,16 +68,14 @@ Test
 *!
 !***> List testMovie with same filter that matched before. Since the title has been updated it should no longer match
 
-!| comment |
-| RecordEndpointFixture |
+!| RecordEndpointFixture |
 | authToken | type | json | testReadRecordList? | getStatusType? |
 | $adminAuthToken | testMovie | {"name":"filter","children":[{"name":"part","children":[{"name":"key","value":"movieTitle"},{"name":"value","value":"The rock"}],"repeatId":"0"}]} | =~/"toNo":"0"/ | OK |
 
 *!
 !***> List testMovie with filter that matches the updated title.
 
-!| comment |
-| RecordEndpointFixture |
+!| RecordEndpointFixture |
 | authToken | type | json | testReadRecordList? | getStatusType? |
 | $adminAuthToken | testMovie | {"name":"filter","children":[{"name":"part","children":[{"name":"key","value":"movieTitle"},{"name":"value","value":"Jumanji"}],"repeatId":"0"}]} | =~/"toNo":"1"/ | OK |
 
