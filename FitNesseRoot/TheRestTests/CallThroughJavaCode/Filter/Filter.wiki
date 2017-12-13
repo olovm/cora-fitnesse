@@ -89,8 +89,7 @@ Test
 *!
 !***> List testMovie again with filter that matches. Since the movie has been deleted, no matches should be found.
 
-!| comment |
-| RecordEndpointFixture |
+!| RecordEndpointFixture |
 | authToken | type | json | testReadRecordList? | getStatusType? |
 | $adminAuthToken | testMovie | {"name":"filter","children":[{"name":"part","children":[{"name":"key","value":"movieTitle"},{"name":"value","value":"Jumanji"}],"repeatId":"0"}]} | =~/"toNo":"0"/ | OK |
 
