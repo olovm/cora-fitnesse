@@ -9,8 +9,8 @@
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | metadataGroup | searchTermGroup | =~/"name":"linkedRecordId","value":"searchTermTypeCollectionVar".*"name":"linkedRecordId","value":"indexTypeCollectionVar".*"name":"linkedRecordId","value":"searchInCollectionLink".*"name":"linkedRecordId","value":"searchInRecordTypeLink".*"name":"linkedRecordId","value":"indexTermLink".*"name":"linkedRecordId","value":"linkedOnIndexTermLink"/ | OK |
-| $adminAuthToken | metadataGroup | searchTermNewGroup | =~/"name":"linkedRecordId","value":"searchTermTypeCollectionVar".*"name":"linkedRecordId","value":"indexTypeCollectionVar".*"name":"linkedRecordId","value":"searchInCollectionLink".*"name":"linkedRecordId","value":"searchInRecordTypeLink".*"name":"linkedRecordId","value":"indexTermLink".*"name":"linkedRecordId","value":"linkedOnIndexTermLink"/ | OK |
+| $adminAuthToken | metadataGroup | searchTermGroup | =~/"name":"linkedRecordId","value":"searchTermTypeCollectionVar".*"name":"linkedRecordId","value":"searchInCollectionLink".*"name":"linkedRecordId","value":"searchInRecordTypeLink".*"name":"linkedRecordId","value":"indexTermLink".*"name":"linkedRecordId","value":"linkedOnIndexTermLink"/ | OK |
+| $adminAuthToken | metadataGroup | searchTermNewGroup | =~/"name":"linkedRecordId","value":"searchTermTypeCollectionVar".*"name":"linkedRecordId","value":"searchInCollectionLink".*"name":"linkedRecordId","value":"searchInRecordTypeLink".*"name":"linkedRecordId","value":"indexTermLink".*"name":"linkedRecordId","value":"linkedOnIndexTermLink"/ | OK |
 
 *!
 !***> List recordType searchTerm
@@ -25,21 +25,21 @@
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecordCreatedType? | getStatusType? |
-| $adminAuthToken | searchTerm | {"name":"searchTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"myTestSearchTerm"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"searchTermType","value":"linkedData"},{"name":"indexType","value":"indexTypeNumber","repeatId":"0"}]} | searchTerm | CREATED |
+| $adminAuthToken | searchTerm | {"name":"searchTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"myTestSearchTerm"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"searchTermType","value":"linkedData"}]} | searchTerm | CREATED |
 
 *!
 !***> Read searchTerm
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | searchTerm | myTestSearchTerm | =~/"repeatId":"0","name":"indexType","value":"indexTypeNumber"/ | OK |
+| $adminAuthToken | searchTerm | myTestSearchTerm | =~/"name":"searchTermType","value":"linkedData"/ | OK |
 
 *!
 !***> Update data of recordType searchTerm
 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | searchTerm | myTestSearchTerm | {"name":"searchTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"myTestSearchTerm"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"searchTerm"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"searchTermType","value":"linkedData"},{"name":"indexType","value":"indexTypeNumber","repeatId":"0"}]} | | OK |
+| $adminAuthToken | searchTerm | myTestSearchTerm | {"name":"searchTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"myTestSearchTerm"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"searchTerm"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"searchTermType","value":"linkedData"}]} | | OK |
 
 *!
 !***> Create a collectionVariable to use as searchInCollection
@@ -53,8 +53,8 @@
 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | searchTerm | myTestSearchTerm | {"name":"searchTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"myTestSearchTerm"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"searchTerm"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"searchTermType","value":"linkedData"},{"name":"indexType","value":"indexTypeNumber","repeatId":"0"},{"name":"searchInCollection","children":[{"name":"linkedRecordType","value":"metadataCollectionVariable"},{"name":"linkedRecordId","value":"testSomeCollectionToSearchInCollectionVar"}]}]} | | OK |
-| $adminAuthToken | searchTerm | myTestSearchTerm | {"name":"searchTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"myTestSearchTerm"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"searchTerm"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"searchTermType","value":"linkedData"},{"name":"indexType","value":"indexTypeNumber","repeatId":"0"},{"name":"searchInCollection","children":[{"name":"linkedRecordType","value":"metadataCollectionVariable"},{"name":"linkedRecordId","value":"testSomeCollectionToSearchInCollectionVar"}]},{"name":"searchInRecordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"person"}]}]} | | OK |
+| $adminAuthToken | searchTerm | myTestSearchTerm | {"name":"searchTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"myTestSearchTerm"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"searchTerm"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"searchTermType","value":"linkedData"},{"name":"searchInCollection","children":[{"name":"linkedRecordType","value":"metadataCollectionVariable"},{"name":"linkedRecordId","value":"testSomeCollectionToSearchInCollectionVar"}]}]} | | OK |
+| $adminAuthToken | searchTerm | myTestSearchTerm | {"name":"searchTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"myTestSearchTerm"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"searchTerm"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"searchTermType","value":"linkedData"},{"name":"searchInCollection","children":[{"name":"linkedRecordType","value":"metadataCollectionVariable"},{"name":"linkedRecordId","value":"testSomeCollectionToSearchInCollectionVar"}]},{"name":"searchInRecordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"person"}]}]} | | OK |
 
 *!
 !***> Delete created metadataGroup and searchTerm
@@ -76,6 +76,6 @@ Try create data of recodType searchTerm. Shuld fail since links are incorrect
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | searchTerm | {"name":"searchTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"myTestSearchTerm"},{"name":"type","value":"searchTerm"},{"name":"createdBy","value":"141414"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"searchTermType","value":"linkedData"},{"name":"indexType","value":"indexTypeNumber","repeatId":"0"}]} | Data is not valid: [Could not find metadata for child with nameInData: type, Could not find metadata for child with nameInData: createdBy] | BAD_REQUEST |
+| $adminAuthToken | searchTerm | {"name":"searchTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"myTestSearchTerm"},{"name":"type","value":"searchTerm"},{"name":"createdBy","value":"141414"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"searchTermType","value":"linkedData"}]} | Data is not valid: [Could not find metadata for child with nameInData: type, Could not find metadata for child with nameInData: createdBy] | BAD_REQUEST |
 
 *!
