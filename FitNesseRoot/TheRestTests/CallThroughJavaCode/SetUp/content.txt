@@ -6,7 +6,7 @@
 | setAppTokenVerifierUrl | ${appTokenVerifierUrl} |
 
 !| script | DependencyProvider |
-| setHttpHandlerFactoryClassName | se.uu.ub.cora.fitnesse.HttpHandlerFactoryImp |
+| setHttpHandlerFactoryClassName | se.uu.ub.cora.httphandler.HttpHandlerFactoryImp |
 
 !2 Login
 !***> Login for admin
