@@ -11,7 +11,7 @@ Test
 | setAppTokenVerifierUrl | ${appTokenVerifierUrl} |
 
 !| script | DependencyProvider |
-| setHttpHandlerFactoryClassName | se.uu.ub.cora.fitnesse.HttpHandlerFactoryImp |
+| setHttpHandlerFactoryClassName | se.uu.ub.cora.httphandler.HttpHandlerFactoryImp |
 
 !2 Login  - call is made through java code
 !***> Login for admin

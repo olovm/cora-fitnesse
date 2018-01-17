@@ -15,7 +15,7 @@ Last, we will create a trainingProgram using the metadata groups specified. We c
 | setAppTokenVerifierUrl | ${appTokenVerifierUrl} |
 
 !| script | DependencyProvider |
-| setHttpHandlerFactoryClassName | se.uu.ub.cora.fitnesse.HttpHandlerFactoryImp |
+| setHttpHandlerFactoryClassName | se.uu.ub.cora.httphandler.HttpHandlerFactoryImp |
 
 !2 Login  - call is made through java code
 !***> Login for admin
