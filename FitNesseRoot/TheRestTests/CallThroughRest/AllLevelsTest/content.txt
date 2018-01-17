@@ -8,7 +8,7 @@ Last, we will create a trainingProgram using the metadata groups specified. We c
 -!The third test contains everything needed
 
 | import |
-| se.uu.ub.cora.fitnesse |
+| se.uu.ub.cora.fitnesseintegration |
 
 !| script | SystemUrl |
 | setUrl | ${systemUnderTestUrl} |

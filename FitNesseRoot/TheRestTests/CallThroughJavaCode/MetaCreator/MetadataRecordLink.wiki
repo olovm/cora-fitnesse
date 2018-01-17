@@ -3,7 +3,7 @@ Test
 ---
 !contents -R2 -g -p -f -h
 | import |
-| se.uu.ub.cora.fitnesse |
+| se.uu.ub.cora.fitnesseintegration |
 
 !1 Testing metacompleter and creator for metadataRecordLink
 !2 Read metadata, texts and presentations to make sure they do not already exist

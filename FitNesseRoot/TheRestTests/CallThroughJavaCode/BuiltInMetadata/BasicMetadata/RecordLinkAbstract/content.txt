@@ -1,6 +1,6 @@
 !contents -R2 -g -p -f -h
 | import |
-| se.uu.ub.cora.fitnesse |
+| se.uu.ub.cora.fitnesseintegration |
 
 !1 RecordLink to an abstract recordType
 This test tests that we can create a recordLink to an abstract recordType (plant) and then have data that points to an implementing type (flower).

@@ -1,6 +1,6 @@
 !contents -R2 -g -p -f -h
 | import |
-| se.uu.ub.cora.fitnesse |
+| se.uu.ub.cora.fitnesseintegration |
 
 If no token is provided will the request automatically be assigned the guest user, and its rights.  If a token that does not exist (or is no longer valid) is provided should the answer be UNAUTHORIZED
 

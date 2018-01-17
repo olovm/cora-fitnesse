@@ -1,6 +1,6 @@
 !contents -R2 -g -p -f -h
 | import |
-| se.uu.ub.cora.fitnesse |
+| se.uu.ub.cora.fitnesseintegration |
 
 !1 !-TextTest-!
 A test that first reads all predefined metadata needed to be able to add texts to the system, and then tests adding and updating texts.

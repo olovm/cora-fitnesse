@@ -1,6 +1,6 @@
 !contents -R2 -g -p -f -h
 | import |
-| se.uu.ub.cora.fitnesse |
+| se.uu.ub.cora.fitnesseintegration |
 
 !1 !-AppTokenVerifierTest-!
 A test that checks that we can use newly created appTokens to authenticate.

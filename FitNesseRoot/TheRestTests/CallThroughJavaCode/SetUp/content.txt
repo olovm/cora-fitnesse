@@ -1,5 +1,5 @@
 | import |
-| se.uu.ub.cora.fitnesse |
+| se.uu.ub.cora.fitnesseintegration |
 
 !| script | SystemUrl |
 | setUrl | ${systemUnderTestUrl} |
