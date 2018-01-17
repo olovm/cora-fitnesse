@@ -30,6 +30,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.StatusType;
 
 import se.uu.ub.cora.httphandler.HttpHandler;
+import se.uu.ub.cora.httphandler.HttpHandlerFactory;
 import se.uu.ub.cora.httphandler.HttpMultiPartUploader;
 import se.uu.ub.cora.json.parser.JsonArray;
 import se.uu.ub.cora.json.parser.JsonObject;
@@ -115,7 +116,7 @@ public class RecordEndpointFixture {
 		String url = baseUrl + type + "/" + id;
 		url = addAuthTokenToUrl(url);
 
-		HttpHandler httpHandler = factory.factorHttpHandler(url);
+		HttpHandler httpHandler = factory.factor(url);
 		httpHandler.setRequestMethod("GET");
 
 		statusType = Response.Status.fromStatusCode(httpHandler.getResponseCode());
@@ -139,7 +140,7 @@ public class RecordEndpointFixture {
 		String url = baseUrl + type + "/" + id + "/incomingLinks";
 		url = addAuthTokenToUrl(url);
 
-		HttpHandler httpHandler = factory.factorHttpHandler(url);
+		HttpHandler httpHandler = factory.factor(url);
 		httpHandler.setRequestMethod("GET");
 
 		statusType = Response.Status.fromStatusCode(httpHandler.getResponseCode());
@@ -156,7 +157,7 @@ public class RecordEndpointFixture {
 			url += "&filter=" + URLEncoder.encode(json, "UTF-8");
 		}
 
-		HttpHandler httpHandler = factory.factorHttpHandler(url);
+		HttpHandler httpHandler = factory.factor(url);
 		httpHandler.setRequestMethod("GET");
 
 		statusType = Response.Status.fromStatusCode(httpHandler.getResponseCode());
@@ -184,7 +185,7 @@ public class RecordEndpointFixture {
 		String url = baseUrl + type;
 		url = addAuthTokenToUrl(url);
 
-		HttpHandler httpHandler = factory.factorHttpHandler(url);
+		HttpHandler httpHandler = factory.factor(url);
 		httpHandler.setRequestMethod("POST");
 		httpHandler.setRequestProperty(ACCEPT, APPLICATION_UUB_RECORD_JSON);
 		httpHandler.setRequestProperty("Content-Type", APPLICATION_UUB_RECORD_JSON);
@@ -269,7 +270,7 @@ public class RecordEndpointFixture {
 		String url = baseUrl + type + "/" + id;
 		url = addAuthTokenToUrl(url);
 
-		HttpHandler httpHandler = factory.factorHttpHandler(url);
+		HttpHandler httpHandler = factory.factor(url);
 		httpHandler.setRequestMethod("POST");
 		httpHandler.setRequestProperty(ACCEPT, APPLICATION_UUB_RECORD_JSON);
 		httpHandler.setRequestProperty("Content-Type", APPLICATION_UUB_RECORD_JSON);
@@ -287,7 +288,7 @@ public class RecordEndpointFixture {
 		String url = baseUrl + type + "/" + id;
 		url = addAuthTokenToUrl(url);
 
-		HttpHandler httpHandler = factory.factorHttpHandler(url);
+		HttpHandler httpHandler = factory.factor(url);
 		httpHandler.setRequestMethod("DELETE");
 
 		statusType = Response.Status.fromStatusCode(httpHandler.getResponseCode());
@@ -335,7 +336,7 @@ public class RecordEndpointFixture {
 		String url = baseUrl + type + "/" + id + "/" + resourceName;
 		url = addAuthTokenToUrl(url);
 
-		HttpHandler httpHandler = factory.factorHttpHandler(url);
+		HttpHandler httpHandler = factory.factor(url);
 		httpHandler.setRequestMethod("GET");
 
 		statusType = Response.Status.fromStatusCode(httpHandler.getResponseCode());
@@ -358,7 +359,7 @@ public class RecordEndpointFixture {
 		url = addAuthTokenToUrl(url);
 		url += "&searchData=" + URLEncoder.encode(json, "UTF-8");
 
-		HttpHandler httpHandler = factory.factorHttpHandler(url);
+		HttpHandler httpHandler = factory.factor(url);
 		httpHandler.setRequestMethod("GET");
 
 		statusType = Response.Status.fromStatusCode(httpHandler.getResponseCode());

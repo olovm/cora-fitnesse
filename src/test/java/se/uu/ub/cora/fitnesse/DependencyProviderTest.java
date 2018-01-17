@@ -23,6 +23,9 @@ import static org.testng.Assert.assertTrue;
 
 import org.testng.annotations.Test;
 
+import se.uu.ub.cora.httphandler.HttpHandlerFactory;
+import se.uu.ub.cora.httphandler.HttpHandlerFactoryImp;
+
 public class DependencyProviderTest {
 	@Test
 	public void testConstructor() {
@@ -33,7 +36,7 @@ public class DependencyProviderTest {
 	@Test
 	public void testFactorHttpHandler() {
 		DependencyProvider
-				.setHttpHandlerFactoryClassName("se.uu.ub.cora.fitnesse.HttpHandlerFactoryImp");
+				.setHttpHandlerFactoryClassName("se.uu.ub.cora.httphandler.HttpHandlerFactoryImp");
 		HttpHandlerFactory factored = DependencyProvider.getFactory();
 		assertTrue(factored instanceof HttpHandlerFactoryImp);
 	}

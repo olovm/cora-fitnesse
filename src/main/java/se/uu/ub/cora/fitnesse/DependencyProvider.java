@@ -21,6 +21,8 @@ package se.uu.ub.cora.fitnesse;
 
 import java.lang.reflect.Constructor;
 
+import se.uu.ub.cora.httphandler.HttpHandlerFactory;
+
 public final class DependencyProvider {
 
 	private static HttpHandlerFactory httpHandlerFactory;

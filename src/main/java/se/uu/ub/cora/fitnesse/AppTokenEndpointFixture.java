@@ -5,6 +5,7 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.Response.StatusType;
 
 import se.uu.ub.cora.httphandler.HttpHandler;
+import se.uu.ub.cora.httphandler.HttpHandlerFactory;
 
 public class AppTokenEndpointFixture {
 	private static final int DISTANCE_TO_START_OF_TOKEN = 21;
@@ -27,9 +28,9 @@ public class AppTokenEndpointFixture {
 	public String getAuthTokenForAppToken() {
 		String url = baseUrl + userId;
 
-		HttpHandler httpHandler = factory.factorHttpHandler(url);
+		HttpHandler httpHandler = factory.factor(url);
 		httpHandler.setRequestMethod("POST");
-		if(appToken == null || "".equals(appToken)) {
+		if (appToken == null || "".equals(appToken)) {
 			if ("131313".equals(userId)) {
 				appToken = "44c17361-ead7-43b5-a938-038765873037";
 			} else if ("121212".equals(userId)) {
@@ -72,7 +73,7 @@ public class AppTokenEndpointFixture {
 	public void removeAuthTokenForUser() {
 		String url = baseUrl + userId;
 
-		HttpHandler httpHandler = factory.factorHttpHandler(url);
+		HttpHandler httpHandler = factory.factor(url);
 		httpHandler.setRequestMethod("DELETE");
 		httpHandler.setOutput(authTokenToLogOut);
 

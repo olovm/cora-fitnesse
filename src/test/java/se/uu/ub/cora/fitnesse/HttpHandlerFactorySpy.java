@@ -24,6 +24,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import se.uu.ub.cora.httphandler.HttpHandler;
+import se.uu.ub.cora.httphandler.HttpHandlerFactory;
 import se.uu.ub.cora.httphandler.HttpMultiPartUploader;
 
 public class HttpHandlerFactorySpy implements HttpHandlerFactory {
@@ -38,7 +39,7 @@ public class HttpHandlerFactorySpy implements HttpHandlerFactory {
 	public HttpMultiPartUploaderInvalidSpy httpMultiPartUploaderInvalidSpy;
 
 	@Override
-	public HttpHandler factorHttpHandler(String urlString) {
+	public HttpHandler factor(String urlString) {
 		this.urlString = urlString;
 		try {
 			URL url = new URL(urlString);
