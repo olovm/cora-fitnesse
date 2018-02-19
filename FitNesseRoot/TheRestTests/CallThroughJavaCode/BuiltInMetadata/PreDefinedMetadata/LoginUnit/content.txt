@@ -9,9 +9,9 @@
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | metadataGroup | loginUnitGroup | =~/"name":"linkedRecordType","value":"metadata".*"name":"linkedRecordId","value":"recordInfoGroup".*"name":"linkedRecordType","value":"metadata".*"name":"linkedRecordId","value":"loginUnitLoginInfoGroup"/ | OK |
-| $adminAuthToken | metadataGroup | loginUnitNewGroup | =~/"name":"linkedRecordType","value":"metadata".*"name":"linkedRecordId","value":"recordInfoNewGroup".*"name":"linkedRecordType","value":"metadata".*"name":"linkedRecordId","value":"loginUnitLoginInfoGroup"/ | OK |
-| $adminAuthToken | metadataGroup | loginUnitLoginInfoGroup | =~/"name":"linkedRecordType","value":"metadata".*"name":"linkedRecordId","value":"loginLink".*"name":"linkedRecordType","value":"metadata".*"name":"linkedRecordId","value":"loginDescriptionLink"/ | OK |
+| $adminAuthToken | metadataGroup | loginUnitGroup | =~/"name":"linkedRecordType","value":"metadataGroup".*"name":"linkedRecordId","value":"recordInfoGroup".*"name":"linkedRecordType","value":"metadataGroup".*"name":"linkedRecordId","value":"loginUnitLoginInfoGroup"/ | OK |
+| $adminAuthToken | metadataGroup | loginUnitNewGroup | =~/"name":"linkedRecordType","value":"metadataGroup".*"name":"linkedRecordId","value":"recordInfoNewGroup".*"name":"linkedRecordType","value":"metadataGroup".*"name":"linkedRecordId","value":"loginUnitLoginInfoGroup"/ | OK |
+| $adminAuthToken | metadataGroup | loginUnitLoginInfoGroup | =~/"name":"linkedRecordType","value":"metadataRecordLink".*"name":"linkedRecordId","value":"loginLink".*"name":"linkedRecordType","value":"metadataRecordLink".*"name":"linkedRecordId","value":"loginDescriptionLink"/ | OK |
 
 *!
 !***> Read metadataRecordLinks (loginLink, loginDescriptionLink)
