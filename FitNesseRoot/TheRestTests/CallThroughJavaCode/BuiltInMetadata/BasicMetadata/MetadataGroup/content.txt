@@ -1,5 +1,28 @@
 !***> metadataGroupNew
 
+
+!| RecordEndpointFixture |
+| id | type | testReadRecordAndStoreJson? |
+| metadataGroupGroup | metadataGroup | | 
+
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId |  linkIsPresent? |
+| metadataGroup | recordInfoGroup | true |
+| metadataGroup | recordInfoOldGroup | false |
+
+
+!| RecordEndpointFixture |
+| id | type | testReadRecordAndStoreJson? |
+| metadataGroupNewGroup | metadataGroup | | 
+
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId |  linkIsPresent? |
+| metadataGroup | recordInfoNewGroup | true |
+| metadataGroup | recordInfoOldGroup | false |
+
+
 !| RecordEndpointFixture |
 | id | type | testReadRecord? | getStatusType? |
 | metadataGroupNewGroup | metadataGroup | =~/"name":"linkedRecordId","value":"childReferencesGroup"/ | OK |
