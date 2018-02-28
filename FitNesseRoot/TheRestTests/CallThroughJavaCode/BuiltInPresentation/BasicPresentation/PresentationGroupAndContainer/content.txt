@@ -28,7 +28,6 @@ A test that first reads all predefined metadata needed to be able to add present
 | $adminAuthToken | metadataItemCollection | repeatCollection | =~/"name":"linkedRecordId","value":"thisItem".*"name":"linkedRecordId","value":"childrenItem"/ | OK |
 | $adminAuthToken | metadataItemCollection | modeCollection | | OK |
 | $adminAuthToken | metadataItemCollection | presentationTypeCollection | | OK |
-| $adminAuthToken | metadataItemCollection | defaultPresentationCollection | | OK |
 
 *!
 !***> Read collectionVariables (repeatCollectionVar, modeCollectionVar, presentationTypeCollectionVar, presentationTypePGroupCollectionVar, presentationTypePVarCollectionVar, presentationTypeContainerCollectionVar)
@@ -41,7 +40,6 @@ A test that first reads all predefined metadata needed to be able to add present
 | $adminAuthToken | metadataCollectionVariable | presentationTypePGroupCollectionVar | | OK |
 | $adminAuthToken | metadataCollectionVariable | presentationTypePVarCollectionVar | | OK |
 | $adminAuthToken | metadataCollectionVariable | presentationTypeContainerCollectionVar | | OK |
-| $adminAuthToken | metadataCollectionVariable | defaultPresentationCollectionVar | | OK |
 
 *!
 !***> Read textVariable (idPVarTextVar, idPGroupTextVar, idPGroupTextVar, presentationOfTextVar)
