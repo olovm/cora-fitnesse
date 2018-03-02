@@ -1,0 +1,29 @@
+!contents -R2 -g -p -f -h
+| import |
+| se.uu.ub.cora.fitnesseintegration |
+
+!1 !-MetadataRecordLink-!
+For metadataRecordLink to work correctly in the client, some metadataTextVariables and presentationVars have been predefined.
+
+!2 Read metadataTextVariables and presentationVars to make sure they exist
+!***> Read metadataTextVariable (linkedRecordIdTextVar, linkedRecordIdTextVar)
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | metadataTextVariable | linkedRecordIdTextVar | | OK |
+| $adminAuthToken | metadataTextVariable | linkedRecordTypeTextVar | | OK |
+| $adminAuthToken | metadataTextVariable | linkedRepeatIdTextVar | | OK |
+
+*!
+!***> Read presentationVars (linkedRecordIdPVar, linkedRecordIdOutputPVar)
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | presentationVar | linkedRecordIdPVar | | OK |
+| $adminAuthToken | presentationVar | linkedRecordIdOutputPVar | | OK |
+| $adminAuthToken | presentationVar | linkedRecordTypePVar | | OK |
+| $adminAuthToken | presentationVar | linkedRecordTypeOutputPVar | | OK |
+| $adminAuthToken | presentationVar | linkedRepeatIdPVar | | OK |
+| $adminAuthToken | presentationVar | linkedRepeatIdOutputPVar | | OK |
+
+*!
