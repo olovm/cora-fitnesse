@@ -5,14 +5,39 @@
 | $adminAuthToken | recordType | collectTerm | =~/"name":"linkedRecordId","value":"collectTermGroup"/ | OK |
 
 *!
-!***> Read metadataGroups (collectTermGroup, collectTermNewGroup)
+!***> Load collectTermGroup to use in tests
 
 !| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | metadataGroup | collectTermGroup | | OK |
-| $adminAuthToken | metadataGroup | collectTermNewGroup | | OK |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | collectTermGroup | |
 
 *!
+!***> Check children in collectTermGroup
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataGroup | recordInfoGroup | 1 | 1 |
+| metadataTextVariable | nameInDataTextVar | 1 | 1 |
+| metadataGroup | collectTermExtraDataGroup | 1 | 1 |
+
+*!
+!***> Load collectTermNewGroup to use in tests
+
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | collectTermNewGroup | |
+
+*!
+!***> Check children in collectTermNewGroup
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataGroup | recordInfoNewGroup | 1 | 1 |
+| metadataTextVariable | nameInDataTextVar | 1 | 1 |
+| metadataGroup | collectTermExtraDataGroup | 1 | 1 |
+
+*!
+
 !***> List recordType collectTerm
 
 !| RecordEndpointFixture |
@@ -28,12 +53,36 @@
 | $adminAuthToken | recordType | collectIndexTerm | =~/"name":"linkedRecordId","value":"collectIndexTermGroup"/ | OK |
 
 *!
-!***> Read metadataGroups (collectIndexTermGroup, collectIndexTermNewGroup)
+!***> Load collectIndexTermGroup to use in tests
 
 !| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | metadataGroup | collectIndexTermGroup | =~/"name":"linkedRecordId","value":"collectIndexTermExtraDataGroup"/ | OK |
-| $adminAuthToken | metadataGroup | collectIndexTermNewGroup | | OK |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | collectIndexTermGroup | |
+
+*!
+!***> Check children in collectIndexTermGroup
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataGroup | recordInfoGroup | 1 | 1 |
+| metadataTextVariable | nameInDataTextVar | 1 | 1 |
+| metadataGroup | collectIndexTermExtraDataGroup | 1 | 1 |
+
+*!
+!***> Load collectIndexTermNewGroup to use in tests
+
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | collectIndexTermNewGroup | |
+
+*!
+!***> Check children in collectIndexTermNewGroup
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataGroup | recordInfoNewGroup | 1 | 1 |
+| metadataTextVariable | nameInDataTextVar | 1 | 1 |
+| metadataGroup | collectIndexTermExtraDataGroup | 1 | 1 |
 
 *!
 !***> Create data of recordType collectIndexTerm
@@ -72,12 +121,36 @@
 | $adminAuthToken | recordType | collectPermissionTerm | =~/"name":"linkedRecordId","value":"collectPermissionTermGroup"/ | OK |
 
 *!
-!***> Read metadataGroups (collectPermissionTermGroup, collectPermissionTermNewGroup)
+!***> Load collectPermissionTermGroup to use in tests
 
 !| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | metadataGroup | collectPermissionTermGroup | =~/"name":"linkedRecordId","value":"collectPermissionTermExtraDataGroup"/ | OK |
-| $adminAuthToken | metadataGroup | collectPermissionTermNewGroup | | OK |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | collectPermissionTermGroup | |
+
+*!
+!***> Check children in collectPermissionTermGroup
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataGroup | recordInfoGroup | 1 | 1 |
+| metadataTextVariable | nameInDataTextVar | 1 | 1 |
+| metadataGroup | collectPermissionTermExtraDataGroup | 1 | 1 |
+
+*!
+!***> Load collectPermissionTermNewGroup to use in tests
+
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | collectPermissionTermNewGroup | |
+
+*!
+!***> Check children in collectPermissionTermNewGroup
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataGroup | recordInfoNewGroup | 1 | 1 |
+| metadataTextVariable | nameInDataTextVar | 1 | 1 |
+| metadataGroup | collectPermissionTermExtraDataGroup | 1 | 1 |
 
 *!
 !***> Create data of recordType collectPermissionTerm
@@ -124,12 +197,34 @@
 | $adminAuthToken | recordType | collectStorageTerm | =~/"name":"linkedRecordId","value":"collectStorageTermGroup"/ | OK |
 
 *!
-!***> Read metadataGroups (collectStorageTermGroup, collectStorageTermNewGroup)
+!***> Load collectStorageTermGroup to use in tests
 
 !| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | metadataGroup | collectStorageTermGroup | =~/"name":"linkedRecordId","value":"collectStorageTermExtraDataGroup"/ | OK |
-| $adminAuthToken | metadataGroup | collectStorageTermNewGroup | | OK |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | collectStorageTermGroup | |
+
+*!
+!***> Check children in collectStorageTermGroup
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataGroup | recordInfoGroup | 1 | 1 |
+| metadataGroup | collectStorageTermExtraDataGroup | 1 | 1 |
+
+*!
+!***> Load collectStorageTermNewGroup to use in tests
+
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | collectStorageTermNewGroup | |
+
+*!
+!***> Check children in collectStorageTermNewGroup
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataGroup | recordInfoNewGroup | 1 | 1 |
+| metadataGroup | collectStorageTermExtraDataGroup | 1 | 1 |
 
 *!
 !***> Create data of recordType collectStorageTerm
