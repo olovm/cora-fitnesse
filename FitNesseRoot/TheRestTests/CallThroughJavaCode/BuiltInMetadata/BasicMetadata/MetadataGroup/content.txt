@@ -1,22 +1,38 @@
-!***> metadataGroupNew
+!***> Load metadataGroupGroup to use in tests
 
 !| RecordEndpointFixture |
-| id | type | testReadRecord? | getStatusType? |
-| metadataGroupNewGroup | metadataGroup | =~/"name":"linkedRecordId","value":"childReferencesGroup"/ | OK |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | metadataGroupGroup | |
 
 *!
-!***> metadataGroup
+!***> Check children in metadataGroupGroup
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataGroup | recordInfoGroup | 1 | 1 |
+| metadataGroup | recordInfoOldGroup | not found | not found |
+
+*!
+!***> Load metadataGroupNew to use in tests
 
 !| RecordEndpointFixture |
-| id | type | testReadRecord? | getStatusType? |
-| metadataGroupGroup | metadataGroup | | OK |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | metadataGroupNewGroup | |
+
+*!
+!***> Check children in metadataGroupNew
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataGroup | recordInfoNewGroup | 1 | 1 |
+| metadataGroup | recordInfoOldGroup | not found | not found |
 
 *!
 !***> childReferences and childReference
 
 !| RecordEndpointFixture |
-| id | type | testReadRecord? | getStatusType? |
-| childReferencesGroup | metadataGroup | =~/"value":"childReferenceGroup".*"name":"ref".*"name":"childReference"/ | OK |
-| childReferenceGroup | metadataGroup | =~/"value":"repeatMinTextVar".*"name":"ref".*"value":"repeatMaxTextVar".*"name":"ref".*"value":"refMetadataLink".*"name":"ref".*"value":"childRefCollectIndexTermLink".*"name":"ref".*"value":"childRefCollectPermissionTermLink".*"name":"ref".*"value":"childRefCollectStorageTermLink".*"name":"ref"/ | OK |
+| type | id | testReadRecord? | getStatusType? |
+| metadataGroup | childReferencesGroup | =~/"value":"childReferenceGroup".*"name":"ref".*"name":"childReference"/ | OK |
+| metadataGroup | childReferenceGroup | =~/"value":"repeatMinTextVar".*"name":"ref".*"value":"repeatMaxTextVar".*"name":"ref".*"value":"refMetadataLink".*"name":"ref".*"value":"childRefCollectIndexTermLink".*"name":"ref".*"value":"childRefCollectPermissionTermLink".*"name":"ref".*"value":"childRefCollectStorageTermLink".*"name":"ref"/ | OK |
 
 *!
