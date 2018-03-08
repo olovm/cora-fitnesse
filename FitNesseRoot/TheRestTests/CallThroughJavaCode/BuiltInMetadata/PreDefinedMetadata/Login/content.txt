@@ -7,15 +7,83 @@
 | $adminAuthToken | recordType | loginToken | =~/"name":"linkedRecordId","value":"loginTokenGroup"/ | OK |
 
 *!
-!***> Read metadataGroups (loginGroup, loginWebRedirectNewGroup, loginWebRedirectGroup)
+!***> Load loginGroup to use in tests
 
 !| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | metadataGroup | loginGroup | =~/"name":"linkedRecordId","value":"loginNameTextVar"/ | OK |
-| $adminAuthToken | metadataGroup | loginWebRedirectNewGroup | =~/"name":"linkedRecordId","value":"urlTextVar"/ | OK |
-| $adminAuthToken | metadataGroup | loginWebRedirectGroup | | OK |
-| $adminAuthToken | metadataGroup | loginTokenNewGroup | | OK |
-| $adminAuthToken | metadataGroup | loginTokenGroup | =~/"name":"linkedRecordId","value":"urlTextVar"/ | OK |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | loginGroup | |
+
+*!
+!***> Check children in loginGroup
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataGroup | recordInfoGroup | 1 | 1 |
+| metadataTextVariable | loginNameTextVar | 1 | 1 |
+
+*!
+!***> Load loginWebRedirectNewGroup to use in tests
+
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | loginWebRedirectNewGroup | |
+
+*!
+!***> Check children in loginWebRedirectNewGroup
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataGroup | recordInfoNewGroup | 1 | 1 |
+| metadataTextVariable | loginNameTextVar | 1 | 1 |
+| metadataTextVariable | urlTextVar | 1 | 1 |
+
+*!
+!***> Load loginWebRedirectGroup to use in tests
+
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | loginWebRedirectGroup | |
+
+*!
+!***> Check children in loginWebRedirectGroup
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataGroup | recordInfoGroup | 1 | 1 |
+| metadataTextVariable | loginNameTextVar | 1 | 1 |
+| metadataTextVariable | urlTextVar | 1 | 1 |
+
+*!
+!***> Load loginTokenNewGroup to use in tests
+
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | loginTokenNewGroup | |
+
+*!
+!***> Check children in loginTokenNewGroup
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataGroup | recordInfoNewGroup | 1 | 1 |
+| metadataTextVariable | loginNameTextVar | 1 | 1 |
+| metadataTextVariable | urlTextVar | 1 | 1 |
+
+*!
+!***> Load loginTokenGroup to use in tests
+
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | loginTokenGroup | |
+
+*!
+!***> Check children in loginTokenGroup
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataGroup | recordInfoGroup | 1 | 1 |
+| metadataTextVariable | loginNameTextVar | 1 | 1 |
+| metadataTextVariable | urlTextVar | 1 | 1 |
 
 *!
 !***> List recordType login and loginWebRedirect

@@ -6,25 +6,143 @@
 A test that first reads all predefined metadata needed to be able to create permission rules and roles, and then tests adding and updating rules and roles.
 
 !2 Read predefined metadata to make sure it is correct
-!***> Read metadataGroups for persmissionRuleParts(permissionRulePartGroup, permissionRulePartActionGroup, permissionRulePartRecordTypeGroup, permissionRulePartPublishGroup, permissionRulePartDeleteGroup)
+!3 Read metadataGroups for persmissionRuleParts
+
+!***> Load permissionRulePartGroup to use in tests
 
 !| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | metadataGroup | permissionRulePartGroup | =~/"name":"linkedRecordId","value":"permissionRulePartValueTextVar"/ | OK |
-| $adminAuthToken | metadataGroup | permissionRulePartActionGroup | =~/"name":"linkedRecordId","value":"permissionRulePartValueTextVar"/ | OK |
-| $adminAuthToken | metadataGroup | permissionRulePartRecordTypeGroup | =~/"name":"linkedRecordId","value":"permissionRulePartValueTextVar"/ | OK |
-| $adminAuthToken | metadataGroup | permissionRulePartPublishGroup | =~/"name":"linkedRecordId","value":"permissionRulePartValueTextVar"/ | OK |
-| $adminAuthToken | metadataGroup | permissionRulePartDeleteGroup | =~/"name":"linkedRecordId","value":"permissionRulePartValueTextVar"/ | |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | permissionRulePartGroup | |
 
 *!
-!***> Read metadataGroups for persmissionRule and permissionRole (permissionRuleNewGroup, permissionRuleGroup, permissionRoleNewGroup, permissionRoleGroup)
+!***> Check children in permissionRulePartGroup
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataTextVariable | permissionRulePartValueTextVar | 1 | X |
+
+*!
+!***> Load permissionRulePartActionGroup to use in tests
 
 !| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | metadataGroup | permissionRuleNewGroup | =~/"name":"linkedRecordId","value":"permissionRulePartActionGroup"/ | OK |
-| $adminAuthToken | metadataGroup | permissionRuleGroup | =~/"name":"linkedRecordId","value":"activeStatusCollectionVar"/ | OK |
-| $adminAuthToken | metadataGroup | permissionRoleNewGroup | =~/"name":"linkedRecordId","value":"permissionRuleLink"/ | OK |
-| $adminAuthToken | metadataGroup | permissionRoleGroup | | OK |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | permissionRulePartActionGroup | |
+
+*!
+!***> Check children in permissionRulePartActionGroup
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataTextVariable | permissionRulePartValueTextVar | 1 | X |
+
+*!
+!***> Load permissionRulePartRecordTypeGroup to use in tests
+
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | permissionRulePartRecordTypeGroup | |
+
+*!
+!***> Check children in permissionRulePartRecordTypeGroup
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataTextVariable | permissionRulePartValueTextVar | 1 | X |
+
+*!
+!***> Load permissionRulePartPublishGroup to use in tests
+
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | permissionRulePartPublishGroup | |
+
+*!
+!***> Check children in permissionRulePartPublishGroup
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataTextVariable | permissionRulePartValueTextVar | 1 | X |
+
+*!
+!***> Load permissionRulePartDeleteGroup to use in tests
+
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | permissionRulePartDeleteGroup | |
+
+*!
+!***> Check children in permissionRulePartDeleteGroup
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataTextVariable | permissionRulePartValueTextVar | 1 | X |
+
+*!
+!3 Read metadataGroups for persmissionRule and permissionRole
+!***> Load permissionRuleNewGroup to use in tests
+
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | permissionRuleNewGroup | |
+
+*!
+!***> Check children in permissionRuleNewGroup
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataGroup | recordInfoNewGroup | 1 | 1 |
+| metadataGroup | permissionRulePartActionGroup | 1 | 1 |
+| metadataGroup | permissionRulePartRecordTypeGroup | 1 |1 |
+| metadataGroup | permissionRulePartDeleteGroup | 1 | 1 |
+| metadataGroup | permissionRulePartDeleteGroup | 1 | 1 |
+
+*!
+!***> Load permissionRuleGroup to use in tests
+
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | permissionRuleGroup | |
+
+*!
+!***> Check children in permissionRuleGroup
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataGroup | recordInfoGroup | 1 | 1 |
+| metadataGroup | permissionRulePartGroup | 4 | 4 |
+| metadataCollectionVariable | activeStatusCollectionVar | 1 |1 |
+
+*!
+!***> Load permissionRoleNewGroup to use in tests
+
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | permissionRoleNewGroup | |
+
+*!
+!***> Check children in permissionRoleNewGroup
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataGroup | recordInfoNewGroup | 1 | 1 |
+| metadataRecordLink | permissionRuleLink | 1 | X |
+| metadataCollectionVariable | activeStatusCollectionVar | 1 |1 |
+
+*!
+!***> Load permissionRoleGroup to use in tests
+
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | permissionRoleGroup | |
+
+*!
+!***> Check children in permissionRoleGroup
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataGroup | recordInfoGroup | 1 | 1 |
+| metadataRecordLink | permissionRuleLink | 1 | X |
+| metadataCollectionVariable | activeStatusCollectionVar | 1 |1 |
 
 *!
 !***> Read collectionVars (masterResLink)
