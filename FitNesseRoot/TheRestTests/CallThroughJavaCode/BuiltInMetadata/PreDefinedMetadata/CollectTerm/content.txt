@@ -1,3 +1,8 @@
+!1 !-CollectTermTest-!
+A test that first reads all predefined metadata needed to be able to create collect terms of different types, and then creates and modifies data for the differnt types.
+
+!2 Read predefined metadata to make sure it is correct
+!3 CollectTerm
 !***> Read abstract[[ RecordType][RecordType]] collectTerm
 
 !| RecordEndpointFixture |
@@ -45,7 +50,7 @@
 | $adminAuthToken | collectTerm | {"name":"filter","children":[]} | | OK |
 
 *!
-!2 CollectIndexTerm
+!3 CollectIndexTerm
 !***> Read [[ RecordType][RecordType]] collectIndexTerm
 
 !| RecordEndpointFixture |
@@ -85,34 +90,7 @@
 | metadataGroup | collectIndexTermExtraDataGroup | 1 | 1 |
 
 *!
-!***> Create data of recordType collectIndexTerm
 
-!| RecordEndpointFixture |
-| authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | collectIndexTerm | {"name":"collectTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"someTestIndexTerm"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"someName"},{"name":"extraData","children":[{"name":"indexFieldName","value":"someIndexField"},{"name":"indexType","value":"indexTypeId"}]}],"attributes":{"type":"index"}} | | CREATED |
-
-*!
-!***> Read collectIndexTerm
-
-!| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | collectIndexTerm | someTestIndexTerm | | OK |
-
-*!
-!***> Update data of recordType collectIndexTerm
-
-!| RecordEndpointFixture |
-| authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | collectIndexTerm | someTestIndexTerm | {"name":"collectTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"someTestIndexTerm"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"collectIndexTerm"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"someName"},{"name":"extraData","children":[{"name":"indexFieldName","value":"someBooleanField"},{"name":"indexType","value":"indexTypeBoolean"}]}],"attributes":{"type":"index"}} | | OK |
-
-*!
-!***> List recordType collectIndexTerm
-
-!| RecordEndpointFixture |
-| authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | collectIndexTerm | | OK |
-
-*!
 !2 CollectPermissionTerm
 !***> Read [[ RecordType][RecordType]] collectPermissionTerm
 
@@ -153,42 +131,7 @@
 | metadataGroup | collectPermissionTermExtraDataGroup | 1 | 1 |
 
 *!
-!***> Create data of recordType collectPermissionTerm
 
-!| RecordEndpointFixture |
-| authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | collectPermissionTerm | {"name":"collectPermissionTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"someTestPersmissionTerm"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"somePermission"},{"name":"extraData","children":[{"name":"permissionKey","value":"somePermissionKey"}]}],"attributes":{"type":"permission"}} | | CREATED |
-
-*!
-!***> Read collectPermissionTerm
-
-!| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | collectPermissionTerm | someTestPersmissionTerm | | OK |
-
-*!
-!***> Update data of recordType collectPermissionTerm
-
-!| RecordEndpointFixture |
-| authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | collectPermissionTerm | someTestPersmissionTerm | {"name":"collectPermissionTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"someTestPersmissionTerm"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"collectPermissionTerm"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"somePermission"},{"name":"extraData","children":[{"name":"permissionKey","value":"someNewPermissionKey"}]}],"attributes":{"type":"permission"}} | | OK |
-
-*!
-!***> List recordType collectPermissionTerm
-
-!| RecordEndpointFixture |
-| authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | collectPermissionTerm | | OK |
-
-*!
-!***> Delete created collectIndexTerm and collectPermissionTerm
-
-!| RecordEndpointFixture |
-| authToken | type | id | testDeleteRecord? | getStatusType? |
-| $adminAuthToken | collectIndexTerm | someTestIndexTerm | | OK |
-| $adminAuthToken | collectPermissionTerm | someTestPersmissionTerm | | OK |
-
-*!
 !2 CollectStorageTerm
 !***> Read [[ RecordType][RecordType]] collectStorageTerm
 
@@ -227,6 +170,75 @@
 | metadataGroup | collectStorageTermExtraDataGroup | 1 | 1 |
 
 *!
+
+!2 Create, read, update, list and delete collect terms of different types
+!3 CollectIndexTerm
+!***> Create data of recordType collectIndexTerm
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | collectIndexTerm | {"name":"collectTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"someTestIndexTerm"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"someName"},{"name":"extraData","children":[{"name":"indexFieldName","value":"someIndexField"},{"name":"indexType","value":"indexTypeId"}]}],"attributes":{"type":"index"}} | | CREATED |
+
+*!
+!***> Read collectIndexTerm
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | collectIndexTerm | someTestIndexTerm | | OK |
+
+*!
+!***> Update data of recordType collectIndexTerm
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | collectIndexTerm | someTestIndexTerm | {"name":"collectTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"someTestIndexTerm"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"collectIndexTerm"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"someName"},{"name":"extraData","children":[{"name":"indexFieldName","value":"someBooleanField"},{"name":"indexType","value":"indexTypeBoolean"}]}],"attributes":{"type":"index"}} | | OK |
+
+*!
+!***> List recordType collectIndexTerm
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | collectIndexTerm | | OK |
+
+*!
+!3 CollectPermissionTerm
+!***> Create data of recordType collectPermissionTerm
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | collectPermissionTerm | {"name":"collectPermissionTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"someTestPersmissionTerm"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"somePermission"},{"name":"extraData","children":[{"name":"permissionKey","value":"somePermissionKey"}]}],"attributes":{"type":"permission"}} | | CREATED |
+
+*!
+!***> Read collectPermissionTerm
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | collectPermissionTerm | someTestPersmissionTerm | | OK |
+
+*!
+!***> Update data of recordType collectPermissionTerm
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | collectPermissionTerm | someTestPersmissionTerm | {"name":"collectPermissionTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"someTestPersmissionTerm"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"collectPermissionTerm"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"somePermission"},{"name":"extraData","children":[{"name":"permissionKey","value":"someNewPermissionKey"}]}],"attributes":{"type":"permission"}} | | OK |
+
+*!
+!***> List recordType collectPermissionTerm
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | collectPermissionTerm | | OK |
+
+*!
+!***> Delete created collectIndexTerm and collectPermissionTerm
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | collectIndexTerm | someTestIndexTerm | | OK |
+| $adminAuthToken | collectPermissionTerm | someTestPersmissionTerm | | OK |
+
+*!
+!3 CollectStorageTerm
 !***> Create data of recordType collectStorageTerm
 
 !| RecordEndpointFixture |
