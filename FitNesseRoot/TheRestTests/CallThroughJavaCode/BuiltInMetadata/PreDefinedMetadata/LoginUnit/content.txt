@@ -2,7 +2,7 @@
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | recordType | loginUnit | =~/"name":"linkedRecordId","value":"loginUnitGroup".*"name":"linkedRecordId","value":"loginUnitNewGroup".*"name":"linkedRecordId","value":"loginUnitViewPGroup".*"name":"linkedRecordId","value":"loginUnitFormPGroup".*"name":"linkedRecordId","value":"loginUnitFormNewPGroup".*"name":"linkedRecordId","value":"loginUnitMenuPGroup".*"name":"linkedRecordId","value":"loginUnitListPGroup"/ | OK |
+| $adminAuthToken | recordType | loginUnit | | OK |
 
 *!
 !***> Read metadataGroups (loginGroup, loginWebRedirectNewGroup, loginWebRedirectGroup)
