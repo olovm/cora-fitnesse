@@ -95,7 +95,7 @@ a search is automatically created for each recordType (testMovieSearch), so we c
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | testMovieExtendedSearch | {"name":"searchMovieExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testMovieSearchTerm","value":"Sean*"}]}]}]} | =~/"toNo":"1"/ | OK |
+| $adminAuthToken | testMovieExtendedSearch | {"name":"searchMovieExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testMovieSearchTerm","value":"Sean*"}]}]}]} | | OK |
 
 *!
 !1 Reset testdata
