@@ -82,7 +82,7 @@ a search is automatically created for each recordType (testMovieSearch), so we c
 
 *!
 !2 Perform searches
-!3 Create testNews to create index data
+!3 Create testActor and testMovie to create index data
 !***> Create test data for actor and movie
 
 !| RecordEndpointFixture |
@@ -91,27 +91,39 @@ a search is automatically created for each recordType (testMovieSearch), so we c
 | $adminAuthToken | testMovie | {"name":"testMovie","children":[{"name":"recordInfo","children":[{"name":"id","value":"someMovie"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"movieTitle","value":"The rock"},{"name":"actor","children":[{"name":"linkedRecordType","value":"testActor"},{"name":"linkedRecordId","value":"someActor"}],"repeatId":"0"}]} | | CREATED |
 
 *!
+!3 Create testNews to create index data
+!***> Create test data for actor and movie
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | testMovie | {"name":"testMovie","children":[{"name":"recordInfo","children":[{"name":"id","value":"someMovie1"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"movieTitle","value":"The rock"},{"name":"actor","children":[{"name":"linkedRecordType","value":"testActor"},{"name":"linkedRecordId","value":"someActor"}],"repeatId":"0"}]} | | CREATED |
+| $adminAuthToken | testMovie | {"name":"testMovie","children":[{"name":"recordInfo","children":[{"name":"id","value":"someMovie2"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"movieTitle","value":"The rock"},{"name":"actor","children":[{"name":"linkedRecordType","value":"testActor"},{"name":"linkedRecordId","value":"someActor"}],"repeatId":"0"}]} | | CREATED |
+| $adminAuthToken | testMovie | {"name":"testMovie","children":[{"name":"recordInfo","children":[{"name":"id","value":"someMovie3"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"movieTitle","value":"The rock"},{"name":"actor","children":[{"name":"linkedRecordType","value":"testActor"},{"name":"linkedRecordId","value":"someActor"}],"repeatId":"0"}]} | | CREATED |
+| $adminAuthToken | testMovie | {"name":"testMovie","children":[{"name":"recordInfo","children":[{"name":"id","value":"someMovie4"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"movieTitle","value":"The rock"},{"name":"actor","children":[{"name":"linkedRecordType","value":"testActor"},{"name":"linkedRecordId","value":"someActor"}],"repeatId":"0"}]} | | CREATED |
+| $adminAuthToken | testMovie | {"name":"testMovie","children":[{"name":"recordInfo","children":[{"name":"id","value":"someMovie5"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"movieTitle","value":"The rock"},{"name":"actor","children":[{"name":"linkedRecordType","value":"testActor"},{"name":"linkedRecordId","value":"someActor"}],"repeatId":"0"}]} | | CREATED |
+| $adminAuthToken | testMovie | {"name":"testMovie","children":[{"name":"recordInfo","children":[{"name":"id","value":"someMovie6"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"movieTitle","value":"The rock"},{"name":"actor","children":[{"name":"linkedRecordType","value":"testActor"},{"name":"linkedRecordId","value":"someActor"}],"repeatId":"0"}]} | | CREATED |
+| $adminAuthToken | testMovie | {"name":"testMovie","children":[{"name":"recordInfo","children":[{"name":"id","value":"someMovie7"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"movieTitle","value":"The rock"},{"name":"actor","children":[{"name":"linkedRecordType","value":"testActor"},{"name":"linkedRecordId","value":"someActor"}],"repeatId":"0"}]} | | CREATED |
+| $adminAuthToken | testMovie | {"name":"testMovie","children":[{"name":"recordInfo","children":[{"name":"id","value":"someMovie8"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"movieTitle","value":"The rock"},{"name":"actor","children":[{"name":"linkedRecordType","value":"testActor"},{"name":"linkedRecordId","value":"someActor"}],"repeatId":"0"}]} | | CREATED |
+
+*!
+!***> Delete created data
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | testMovie | someMovie1 | | OK |
+| $adminAuthToken | testMovie | someMovie2 | | OK |
+| $adminAuthToken | testMovie | someMovie3 | | OK |
+| $adminAuthToken | testMovie | someMovie4 | | OK |
+| $adminAuthToken | testMovie | someMovie5 | | OK |
+| $adminAuthToken | testMovie | someMovie6 | | OK |
+| $adminAuthToken | testMovie | someMovie7 | | OK |
+| $adminAuthToken | testMovie | someMovie8 | | OK |
+
+*!
 !***> A search searching for movies with an actor named "Sean*"
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | testMovieExtendedSearch | {"name":"searchMovieExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testMovieSearchTerm","value":"Sean*"}]}]}]} | | OK |
-| $adminAuthToken | testMovieExtendedSearch | {"name":"searchMovieExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testMovieSearchTerm","value":"Sean*"}]}]}]} | | OK |
-| $adminAuthToken | testMovieExtendedSearch | {"name":"searchMovieExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testMovieSearchTerm","value":"Sean*"}]}]}]} | | OK |
-| $adminAuthToken | testMovieExtendedSearch | {"name":"searchMovieExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testMovieSearchTerm","value":"Sean*"}]}]}]} | | OK |
-| $adminAuthToken | testMovieExtendedSearch | {"name":"searchMovieExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testMovieSearchTerm","value":"Sean*"}]}]}]} | | OK |
-| $adminAuthToken | testMovieExtendedSearch | {"name":"searchMovieExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testMovieSearchTerm","value":"Sean*"}]}]}]} | | OK |
-| $adminAuthToken | testMovieExtendedSearch | {"name":"searchMovieExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testMovieSearchTerm","value":"Sean*"}]}]}]} | | OK |
-| $adminAuthToken | testMovieExtendedSearch | {"name":"searchMovieExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testMovieSearchTerm","value":"Sean*"}]}]}]} | | OK |
-| $adminAuthToken | testMovieExtendedSearch | {"name":"searchMovieExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testMovieSearchTerm","value":"Sean*"}]}]}]} | | OK |
-| $adminAuthToken | testMovieExtendedSearch | {"name":"searchMovieExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testMovieSearchTerm","value":"Sean*"}]}]}]} | | OK |
-| $adminAuthToken | testMovieExtendedSearch | {"name":"searchMovieExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testMovieSearchTerm","value":"Sean*"}]}]}]} | | OK |
-| $adminAuthToken | testMovieExtendedSearch | {"name":"searchMovieExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testMovieSearchTerm","value":"Sean*"}]}]}]} | | OK |
-| $adminAuthToken | testMovieExtendedSearch | {"name":"searchMovieExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testMovieSearchTerm","value":"Sean*"}]}]}]} | | OK |
-| $adminAuthToken | testMovieExtendedSearch | {"name":"searchMovieExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testMovieSearchTerm","value":"Sean*"}]}]}]} | | OK |
-| $adminAuthToken | testMovieExtendedSearch | {"name":"searchMovieExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testMovieSearchTerm","value":"Sean*"}]}]}]} | | OK |
-| $adminAuthToken | testMovieExtendedSearch | {"name":"searchMovieExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testMovieSearchTerm","value":"Sean*"}]}]}]} | | OK |
-| $adminAuthToken | testMovieExtendedSearch | {"name":"searchMovieExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testMovieSearchTerm","value":"Sean*"}]}]}]} | | OK |
 | $adminAuthToken | testMovieExtendedSearch | {"name":"searchMovieExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testMovieSearchTerm","value":"Sean*"}]}]}]} | | OK |
 
 *!
