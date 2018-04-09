@@ -92,8 +92,7 @@ A test that first reads all predefined metadata needed to be able to create perm
 | metadataGroup | recordInfoNewGroup | 1 | 1 |
 | metadataGroup | permissionRulePartActionGroup | 1 | 1 |
 | metadataGroup | permissionRulePartRecordTypeGroup | 1 | 1 |
-| metadataGroup | permissionRulePartDeleteGroup | 1 | 1 |
-| metadataGroup | permissionRulePartDeleteGroup | 1 | 1 |
+| metadataGroup | permissionTermRulePartGroup | 0 | X |
 
 *!
 !***> Load permissionRuleGroup to use in tests
@@ -169,7 +168,7 @@ A test that first reads all predefined metadata needed to be able to create perm
 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testCreateRecordCreatedType? | getStatusType? |
-| $adminAuthToken | permissionRule | myPermissionRule | {"name":"permissionRule","children":[{"name":"recordInfo","children":[{"name":"id","value":"myPermissionRule"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.read","repeatId":"0"}],"attributes":{"type":"action"}},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.book","repeatId":"0"}],"attributes":{"type":"recordType"}},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.deleted","repeatId":"0"}],"attributes":{"type":"delete"}},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.published","repeatId":"0"}],"attributes":{"type":"publish"}},{"name":"activeStatus","value":"active"}]} | permissionRule | CREATED |
+| $adminAuthToken | permissionRule | myPermissionRule | {"name":"permissionRule","children":[{"name":"recordInfo","children":[{"name":"id","value":"myPermissionRule"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.read","repeatId":"0"}],"attributes":{"type":"action"}},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.book","repeatId":"0"}],"attributes":{"type":"recordType"}},{"name":"activeStatus","value":"active"}]} | permissionRule | CREATED |
 
 *!
 !***> Read permissionRule
@@ -183,7 +182,7 @@ A test that first reads all predefined metadata needed to be able to create perm
 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | permissionRule | myPermissionRule | {"name":"permissionRule","children":[{"name":"recordInfo","children":[{"name":"id","value":"myPermissionRule"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"permissionRule"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.read","repeatId":"0"}],"attributes":{"type":"action"}},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.book","repeatId":"0"}],"attributes":{"type":"recordType"}},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.deleted","repeatId":"0"}],"attributes":{"type":"delete"}},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.unpublished","repeatId":"0"}],"attributes":{"type":"publish"}},{"name":"activeStatus","value":"active"}]} | | OK |
+| $adminAuthToken | permissionRule | myPermissionRule | {"name":"permissionRule","children":[{"name":"recordInfo","children":[{"name":"id","value":"myPermissionRule"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"permissionRule"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.read","repeatId":"0"}],"attributes":{"type":"action"}},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.book","repeatId":"0"}],"attributes":{"type":"recordType"}},{"name":"activeStatus","value":"active"}]} | | OK |
 
 *!
 !***> List data(permissionRule)
