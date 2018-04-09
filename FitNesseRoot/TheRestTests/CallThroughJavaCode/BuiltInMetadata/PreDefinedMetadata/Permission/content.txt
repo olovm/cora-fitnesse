@@ -7,7 +7,6 @@ A test that first reads all predefined metadata needed to be able to create perm
 
 !2 Read predefined metadata to make sure it is correct
 !3 Read metadataGroups for persmissionRuleParts
-
 !***> Load permissionRulePartGroup to use in tests
 
 !| RecordEndpointFixture |
@@ -92,7 +91,7 @@ A test that first reads all predefined metadata needed to be able to create perm
 | linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
 | metadataGroup | recordInfoNewGroup | 1 | 1 |
 | metadataGroup | permissionRulePartActionGroup | 1 | 1 |
-| metadataGroup | permissionRulePartRecordTypeGroup | 1 |1 |
+| metadataGroup | permissionRulePartRecordTypeGroup | 1 | 1 |
 | metadataGroup | permissionRulePartDeleteGroup | 1 | 1 |
 | metadataGroup | permissionRulePartDeleteGroup | 1 | 1 |
 
@@ -109,8 +108,8 @@ A test that first reads all predefined metadata needed to be able to create perm
 !| MetadataLinkFixture |
 | linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
 | metadataGroup | recordInfoGroup | 1 | 1 |
-| metadataGroup | permissionRulePartGroup | 4 | 4 |
-| metadataCollectionVariable | activeStatusCollectionVar | 1 |1 |
+| metadataGroup | permissionRulePartGroup | 2 | 2 |
+| metadataCollectionVariable | activeStatusCollectionVar | 1 | 1 |
 
 *!
 !***> Load permissionRoleNewGroup to use in tests
@@ -126,7 +125,7 @@ A test that first reads all predefined metadata needed to be able to create perm
 | linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
 | metadataGroup | recordInfoNewGroup | 1 | 1 |
 | metadataRecordLink | permissionRuleLink | 1 | X |
-| metadataCollectionVariable | activeStatusCollectionVar | 1 |1 |
+| metadataCollectionVariable | activeStatusCollectionVar | 1 | 1 |
 
 *!
 !***> Load permissionRoleGroup to use in tests
@@ -142,7 +141,7 @@ A test that first reads all predefined metadata needed to be able to create perm
 | linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
 | metadataGroup | recordInfoGroup | 1 | 1 |
 | metadataRecordLink | permissionRuleLink | 1 | X |
-| metadataCollectionVariable | activeStatusCollectionVar | 1 |1 |
+| metadataCollectionVariable | activeStatusCollectionVar | 1 | 1 |
 
 *!
 !***> Read collectionVars (masterResLink)
