@@ -6,22 +6,55 @@
 A test that first reads all predefined metadata needed to be able to create users and then tests adding and updating a user.
 
 !2 Read predefined metadata to make sure it is correct
-!***> Read metadataGroups for systemOneUser(systemOneUserNewGroup, systemOneUserGroup)
+!***> Load systemOneUserNewGroup to use in tests
 
 !| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | metadataGroup | systemOneUserNewGroup | =~/"name":"linkedRecordId","value":"userIdTextVar".*"name":"linkedRecordId","value":"userFirstnameTextVar".*"name":"linkedRecordId","value":"userLastnameTextVar".*"name":"linkedRecordId","value":"systemOneUserRoleRelationGroup".*"name":"linkedRecordId","value":"activeStatusCollectionVar".*"name":"linkedRecordId","value":"userAppTokenGroup"/ | OK |
-| $adminAuthToken | metadataGroup | systemOneUserGroup | =~/"name":"linkedRecordId","value":"userIdTextVar".*"name":"linkedRecordId","value":"userFirstnameTextVar".*"name":"linkedRecordId","value":"userLastnameTextVar".*"name":"linkedRecordId","value":"systemOneUserRoleRelationGroup".*"name":"linkedRecordId","value":"activeStatusCollectionVar".*"name":"linkedRecordId","value":"userAppTokenGroup"/ | OK |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | systemOneUserNewGroup | |
 
 *!
-!***> Read systemOneUserGroup child systemOneUserRoleRelationGroup, and the descending children of that group
+!***> Check children in systemOneUserNewGroup
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataTextVariable | userIdTextVar | 1 | 1 |
+| metadataTextVariable | userFirstnameTextVar | 1 | 1 |
+| metadataTextVariable | userLastnameTextVar | 1 | 1 |
+| metadataGroup | systemOneUserRoleRelationGroup | 1 | 1 |
+| metadataCollectionVariable | activeStatusCollectionVar | 1 | 1 |
+
+*!
+!***> Load systemOneUserGroup to use in tests
 
 !| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | metadataGroup | systemOneUserRoleRelationGroup | =~/"name":"linkedRecordId","value":"userRoleLink".*"name":"linkedRecordId","value":"systemOneUserRoleRulePartGroup".*"name":"linkedRecordId","value":"userRoleRelationGroup"/ | |
-| $adminAuthToken | metadataRecordLink | userRoleLink | =~/"name":"linkedRecordId","value":"permissionRole"/ | OK |
-| $adminAuthToken | metadataGroup | systemOneUserRoleRulePartGroup | =~/"name":"linkedRecordId","value":"permissionRulePartOrganisationGroup".*"name":"linkedRecordId","value":"userRoleRulePartGroup"/ | |
-| $adminAuthToken | metadataGroup | permissionRulePartOrganisationGroup | =~/"name":"linkedRecordId","value":"permissionRulePartValueTextVar".*"name":"linkedRecordId","value":"permissionRulePartTypeOrganisationCollectionVar".*"name":"attributeReferences"/ | OK |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | systemOneUserGroup | |
+
+*!
+!***> Check children in systemOneUserGroup
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataTextVariable | userIdTextVar | 1 | 1 |
+| metadataTextVariable | userFirstnameTextVar | 1 | 1 |
+| metadataTextVariable | userLastnameTextVar | 1 | 1 |
+| metadataGroup | systemOneUserRoleRelationGroup | not found | not found |
+| metadataCollectionVariable | activeStatusCollectionVar | 1 | 1 |
+
+*!
+!***> Load systemOneUserRoleRelationGroup to use in tests
+
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | systemOneUserRoleRelationGroup | |
+
+*!
+!***> Check children in systemOneUserRoleRelationGroup
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataRecordLink | userRoleLink | 1 | 1 |
+| metadataGroup | systemOneUserRoleRulePartGroup | not found | not found |
 
 *!
 !***> Read recordType (systemOneUser)

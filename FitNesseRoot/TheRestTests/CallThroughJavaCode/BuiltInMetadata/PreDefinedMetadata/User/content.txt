@@ -6,23 +6,55 @@
 A test that  reads all predefined metadata needed to be able to create a concrete recordType user
 
 !2 Read predefined metadata to make sure it is correct
-!***> Read metadataGroups for user (userNewGroup, userGroup)
+!***> Load userNewGroup to use in tests
 
 !| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | metadataGroup | userNewGroup | =~/"name":"linkedRecordId","value":"userIdTextVar".*"name":"linkedRecordId","value":"userFirstnameTextVar".*"name":"linkedRecordId","value":"userLastnameTextVar".*"name":"linkedRecordId","value":"userRoleRelationGroup".*"name":"linkedRecordId","value":"activeStatusCollectionVar"/ | OK |
-| $adminAuthToken | metadataGroup | userGroup | =~/"name":"linkedRecordId","value":"userIdTextVar".*"name":"linkedRecordId","value":"userFirstnameTextVar".*"name":"linkedRecordId","value":"userLastnameTextVar".*"name":"linkedRecordId","value":"userRoleRelationGroup".*"name":"linkedRecordId","value":"activeStatusCollectionVar"/ | OK |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | userNewGroup | |
 
 *!
-!***> Read userGroupChild userRoleRelationGroup, and the descending children of that group
+!***> Check children in userNewGroup
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataTextVariable | userIdTextVar | 1 | 1 |
+| metadataTextVariable | userFirstnameTextVar | 1 | 1 |
+| metadataTextVariable | userLastnameTextVar | 1 | 1 |
+| metadataGroup | userRoleRelationGroup | 1 | 1 |
+| metadataCollectionVariable | activeStatusCollectionVar | 1 | 1 |
+
+*!
+!***> Load userGroup to use in tests
 
 !| RecordEndpointFixture |
-| authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | metadataGroup | userRoleRelationGroup | =~/"name":"linkedRecordId","value":"userRoleLink".*"name":"linkedRecordId","value":"userRoleRulePartGroup"/ | OK |
-| $adminAuthToken | metadataRecordLink | userRoleLink | =~/"name":"linkedRecordId","value":"permissionRole"/ | OK |
-| $adminAuthToken | metadataGroup | userRoleRulePartGroup | =~/"name":"linkedRecordId","value":"permissionRulePartGroup"/ | OK |
-| $adminAuthToken | metadataGroup | permissionRulePartGroup | | OK |
-| $adminAuthToken | metadataTextVariable | permissionRulePartValueTextVar | | OK |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | userGroup | |
+
+*!
+!***> Check children in userGroup
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataTextVariable | userIdTextVar | 1 | 1 |
+| metadataTextVariable | userFirstnameTextVar | 1 | 1 |
+| metadataTextVariable | userLastnameTextVar | 1 | 1 |
+| metadataGroup | userRoleRelationGroup | 1 | 1 |
+| metadataCollectionVariable | activeStatusCollectionVar | 1 | 1 |
+
+*!
+!***> Load userRoleRelationGroup to use in tests
+
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | userRoleRelationGroup | |
+
+*!
+!***> Check children in userRoleRelationGroup
+
+!| MetadataLinkFixture |
+| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
+| metadataRecordLink | userRoleLink | 1 | 1 |
+| metadataGroup | userRoleRulePartGroup | not found | not found |
 
 *!
 !***> Read recordType (user)
