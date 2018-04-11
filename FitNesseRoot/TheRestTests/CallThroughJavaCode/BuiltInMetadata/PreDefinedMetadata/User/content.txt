@@ -20,7 +20,7 @@ A test that  reads all predefined metadata needed to be able to create a concret
 | metadataTextVariable | userIdTextVar | 1 | 1 |
 | metadataTextVariable | userFirstnameTextVar | 1 | 1 |
 | metadataTextVariable | userLastnameTextVar | 1 | 1 |
-| metadataGroup | userRoleRelationGroup | 1 | 1 |
+| metadataGroup | userRoleRelationGroup | 1 | X |
 | metadataCollectionVariable | activeStatusCollectionVar | 1 | 1 |
 
 *!
@@ -38,7 +38,7 @@ A test that  reads all predefined metadata needed to be able to create a concret
 | metadataTextVariable | userIdTextVar | 1 | 1 |
 | metadataTextVariable | userFirstnameTextVar | 1 | 1 |
 | metadataTextVariable | userLastnameTextVar | 1 | 1 |
-| metadataGroup | userRoleRelationGroup | 1 | 1 |
+| metadataGroup | userRoleRelationGroup | 1 | X |
 | metadataCollectionVariable | activeStatusCollectionVar | 1 | 1 |
 
 *!

@@ -20,7 +20,7 @@ A test that first reads all predefined metadata needed to be able to create user
 | metadataTextVariable | userIdTextVar | 1 | 1 |
 | metadataTextVariable | userFirstnameTextVar | 1 | 1 |
 | metadataTextVariable | userLastnameTextVar | 1 | 1 |
-| metadataGroup | systemOneUserRoleRelationGroup | 1 | 1 |
+| metadataGroup | systemOneUserRoleRelationGroup | 1 | X |
 | metadataCollectionVariable | activeStatusCollectionVar | 1 | 1 |
 
 *!
@@ -38,7 +38,7 @@ A test that first reads all predefined metadata needed to be able to create user
 | metadataTextVariable | userIdTextVar | 1 | 1 |
 | metadataTextVariable | userFirstnameTextVar | 1 | 1 |
 | metadataTextVariable | userLastnameTextVar | 1 | 1 |
-| metadataGroup | systemOneUserRoleRelationGroup | not found | not found |
+| metadataGroup | systemOneUserRoleRelationGroup | 1 | X |
 | metadataCollectionVariable | activeStatusCollectionVar | 1 | 1 |
 
 *!
@@ -69,7 +69,7 @@ A test that first reads all predefined metadata needed to be able to create user
 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testCreateRecordCreatedType? | getStatusType? |
-| $adminAuthToken | systemOneUser | fitnesseUser | {"name":"user","children":[{"name":"recordInfo","children":[{"name":"id","value":"fitnesseUser"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"userId","value":"fitnesseUser@system.cora.uu.se"},{"name":"userFirstname","value":"Some"},{"name":"userLastname","value":"User"},{"name":"userRole","children":[{"name":"userRole","children":[{"name":"linkedRecordType","value":"permissionRole"},{"name":"linkedRecordId","value":"user"}]},{"name":"userRoleRulePart","children":[{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.","repeatId":"0"}],"attributes":{"type":"organisation"}}]}],"repeatId":"0"},{"name":"activeStatus","value":"active"}]} | systemOneUser | CREATED |
+| $adminAuthToken | systemOneUser | fitnesseUser | {"name":"user","children":[{"name":"recordInfo","children":[{"name":"id","value":"fitnesseUser"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"userId","value":"fitnesseUser@system.cora.uu.se"},{"name":"userFirstname","value":"Some"},{"name":"userLastname","value":"User"},{"name":"userRole","children":[{"name":"userRole","children":[{"name":"linkedRecordType","value":"permissionRole"},{"name":"linkedRecordId","value":"user"}]}],"repeatId":"0"},{"name":"activeStatus","value":"active"}]} | systemOneUser | CREATED |
 
 *!
 !***> Read systemOneUser
@@ -83,7 +83,7 @@ A test that first reads all predefined metadata needed to be able to create user
 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | systemOneUser | fitnesseUser | {"name":"user","children":[{"name":"recordInfo","children":[{"name":"id","value":"fitnesseUser"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"systemOneUser"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"userId","value":"fitnesseUser@system.cora.uu.se"},{"name":"userFirstname","value":"Some"},{"name":"userLastname","value":"User"},{"name":"userRole","children":[{"name":"userRole","children":[{"name":"linkedRecordType","value":"permissionRole"},{"name":"linkedRecordId","value":"user"}]},{"name":"userRoleRulePart","children":[{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.","repeatId":"0"}],"attributes":{"type":"organisation"}}]}],"repeatId":"0"},{"name":"activeStatus","value":"active"}]} | | OK |
+| $adminAuthToken | systemOneUser | fitnesseUser | {"name":"user","children":[{"name":"recordInfo","children":[{"name":"id","value":"fitnesseUser"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"systemOneUser"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"userId","value":"fitnesseUser@system.cora.uu.se"},{"name":"userFirstname","value":"Some"},{"name":"userLastname","value":"User"},{"name":"userRole","children":[{"name":"userRole","children":[{"name":"linkedRecordType","value":"permissionRole"},{"name":"linkedRecordId","value":"user"}]}],"repeatId":"0"},{"name":"activeStatus","value":"active"}]} | | OK |
 
 *!
 !***> List data(systemOneUser)
