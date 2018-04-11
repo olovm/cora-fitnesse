@@ -54,7 +54,7 @@ A test that  reads all predefined metadata needed to be able to create a concret
 !| MetadataLinkFixture |
 | linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
 | metadataRecordLink | userRoleLink | 1 | 1 |
-| metadataGroup | userRoleRulePartGroup | not found | not found |
+| metadataGroup | permissionTermRulePartGroup | 0 | X |
 
 *!
 !***> Read recordType (user)
