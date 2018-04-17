@@ -53,15 +53,46 @@ If persmission terms are used in metadata for a record type, the user must have 
 
 *!
 !3 Create testStudentThesis
-!***> Create test data
+!***> Create data for a testStudentThesis
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
 | $adminAuthToken | testStudentThesis | {"name":"testStudentThesis","children":[{"name":"recordInfo","children":[{"name":"id","value":"studentThesis1"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"testTitle","value":"En titel"},{"name":"publishedStatus","value":"notPublished"}]} | | CREATED |
 
 *!
+!3 Create rule and role for published status and add to a user
+!***> Create permissionRule testUserStudentThesisRule, and role testUserStudentThesisRole
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | permissionRule | {"name":"permissionRule","children":[{"name":"recordInfo","children":[{"name":"id","value":"testUserStudentThesisRule"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.*","repeatId":"0"}],"attributes":{"type":"action"}},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.testStudentThesis","repeatId":"0"}],"attributes":{"type":"recordType"}},{"name":"activeStatus","value":"active"},{"name":"permissionTermRulePart","children":[{"name":"rule","children":[{"name":"linkedRecordType","value":"collectPermissionTerm"},{"name":"linkedRecordId","value":"testPublishedStatusPermissionTerm"}]},{"name":"value","value":"system.published","repeatId":"0"}],"repeatId":"0"}]} | | CREATED |
+| $adminAuthToken | permissionRole | {"name":"permissionRole","children":[{"name":"recordInfo","children":[{"name":"id","value":"testUserStudentThesisRole"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"permissionRuleLink","children":[{"name":"linkedRecordType","value":"permissionRule"},{"name":"linkedRecordId","value":"testUserStudentThesisRule"}],"repeatId":"0"},{"name":"activeStatus","value":"active"}]} | | |
+
+*!
+!***> Update fitnesse user, adding role for access to PUBLISHED data of recordType testStudentThesis
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | systemOneUser | 121212 | {"name":"user","children":[{"name":"recordInfo","children":[{"name":"id","value":"121212"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"systemOneUser"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"131313"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]},{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"name":"tsUpdated","value":"2018-04-11  08:56:47.811"}]},{"name":"userId","value":"fitnesseUser@system.cora.uu.se"},{"name":"userFirstname","value":"Fitnesse"},{"name":"userLastname","value":"User"},{"name":"userRole","children":[{"name":"userRole","children":[{"name":"linkedRecordType","value":"permissionRole"},{"name":"linkedRecordId","value":"fitnesseTextAdmin"}]}],"repeatId":"7175775086411621"},{"name":"activeStatus","value":"active"},{"name":"userAppTokenGroup","children":[{"name":"appTokenLink","children":[{"name":"linkedRecordType","value":"appToken"},{"name":"linkedRecordId","value":"appToken:7175774276485719"}]},{"name":"note","value":"For   fitnesse"}],"repeatId":"7175775086411619"},{"name":"userRole","children":[{"name":"userRole","children":[{"name":"linkedRecordType","value":"permissionRole"},{"name":"linkedRecordId","value":"testUserStudentThesisRole"}]}],"repeatId":"7175775086411622"}]} | | OK |
+
+*!
+!3 Try to update when user has no access to data
+!***> Try to update studentThesis1 as fitnesseUser. This should not be allowed since fitnesseUser only has access if the testStudentThesis is published
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $userAuthToken | testStudentThesis | studentThesis1 | {"name":"testStudentThesis","children":[{"name":"recordInfo","children":[{"name":"id","value":"studentThesis1"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"testStudentThesis"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"131313"}]},{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"tsCreated","value":"2018-04-11 08:56:47.811"},{"name":"tsUpdated","value":"2018-04-11 08:56:47.811"}]},{"name":"testTitle","value":"En titel"},{"name":"publishedStatus","value":"notPublished"}]} | | FORBIDDEN |
+
+*!
 !2 Clean up created data
-!***> Clean up created texts
+!***> Update fitnesse user, restoring old state
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | systemOneUser | 121212 | {"name":"user","children":[{"name":"recordInfo","children":[{"name":"id","value":"121212"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"systemOneUser"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"131313"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]},{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"name":"tsUpdated","value":"2018-04-11  08:56:47.811"}]},{"name":"userId","value":"fitnesseUser@system.cora.uu.se"},{"name":"userFirstname","value":"Fitnesse"},{"name":"userLastname","value":"User"},{"name":"userRole","children":[{"name":"userRole","children":[{"name":"linkedRecordType","value":"permissionRole"},{"name":"linkedRecordId","value":"fitnesseTextAdmin"}]}],"repeatId":"7175775086411621"},{"name":"activeStatus","value":"active"},{"name":"userAppTokenGroup","children":[{"name":"appTokenLink","children":[{"name":"linkedRecordType","value":"appToken"},{"name":"linkedRecordId","value":"appToken:7175774276485719"}]},{"name":"note","value":"For  fitnesse"}],"repeatId":"7175775086411619"}]} | | OK |
+
+*!
+!***> Clean up created data, metadata and texts
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
@@ -83,6 +114,8 @@ If persmission terms are used in metadata for a record type, the user must have 
 | $adminAuthToken | metadataCollectionItem | testNotPublishedItem | | OK |
 | $adminAuthToken | coraText | someFitnesseText | | OK |
 | $adminAuthToken | coraText | someFitnesseDefText | | OK |
+| $adminAuthToken | permissionRole | testUserStudentThesisRole | | |
+| $adminAuthToken | permissionRule | testUserStudentThesisRule | | OK |
 | $adminAuthToken | collectPermissionTerm | testPublishedStatusPermissionTerm | | OK |
 
 *!
