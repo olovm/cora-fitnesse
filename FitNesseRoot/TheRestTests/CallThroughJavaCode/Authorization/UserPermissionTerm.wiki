@@ -1,0 +1,118 @@
+---
+Test
+---
+!contents -R2 -g -p -f -h
+| import |
+| se.uu.ub.cora.fitnesseintegration |
+
+!1 Testing permission terms in user
+If persmission terms are used in metadata for a record type, the user must have access to a key that matches the data value to have access to the record. !-
+-!Example: A recordType studentThesis has the data field belongsTo, which is a link to a permissionUnit (an organisation). If the user tries to read a record which belongs to a permissionUnit that the user has no access to, it will not be allowed.
+
+!***> Read User, fitnesseUser (121212)
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | systemOneUser | 121212 | | OK |
+
+*!
+!2 Creating recordType testStudentThesis and metadata that is needed
+!***> Create metadataTextVariable testTitleTextVar and metadataRecordLink testStudentThesisBelongsToLink
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | coraText | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"someFitnesseText"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"textPart","children":[{"name":"text","value":"Some  fitnesse text"}],"attributes":{"type":"default","lang":"sv"}}]} | | CREATED |
+| $adminAuthToken | coraText | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"someFitnesseDefText"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"textPart","children":[{"name":"text","value":"Some  fitnesse text"}],"attributes":{"type":"default","lang":"sv"}}]} | | CREATED |
+| $adminAuthToken | metadataTextVariable | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testTitleTextVar"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"testTitle"},{"name":"regEx","value":"(^[0-9A-Za-z:-_\\s]{2,50}$)"},{"name":"textId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someFitnesseText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someFitnesseDefText"}]}],"attributes":{"type":"textVariable"}} | | CREATED |
+| $adminAuthToken | metadataRecordLink | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testStudentThesisBelongsToLink"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"belongsTo"},{"name":"linkedRecordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"permissionUnit"}]},{"name":"textId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someFitnesseText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someFitnesseDefText"}]}],"attributes":{"type":"recordLink"}} | | CREATED |
+
+*!
+!***> Create permissionTerm testPublishedStatusPermissionTerm
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | collectPermissionTerm | {"name":"collectPermissionTerm","children":[{"name":"recordInfo","children":[{"name":"id","value":"testPermissionUnitPermissionTerm"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"permissionUnitPermission"},{"name":"extraData","children":[{"name":"permissionKey","value":"PERMISSION_UNIT"}]}],"attributes":{"type":"permission"}} | | CREATED |
+
+*!
+!***> Create metadataGroups to use in recordType
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | metadataGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testStudentThesisRecordInfoNewGroup"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"recordInfo"},{"name":"textId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someFitnesseText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someFitnesseDefText"}]},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataTextVariable"},{"name":"linkedRecordId","value":"idTextVar"}]},{"name":"childRefCollectTerm","children":[{"name":"linkedRecordType","value":"collectIndexTerm"},{"name":"linkedRecordId","value":"recordIdCollectIndexTerm"}],"attributes":{"type":"index"},"repeatId":"0"}],"repeatId":"1"},{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataRecordLink"},{"name":"linkedRecordId","value":"dataDividerLink"}]}],"repeatId":"2"},{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"X"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataRecordLink"},{"name":"linkedRecordId","value":"testStudentThesisBelongsToLink"}]},{"name":"childRefCollectTerm","children":[{"name":"linkedRecordType","value":"collectPermissionTerm"},{"name":"linkedRecordId","value":"testPermissionUnitPermissionTerm"}],"attributes":{"type":"permission"}}],"repeatId":"3"}]},{"name":"excludePGroupCreation","value":"true"}],"attributes":{"type":"group"}} | | CREATED |
+| $adminAuthToken | metadataGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testStudentThesisRecordInfoGroup"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"recordInfo"},{"name":"textId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someFitnesseText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someFitnesseDefText"}]},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataTextVariable"},{"name":"linkedRecordId","value":"idTextVar"}]},{"name":"childRefCollectTerm","children":[{"name":"linkedRecordType","value":"collectIndexTerm"},{"name":"linkedRecordId","value":"recordIdCollectIndexTerm"}],"attributes":{"type":"index"},"repeatId":"0"}],"repeatId":"1"},{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataRecordLink"},{"name":"linkedRecordId","value":"recordTypeLink"}]}],"repeatId":"5"},{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataRecordLink"},{"name":"linkedRecordId","value":"createdByLink"}]}],"repeatId":"3"},{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataRecordLink"},{"name":"linkedRecordId","value":"dataDividerLink"}]}],"repeatId":"4"},{"name":"childReference","children":[{"name":"repeatMin","value":"0"},{"name":"repeatMax","value":"X"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataRecordLink"},{"name":"linkedRecordId","value":"permissionUnitLink"}]}],"repeatId":"6"},{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataRecordLink"},{"name":"linkedRecordId","value":"updatedByLink"}]}],"repeatId":"7"},{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataTextVariable"},{"name":"linkedRecordId","value":"tsCreatedTextVar"}]}],"repeatId":"8"},{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataTextVariable"},{"name":"linkedRecordId","value":"tsUpdatedTextVar"}]}],"repeatId":"9"},{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"X"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataRecordLink"},{"name":"linkedRecordId","value":"testStudentThesisBelongsToLink"}]},{"name":"childRefCollectTerm","children":[{"name":"linkedRecordType","value":"collectPermissionTerm"},{"name":"linkedRecordId","value":"testPermissionUnitPermissionTerm"}],"attributes":{"type":"permission"}}],"repeatId":"10"}]},{"name":"excludePGroupCreation","value":"true"}],"attributes":{"type":"group"}} | | CREATED |
+| $adminAuthToken | metadataGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testStudentThesisNewGroup"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"testStudentThesis"},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataTextVariable"},{"name":"linkedRecordId","value":"testTitleTextVar"}]}],"repeatId":"0"},{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"testStudentThesisRecordInfoNewGroup"}]}],"repeatId":"2"}]},{"name":"excludePGroupCreation","value":"true"}],"attributes":{"type":"group"}} | | CREATED |
+| $adminAuthToken | metadataGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"testStudentThesisGroup"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"testStudentThesis"},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataTextVariable"},{"name":"linkedRecordId","value":"testTitleTextVar"}]}],"repeatId":"0"},{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"testStudentThesisRecordInfoGroup"}]}],"repeatId":"2"}]}],"attributes":{"type":"group"}} | | CREATED |
+
+*!
+!***> Create recordType testStudentThesis
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | recordType | {"name":"recordType","children":[{"name":"abstract","value":"false"},{"name":"recordInfo","children":[{"name":"id","value":"testStudentThesis"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"userSuppliedId","value":"true"},{"name":"groupOfRecordType","value":"typeOfResource","repeatId":"0"},{"name":"metadataId","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"testStudentThesisGroup"}]},{"name":"newMetadataId","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"testStudentThesisNewGroup"}]},{"name":"presentationViewId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"testStudentThesisOutputPGroup"}]},{"name":"presentationFormId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"testStudentThesisPGroup"}]},{"name":"menuPresentationViewId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"testStudentThesisOutputPGroup"}]},{"name":"listPresentationViewId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"testStudentThesisOutputPGroup"}]},{"name":"autocompletePresentationView","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"testStudentThesisPGroup"}]},{"name":"newPresentationFormId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"testStudentThesisPGroup"}]},{"name":"textId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someFitnesseText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"coraText"},{"name":"linkedRecordId","value":"someFitnesseDefText"}]}]} | | CREATED |
+
+*!
+!3 Create testStudentThesis
+!***> Create a permissionUnit to link to from a testStudentThesis
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | permissionUnit | {"name":"permissionUnit","children":[{"name":"recordInfo","children":[{"name":"id","value":"my.test.unit"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"name","children":[{"name":"namePart","children":[{"name":"value","value":"myTestPermissionUnit"}],"attributes":{"type":"defaultName"}}],"attributes":{"type":"authorized"}}]} | | CREATED |
+
+*!
+!***> Create data for a testStudentThesis
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | testStudentThesis | {"name":"testStudentThesis","children":[{"name":"recordInfo","children":[{"name":"id","value":"studentThesis1"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]},{"name":"belongsTo","children":[{"name":"linkedRecordType","value":"permissionUnit"},{"name":"linkedRecordId","value":"my.test.unit"}],"repeatId":"3"}]},{"name":"testTitle","value":"En titel"}]} | | CREATED |
+
+*!
+!***> Update rule nothing for fitnesseUser for access to PUBLISHED data of recordType testStudentThesis
+
+!| comment |
+| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | permissionRule | nothing | {"name":"permissionRule","children":[{"name":"recordInfo","children":[{"name":"id","value":"nothing"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"permissionRule"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"12345"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]},{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"12345"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"name":"tsUpdated","value":"2017-11-01 17:53:01.0"}]},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.*","repeatId":"0"}],"attributes":{"type":"action"}},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.testStudentThesis","repeatId":"0"}],"attributes":{"type":"recordType"}},{"name":"activeStatus","value":"active"},{"name":"permissionTermRulePart","children":[{"name":"rule","children":[{"name":"linkedRecordType","value":"collectPermissionTerm"},{"name":"linkedRecordId","value":"testPublishedStatusPermissionTerm"}]},{"name":"value","value":"system.published","repeatId":"0"}],"repeatId":"0"}]} | | OK |
+
+*!
+!3 Try to update when user has no access to data
+!***> Try to update studentThesis1 as fitnesseUser. This should not be allowed since fitnesseUser only has access if the testStudentThesis is published
+
+!| comment |
+| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $userAuthToken | testStudentThesis | studentThesis1 | {"name":"testStudentThesis","children":[{"name":"recordInfo","children":[{"name":"id","value":"studentThesis1"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"testStudentThesis"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"131313"}]},{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"tsCreated","value":"2018-04-11 08:56:47.811"},{"name":"tsUpdated","value":"2018-04-11 08:56:47.811"}]},{"name":"testTitle","value":"En titel"},{"name":"publishedStatus","value":"notPublished"}]} | | FORBIDDEN |
+
+*!
+!2 Clean up created data
+!***> Update permissionRule nothing, restoring old state
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | permissionRule | nothing | {"name":"permissionRule","children":[{"name":"recordInfo","children":[{"name":"id","value":"nothing"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"permissionRule"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"12345"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]},{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"12345"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"name":"tsUpdated","value":"2017-11-01 17:53:01.0"}]},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.DISABLED","repeatId":"0"}],"attributes":{"type":"action"}},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.DISABLED","repeatId":"0"}],"attributes":{"type":"recordType"}},{"name":"activeStatus","value":"inactive"}]} | | OK |
+
+*!
+!***> Clean up created data, metadata and texts
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | testStudentThesis | studentThesis1 | | OK |
+| $adminAuthToken | search | testStudentThesisSearch | | OK |
+| $adminAuthToken | recordType | testStudentThesis | | OK |
+| $adminAuthToken | presentationGroup | testStudentThesisPGroup | | OK |
+| $adminAuthToken | presentationGroup | testStudentThesisOutputPGroup | | OK |
+| $adminAuthToken | metadataGroup | testStudentThesisNewGroup | | OK |
+| $adminAuthToken | metadataGroup | testStudentThesisGroup | | OK |
+| $adminAuthToken | metadataGroup | testStudentThesisRecordInfoNewGroup | | OK |
+| $adminAuthToken | metadataGroup | testStudentThesisRecordInfoGroup | | OK |
+| $adminAuthToken | presentationVar | testTitlePVar | | OK |
+| $adminAuthToken | presentationVar | testTitleOutputPVar | | OK |
+| $adminAuthToken | metadataTextVariable | testTitleTextVar | | OK |
+| $adminAuthToken | presentationRecordLink | testStudentThesisBelongsToPLink | | OK |
+| $adminAuthToken | presentationRecordLink | testStudentThesisBelongsToOutputPLink | | OK |
+| $adminAuthToken | metadataRecordLink | testStudentThesisBelongsToLink | | OK |
+| $adminAuthToken | coraText | someFitnesseText | | OK |
+| $adminAuthToken | coraText | someFitnesseDefText | | OK |
+| $adminAuthToken | collectPermissionTerm | testPermissionUnitPermissionTerm | | OK |
+| $adminAuthToken | permissionUnit | my.test.unit | | OK |
+
+*!
