@@ -52,11 +52,12 @@ If persmission terms are used in metadata for a record type, the user must have 
 
 *!
 !3 Create testStudentThesis
-!***> Create a permissionUnit to link to from a testStudentThesis
+!***> Create two permissionUnits to link to from a testStudentThesis
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
 | $adminAuthToken | permissionUnit | {"name":"permissionUnit","children":[{"name":"recordInfo","children":[{"name":"id","value":"my.test.unit"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"name","children":[{"name":"namePart","children":[{"name":"value","value":"myTestPermissionUnit"}],"attributes":{"type":"defaultName"}}],"attributes":{"type":"authorized"}}]} | | CREATED |
+| $adminAuthToken | permissionUnit | {"name":"permissionUnit","children":[{"name":"recordInfo","children":[{"name":"id","value":"my.other.test.unit"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"name","children":[{"name":"namePart","children":[{"name":"value","value":"myTestPermissionUnit"}],"attributes":{"type":"defaultName"}}],"attributes":{"type":"authorized"}}]} | | CREATED |
 
 *!
 !***> Create data for a testStudentThesis
@@ -77,15 +78,60 @@ If persmission terms are used in metadata for a record type, the user must have 
 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | systemOneUser | 121212 | {"name":"user","children":[{"name":"recordInfo","children":[{"name":"id","value":"121212"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"systemOneUser"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"131313"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]},{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"name":"tsUpdated","value":"2018-04-11 08:56:47.811"}]},{"name":"userId","value":"fitnesseUser@system.cora.uu.se"},{"name":"userFirstname","value":"Fitnesse"},{"name":"userLastname","value":"User"},{"name":"userRole","children":[{"name":"userRole","children":[{"name":"linkedRecordType","value":"permissionRole"},{"name":"linkedRecordId","value":"fitnesseTextAdmin"}]},{"name":"permissionTermRulePart","children":[{"name":"rule","children":[{"name":"linkedRecordType","value":"collectPermissionTerm"},{"name":"linkedRecordId","value":"testPermissionUnitPermissionTerm"}]},{"name":"value","value":"system.my.not.test.unit","repeatId":"0"}],"repeatId":"0"}],"repeatId":"7175775086411621"},{"name":"activeStatus","value":"active"},{"name":"userAppTokenGroup","children":[{"name":"appTokenLink","children":[{"name":"linkedRecordType","value":"appToken"},{"name":"linkedRecordId","value":"appToken:7175774276485719"}]},{"name":"note","value":"For fitnesse"}],"repeatId":"7175775086411619"}]} | | OK |
+| $adminAuthToken | systemOneUser | 121212 | {"name":"user","children":[{"name":"recordInfo","children":[{"name":"id","value":"121212"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"systemOneUser"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"131313"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"systemOne"}]},{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"name":"tsUpdated","value":"2018-04-11 08:56:47.811"}]},{"name":"userId","value":"fitnesseUser@system.cora.uu.se"},{"name":"userFirstname","value":"Fitnesse"},{"name":"userLastname","value":"User"},{"name":"userRole","children":[{"name":"userRole","children":[{"name":"linkedRecordType","value":"permissionRole"},{"name":"linkedRecordId","value":"fitnesseTextAdmin"}]},{"name":"permissionTermRulePart","children":[{"name":"rule","children":[{"name":"linkedRecordType","value":"collectPermissionTerm"},{"name":"linkedRecordId","value":"testPermissionUnitPermissionTerm"}]},{"name":"value","value":"system.my.other.test.unit","repeatId":"0"}],"repeatId":"0"}],"repeatId":"7175775086411621"},{"name":"activeStatus","value":"active"},{"name":"userAppTokenGroup","children":[{"name":"appTokenLink","children":[{"name":"linkedRecordType","value":"appToken"},{"name":"linkedRecordId","value":"appToken:7175774276485719"}]},{"name":"note","value":"For fitnesse"}],"repeatId":"7175775086411619"}]} | | OK |
 
 *!
-!3 Try to update when user has no access to data
-!***> Try to update studentThesis1 as fitnesseUser. This should not be allowed since fitnesseUser only has access if the testStudentThesis is published
+!3 Try to create, updated and delete a studentThesis when user has no access to data
+!***> Try to create studentThesis2 as fitnesseUser. This should not be allowed since fitnesseUser has no access to the permission unit that the studentThesis belongs to.
+
+!| comment |
+| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $userAuthToken | testStudentThesis | {"name":"testStudentThesis","children":[{"name":"recordInfo","children":[{"name":"id","value":"studentThesis2"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]},{"name":"belongsTo","children":[{"name":"linkedRecordType","value":"permissionUnit"},{"name":"linkedRecordId","value":"my.test.unit"}],"repeatId":"3"}]},{"name":"testTitle","value":"En titel"}]} | | FORBIDDEN |
+
+*!
+!***> Try to update studentThesis1 as fitnesseUser. This should not be allowed since fitnesseUser has no access to the permission unit that the studentThesis belongs to.
 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
 | $userAuthToken | testStudentThesis | studentThesis1 | {"name":"testStudentThesis","children":[{"name":"recordInfo","children":[{"name":"id","value":"studentThesis1"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"testStudentThesis"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"131313"}]},{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"tsCreated","value":"2018-04-11 08:56:47.811"},{"name":"tsUpdated","value":"2018-04-11 08:56:47.811"},{"name":"belongsTo","children":[{"name":"linkedRecordType","value":"permissionUnit"},{"name":"linkedRecordId","value":"my.test.unit"}],"repeatId":"3"}]},{"name":"testTitle","value":"En titel"}]} | | FORBIDDEN |
+
+*!
+!***> Try to delete studentThesis1 as fitnesseUser, this should not be allowed
+
+!| comment |
+| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $userAuthToken | testStudentThesis | studentThesis1 | | FORBIDDEN |
+
+*!
+!3 Create, update and delete a studentThesis when user has access to data
+!***> Try to create studentThesis2 as fitnesseUser. This should allowed since fitnesseUser has no access to the permission unit that the studentThesis belongs to.
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $userAuthToken | testStudentThesis | {"name":"testStudentThesis","children":[{"name":"recordInfo","children":[{"name":"id","value":"studentThesis2"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]},{"name":"belongsTo","children":[{"name":"linkedRecordType","value":"permissionUnit"},{"name":"linkedRecordId","value":"my.other.test.unit"}],"repeatId":"3"}]},{"name":"testTitle","value":"En titel"}]} | | CREATED |
+
+*!
+!***> Update studentThesis1 as fitnesseAdmin, setting permission unit to a unit the fitnesseUser has access to.
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | testStudentThesis | studentThesis1 | {"name":"testStudentThesis","children":[{"name":"recordInfo","children":[{"name":"id","value":"studentThesis1"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"testStudentThesis"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"131313"}]},{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"tsCreated","value":"2018-04-11 08:56:47.811"},{"name":"tsUpdated","value":"2018-04-11 08:56:47.811"},{"name":"belongsTo","children":[{"name":"linkedRecordType","value":"permissionUnit"},{"name":"linkedRecordId","value":"my.other.test.unit"}],"repeatId":"3"}]},{"name":"testTitle","value":"En titel"}]} | | OK |
+
+*!
+!***> Try to update studentThesis1 as fitnesseUser agin, this should now be allowed.
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | testStudentThesis | studentThesis1 | {"name":"testStudentThesis","children":[{"name":"recordInfo","children":[{"name":"id","value":"studentThesis1"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"testStudentThesis"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"131313"}]},{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"tsCreated","value":"2018-04-11 08:56:47.811"},{"name":"tsUpdated","value":"2018-04-11 08:56:47.811"},{"name":"belongsTo","children":[{"name":"linkedRecordType","value":"permissionUnit"},{"name":"linkedRecordId","value":"my.test.unit"}],"repeatId":"3"}]},{"name":"testTitle","value":"En titel"}]} | | OK |
+
+*!
+!***> Try to delete studentThesis1 as fitnesseUser, this should be allowed
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $userAuthToken | testStudentThesis | studentThesis1 | | OK |
 
 *!
 !2 Clean up created data
@@ -94,6 +140,7 @@ If persmission terms are used in metadata for a record type, the user must have 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
 | $adminAuthToken | permissionRule | nothing | {"name":"permissionRule","children":[{"name":"recordInfo","children":[{"name":"id","value":"nothing"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"permissionRule"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"12345"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]},{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"12345"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"name":"tsUpdated","value":"2017-11-01 17:53:01.0"}]},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.DISABLED","repeatId":"0"}],"attributes":{"type":"action"}},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.DISABLED","repeatId":"0"}],"attributes":{"type":"recordType"}},{"name":"activeStatus","value":"inactive"}]} | | OK |
+
 *!
 !***> Update fitnesse user, restoring old state
 
@@ -106,7 +153,6 @@ If persmission terms are used in metadata for a record type, the user must have 
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $adminAuthToken | testStudentThesis | studentThesis1 | | OK |
 | $adminAuthToken | search | testStudentThesisSearch | | OK |
 | $adminAuthToken | recordType | testStudentThesis | | OK |
 | $adminAuthToken | presentationGroup | testStudentThesisPGroup | | OK |
@@ -125,5 +171,6 @@ If persmission terms are used in metadata for a record type, the user must have 
 | $adminAuthToken | coraText | someFitnesseDefText | | OK |
 | $adminAuthToken | collectPermissionTerm | testPermissionUnitPermissionTerm | | OK |
 | $adminAuthToken | permissionUnit | my.test.unit | | OK |
+| $adminAuthToken | permissionUnit | my.other.test.unit | | OK |
 
 *!
