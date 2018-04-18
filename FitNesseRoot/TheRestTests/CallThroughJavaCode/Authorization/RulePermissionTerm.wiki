@@ -67,12 +67,59 @@ If persmission terms are used in metadata for a record type, the user must have 
 | $adminAuthToken | permissionRule | nothing | {"name":"permissionRule","children":[{"name":"recordInfo","children":[{"name":"id","value":"nothing"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"permissionRule"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"12345"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]},{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"12345"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"name":"tsUpdated","value":"2017-11-01 17:53:01.0"}]},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.*","repeatId":"0"}],"attributes":{"type":"action"}},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.testStudentThesis","repeatId":"0"}],"attributes":{"type":"recordType"}},{"name":"activeStatus","value":"active"},{"name":"permissionTermRulePart","children":[{"name":"rule","children":[{"name":"linkedRecordType","value":"collectPermissionTerm"},{"name":"linkedRecordId","value":"testPublishedStatusPermissionTerm"}]},{"name":"value","value":"system.published","repeatId":"0"}],"repeatId":"0"}]} | | OK |
 
 *!
-!3 Try to update when user has no access to data
+!3 Try to create, update and delete when user has no access to data
+!***> Try to create studentThesis2 as fitnesseUser. This should not be allowed  since data is not compliant with the users permissions
+
+!| comment |
+| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $userAuthToken | testStudentThesis | {"name":"testStudentThesis","children":[{"name":"recordInfo","children":[{"name":"id","value":"studentThesis2"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"testTitle","value":"En titel"},{"name":"publishedStatus","value":"notPublished"}]} | | FORBIDDEN |
+
+*!
 !***> Try to update studentThesis1 as fitnesseUser. This should not be allowed since fitnesseUser only has access if the testStudentThesis is published
 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
 | $userAuthToken | testStudentThesis | studentThesis1 | {"name":"testStudentThesis","children":[{"name":"recordInfo","children":[{"name":"id","value":"studentThesis1"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"testStudentThesis"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"131313"}]},{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"tsCreated","value":"2018-04-11 08:56:47.811"},{"name":"tsUpdated","value":"2018-04-11 08:56:47.811"}]},{"name":"testTitle","value":"En titel"},{"name":"publishedStatus","value":"notPublished"}]} | | FORBIDDEN |
+
+*!
+!***> Try to delete data as fitnesseUser. This should not be allowed
+
+!| comment |
+| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $userAuthToken | testStudentThesis | studentThesis1 | | FORBIDDEN |
+
+*!
+!3 Create, update and delete when user has access to data
+!***> Create studentThesis2 as fitnesseUser. This should be allowed since data is compliant with the users permissions
+
+!| comment |
+| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $userAuthToken | testStudentThesis | {"name":"testStudentThesis","children":[{"name":"recordInfo","children":[{"name":"id","value":"studentThesis2"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"testTitle","value":"En titel"},{"name":"publishedStatus","value":"published"}]} | | CREATED |
+
+*!
+!***> Update studentThesis1 as fitnesseAdmin, changing published status to published, which is compliant with the permissions for fitnesseUser.
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $adminAuthToken | testStudentThesis | studentThesis1 | {"name":"testStudentThesis","children":[{"name":"recordInfo","children":[{"name":"id","value":"studentThesis1"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"testStudentThesis"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"131313"}]},{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"tsCreated","value":"2018-04-11 08:56:47.811"},{"name":"tsUpdated","value":"2018-04-11 08:56:47.811"}]},{"name":"testTitle","value":"En titel"},{"name":"publishedStatus","value":"published"}]} | | OK |
+
+*!
+!***> Update studentThesis1 as fitnesseUser. This should now be allowed since data was changed to comply with the users permissions
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $userAuthToken | testStudentThesis | studentThesis1 | {"name":"testStudentThesis","children":[{"name":"recordInfo","children":[{"name":"id","value":"studentThesis1"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"testStudentThesis"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"131313"}]},{"name":"updatedBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"141414"}]},{"name":"tsCreated","value":"2018-04-11 08:56:47.811"},{"name":"tsUpdated","value":"2018-04-11 08:56:47.811"}]},{"name":"testTitle","value":"En titel"},{"name":"publishedStatus","value":"published"}]} | | OK |
+
+*!
+!***> Try to delete studentThesis2 as fitnesseUser. This should be allowed
+
+!| comment |
+| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $userAuthToken | testStudentThesis | studentThesis2 | | OK |
 
 *!
 !2 Clean up created data
