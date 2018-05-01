@@ -47,6 +47,27 @@ If the recordType definition states that id of a created record is not supplied 
 *!
 TODO: skulle här vilja ha ett test som visar att det bara finns ett barn med nameInData id
 
+!***> Load testStudentThesis to use in tests
+
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| testStudentThesis | $createdId | |
+
+*!
+!***> Check children in created studentThesis
+
+!| MetadataGroupFixture |
+| childNameInData | numberOfChildrenWithNameInData? |
+| recordInfo | 1 |
+
+*!
+!***> Check children in created studentThesis
+
+!| MetadataGroupFixture |
+| childDataGroup | childNameInData | numberOfChildrenWithNameInData? |
+| recordInfo | id | 1 |
+
+*!
 !***> Read testStudentThesis
 
 !| RecordEndpointFixture |
@@ -57,15 +78,14 @@ TODO: skulle här vilja ha ett test som visar att det bara finns ett barn med na
 !***> Update data for a testStudentThesis
 
 !| RecordEndpointFixture |
-| authToken | type | id | json | testUpdateRecord? | getStatusType? | getCreatedId? |
-| $adminAuthToken | testStudentThesis | $createdId | {"name":"testStudentThesis","children":[{"name":"recordInfo","children":[{"name":"id","value":"studentThesis1"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]},{"name":"id","value":"testStudentThesis:1413706304844"},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"testStudentThesis"}],"name":"type"}]},{"name":"testTitle","value":"En titel"},{"name":"publishedStatus","value":"published"}]} | | CREATED | $createdId= |
+| type | id | json | testUpdateRecord? | getStatusType? |
+| testStudentThesis | $createdId | {"name":"testStudentThesis","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]},{"name":"id","value":"$createdId"},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"testStudentThesis"}],"name":"type"},{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}],"name":"createdBy"},{"name":"tsCreated","value":"2018-04-29 18:17:51.517"},{"repeatId":"0","children":[{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}],"name":"updatedBy"},{"name":"tsUpdated","value":"2018-04-29 18:17:51.517"}],"name":"updated"}]},{"name":"testTitle","value":"En titel"},{"name":"publishedStatus","value":"published"}]} | | OK |
 
 *!
 !2 Clean up created data
-!***> Delete studentThesis1
+!***> Delete studentThesis
 
-!| comment |
-| RecordEndpointFixture |
+!| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
 | $adminAuthToken | testStudentThesis | $createdId | | OK |
 
