@@ -38,15 +38,17 @@ If the recordType definition states that id of a created record is not supplied 
 *!
 !3 
 !3 Create testStudentThesis
+When a record is created with an auto created id, the id is not set from the data.
+
 !***> Create data for a testStudentThesis
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
 | $adminAuthToken | testStudentThesis | {"name":"testStudentThesis","children":[{"name":"recordInfo","children":[{"name":"id","value":"studentThesis1"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"testTitle","value":"En titel"},{"name":"publishedStatus","value":"notPublished"}]} | | CREATED | $createdId= |
+| | | | | | |
 
 *!
-TODO: skulle här vilja ha ett test som visar att det bara finns ett barn med nameInData id
-
+!3 Check that recordInfo only contains one child named id
 !***> Load testStudentThesis to use in tests
 
 !| RecordEndpointFixture |
@@ -54,13 +56,8 @@ TODO: skulle här vilja ha ett test som visar att det bara finns ett barn med na
 | testStudentThesis | $createdId | |
 
 *!
-!***> Check children in created studentThesis
+Since id is to be auto created, any id present in data should be removed server side. This test show that we only have one id present in recordInfo after create. If id in data wasn't removed, there would be two children with nameInData "id".  
 
-!| MetadataGroupFixture |
-| childNameInData | numberOfChildrenWithNameInData? |
-| recordInfo | 1 |
-
-*!
 !***> Check children in created studentThesis
 
 !| MetadataGroupFixture |
