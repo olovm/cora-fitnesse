@@ -65,6 +65,7 @@ If persmission terms are used in metadata for a record type, the user must have 
 | authToken | type | json | testCreateRecord? | getStatusType? |
 | $adminAuthToken | permissionUnit | {"name":"permissionUnit","children":[{"name":"recordInfo","children":[{"name":"id","value":"my.test.unit"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"name","children":[{"name":"namePart","children":[{"name":"value","value":"myTestPermissionUnit"}],"attributes":{"type":"defaultName"}}],"attributes":{"type":"authorized"}}]} | | CREATED |
 | $adminAuthToken | permissionUnit | {"name":"permissionUnit","children":[{"name":"recordInfo","children":[{"name":"id","value":"my.other.test.unit"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"name","children":[{"name":"namePart","children":[{"name":"value","value":"myTestPermissionUnit"}],"attributes":{"type":"defaultName"}}],"attributes":{"type":"authorized"}}]} | | CREATED |
+| $adminAuthToken | permissionUnit | {"name":"permissionUnit","children":[{"name":"recordInfo","children":[{"name":"id","value":"some.other.test.unit"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"name","children":[{"name":"namePart","children":[{"name":"value","value":"myTestPermissionUnit"}],"attributes":{"type":"defaultName"}}],"attributes":{"type":"authorized"}}]} | | CREATED |
 
 *!
 !***> Create data for a testStudentThesis
@@ -129,7 +130,7 @@ If persmission terms are used in metadata for a record type, the user must have 
 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | testStudentThesis | studentThesis1 | {"name":"testStudentThesis","children":[{"name":"recordInfo","children":[{"name":"id","value":"studentThesis1"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"testStudentThesis"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"131313"}]},{"name":"tsCreated","value":"2018-04-11 08:56:47.811"},{"name":"belongsTo","children":[{"name":"linkedRecordType","value":"permissionUnit"},{"name":"linkedRecordId","value":"my.other.test.unit"}],"repeatId":"3"}]},{"name":"testTitle","value":"En titel"}]} | | OK |
+| $userAuthToken | testStudentThesis | studentThesis1 | {"name":"testStudentThesis","children":[{"name":"recordInfo","children":[{"name":"id","value":"studentThesis1"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"testStudentThesis"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"131313"}]},{"name":"tsCreated","value":"2018-04-11 08:56:47.811"},{"name":"belongsTo","children":[{"name":"linkedRecordType","value":"permissionUnit"},{"name":"linkedRecordId","value":"my.other.test.unit"}],"repeatId":"3"}]},{"name":"testTitle","value":"En titel"}]} | | OK |
 
 *!
 !***> Try to delete studentThesis2 as fitnesseUser, this should be allowed
@@ -137,6 +138,57 @@ If persmission terms are used in metadata for a record type, the user must have 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
 | $userAuthToken | testStudentThesis | studentThesis2 | | OK |
+
+*!
+!3 Create a studentThesis with repeating values in data when user has access to one repeating data
+!***> Try to create studentThesis3 as fitnesseUser. This should be allowed since fitnesseUser has access to one of the permission unit that the studentThesis belongs to.
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $userAuthToken | testStudentThesis | {"name":"testStudentThesis","children":[{"name":"recordInfo","children":[{"name":"id","value":"studentThesis3"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]},{"name":"belongsTo","children":[{"name":"linkedRecordType","value":"permissionUnit"},{"name":"linkedRecordId","value":"my.test.unit"}],"repeatId":"3"},{"name":"belongsTo","children":[{"name":"linkedRecordType","value":"permissionUnit"},{"name":"linkedRecordId","value":"my.other.test.unit"}],"repeatId":"4"}]},{"name":"testTitle","value":"En titel"}]} | | CREATED |
+
+*!
+!***> Try to update studentThesis3 as fitnesseUser, this should be allowed.
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $userAuthToken | testStudentThesis | studentThesis3 | {"name":"testStudentThesis","children":[{"name":"recordInfo","children":[{"name":"id","value":"studentThesis3"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"testStudentThesis"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"131313"}]},{"name":"tsCreated","value":"2018-04-11 08:56:47.811"},{"name":"belongsTo","children":[{"name":"linkedRecordType","value":"permissionUnit"},{"name":"linkedRecordId","value":"my.test.unit"}],"repeatId":"3"},{"name":"belongsTo","children":[{"name":"linkedRecordType","value":"permissionUnit"},{"name":"linkedRecordId","value":"my.other.test.unit"}],"repeatId":"4"}]},{"name":"testTitle","value":"En titel"}]} | | OK |
+
+*!
+!***> Try to delete studentThesis3 as fitnesseUser, this should be allowed
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $userAuthToken | testStudentThesis | studentThesis3 | | OK |
+
+*!
+!3 Create a studentThesis with repeating values in data when user has NO access to repeating data
+!***> Try to create studentThesis4 as fitnesseUser. This should NOT be allowed since fitnesseUser has NO access to any of the permission unit that the studentThesis belongs to.
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $userAuthToken | testStudentThesis | {"name":"testStudentThesis","children":[{"name":"recordInfo","children":[{"name":"id","value":"studentThesis4"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]},{"name":"belongsTo","children":[{"name":"linkedRecordType","value":"permissionUnit"},{"name":"linkedRecordId","value":"my.test.unit"}],"repeatId":"3"},{"name":"belongsTo","children":[{"name":"linkedRecordType","value":"permissionUnit"},{"name":"linkedRecordId","value":"some.other.test.unit"}],"repeatId":"4"}]},{"name":"testTitle","value":"En titel"}]} | | FORBIDDEN |
+
+*!
+!***> Create studentThesis4 as fitnesseAdmin.
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | testStudentThesis | {"name":"testStudentThesis","children":[{"name":"recordInfo","children":[{"name":"id","value":"studentThesis4"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]},{"name":"belongsTo","children":[{"name":"linkedRecordType","value":"permissionUnit"},{"name":"linkedRecordId","value":"my.test.unit"}],"repeatId":"3"},{"name":"belongsTo","children":[{"name":"linkedRecordType","value":"permissionUnit"},{"name":"linkedRecordId","value":"some.other.test.unit"}],"repeatId":"4"}]},{"name":"testTitle","value":"En titel"}]} | | CREATED |
+
+*!
+!***> Try to update studentThesis4 as fitnesseUser, this should NOT be allowed.
+
+!| RecordEndpointFixture |
+| authToken | type | id | json | testUpdateRecord? | getStatusType? |
+| $userAuthToken | testStudentThesis | studentThesis4 | {"name":"testStudentThesis","children":[{"name":"recordInfo","children":[{"name":"id","value":"studentThesis4"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"testStudentThesis"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"131313"}]},{"name":"tsCreated","value":"2018-04-11 08:56:47.811"},{"name":"belongsTo","children":[{"name":"linkedRecordType","value":"permissionUnit"},{"name":"linkedRecordId","value":"some.other.test.unit"}],"repeatId":"3"}]},{"name":"testTitle","value":"En titel"}]} | | FORBIDDEN |
+
+*!
+!***> Try to delete studentThesis4 as fitnesseUser, this should NOT be allowed
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $userAuthToken | testStudentThesis | studentThesis4 | | FORBIDDEN |
 
 *!
 !2 Clean up created data
@@ -147,12 +199,12 @@ If persmission terms are used in metadata for a record type, the user must have 
 | $adminAuthToken | permissionRule | nothing | {"name":"permissionRule","children":[{"name":"recordInfo","children":[{"name":"id","value":"nothing"},{"name":"type","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"permissionRule"}]},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"systemOneUser"},{"name":"linkedRecordId","value":"12345"}]},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"}]},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.DISABLED","repeatId":"0"}],"attributes":{"type":"action"}},{"name":"permissionRulePart","children":[{"name":"permissionRulePartValue","value":"system.DISABLED","repeatId":"0"}],"attributes":{"type":"recordType"}},{"name":"activeStatus","value":"inactive"}]} | | OK |
 
 *!
-
 !***> Clean up created data, metadata and texts
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
 | $adminAuthToken | testStudentThesis | studentThesis1 | | OK |
+| $adminAuthToken | testStudentThesis | studentThesis4 | | OK |
 | $adminAuthToken | search | testStudentThesisSearch | | OK |
 | $adminAuthToken | recordType | testStudentThesis | | OK |
 | $adminAuthToken | presentationGroup | testStudentThesisPGroup | | OK |
@@ -185,5 +237,7 @@ If persmission terms are used in metadata for a record type, the user must have 
 | authToken | type | id | testDeleteRecord? | getStatusType? |
 | $adminAuthToken | permissionUnit | my.test.unit | | OK |
 | $adminAuthToken | permissionUnit | my.other.test.unit | | OK |
+| $adminAuthToken | permissionUnit | some.other.test.unit | | OK |
 | $adminAuthToken | collectPermissionTerm | testPermissionUnitPermissionTerm | | OK |
+
 *!
