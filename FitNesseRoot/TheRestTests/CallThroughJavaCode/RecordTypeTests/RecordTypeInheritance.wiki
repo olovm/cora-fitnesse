@@ -78,11 +78,11 @@ An abstract record type (the parent) is used to create a group of record type si
 | $adminAuthToken | recordType | {"name":"recordType","children":[{"name":"recordInfo","children":[{"name":"id","value":"plant"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"metadataId","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"plantGroup"}]},{"name":"abstract","value":"true"},{"name":"presentationViewId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnesseViewPGroup"}]},{"name":"presentationFormId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnesseFormPGroup"}]},{"name":"newMetadataId","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"plantNewGroup"}]},{"name":"newPresentationFormId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnesseFormNewPGroup"}]},{"name":"menuPresentationViewId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnesseMenuPGroup"}]},{"name":"listPresentationViewId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnesseListPGroup"}]},{"name":"autocompletePresentationView","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnesseListPGroup"}]},{"name":"userSuppliedId","value":"true"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someFitnesseText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someFitnesseDefText"}]},{"name":"search","children":[{"name":"linkedRecordType","value":"search"},{"name":"linkedRecordId","value":"recordTypeSearch"}]},{"name":"groupOfRecordType","value":"metadata","repeatId":"0"}]} | | CREATED |
 
 *!
-!***> Create a recordType(flower), which has plant as parent
+!***> Create an abstract recordType(flower), which has plant as parent
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | recordType | {"name":"recordType","children":[{"name":"recordInfo","children":[{"name":"id","value":"flower"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"metadataId","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"flowerGroup"}]},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"plant"}],"name":"parentId"},{"name":"abstract","value":"false"},{"name":"presentationViewId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnesseViewPGroup"}]},{"name":"presentationFormId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnesseFormPGroup"}]},{"name":"newMetadataId","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"flowerNewGroup"}]},{"name":"newPresentationFormId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnesseFormNewPGroup"}]},{"name":"menuPresentationViewId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnesseMenuPGroup"}]},{"name":"listPresentationViewId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnesseListPGroup"}]},{"name":"autocompletePresentationView","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnesseListPGroup"}]},{"name":"userSuppliedId","value":"true"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someFitnesseText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someFitnesseDefText"}]},{"name":"search","children":[{"name":"linkedRecordType","value":"search"},{"name":"linkedRecordId","value":"recordTypeSearch"}]},{"name":"groupOfRecordType","value":"metadata","repeatId":"0"}]} | | CREATED |
+| $adminAuthToken | recordType | {"name":"recordType","children":[{"name":"recordInfo","children":[{"name":"id","value":"flower"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"metadataId","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"flowerGroup"}]},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"plant"}],"name":"parentId"},{"name":"abstract","value":"true"},{"name":"presentationViewId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnesseViewPGroup"}]},{"name":"presentationFormId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnesseFormPGroup"}]},{"name":"newMetadataId","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"flowerNewGroup"}]},{"name":"newPresentationFormId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnesseFormNewPGroup"}]},{"name":"menuPresentationViewId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnesseMenuPGroup"}]},{"name":"listPresentationViewId","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnesseListPGroup"}]},{"name":"autocompletePresentationView","children":[{"name":"linkedRecordType","value":"presentationGroup"},{"name":"linkedRecordId","value":"someFitnesseListPGroup"}]},{"name":"userSuppliedId","value":"true"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someFitnesseText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someFitnesseDefText"}]},{"name":"search","children":[{"name":"linkedRecordType","value":"search"},{"name":"linkedRecordId","value":"recordTypeSearch"}]},{"name":"groupOfRecordType","value":"metadata","repeatId":"0"}]} | | CREATED |
 
 *!
 !***> Create a recordType(rose), which has flower as parent
@@ -96,7 +96,6 @@ An abstract record type (the parent) is used to create a group of record type si
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecordCreatedType? | getStatusType? |
-| $adminAuthToken | flower | {"name":"plant","attributes":{"testType":"flower"},"children":[{"name":"recordInfo","children":[{"name":"id","value":"flower1"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"id","value":"theTulip"},{"name":"petalColour","value":"pink"}]} | flower | CREATED |
 | $adminAuthToken | rose | {"name":"plant","attributes":{"testType":"rose"},"children":[{"name":"recordInfo","children":[{"name":"id","value":"rose1"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"id","value":"notRealyAnId"},{"name":"numOfThornes","value":"4"}]} | rose | CREATED |
 
 *!
@@ -113,7 +112,7 @@ An abstract record type (the parent) is used to create a group of record type si
 | authToken | type | testReadRecordList? | getStatusType? |
 | $adminAuthToken | rose | =~/"totalNo":"1","containDataOfType":"rose"/ | OK |
 | $adminAuthToken | flower | =~/"totalNo":"1","containDataOfType":"flower"/ | OK |
-| $adminAuthToken | plant | =~/"totalNo":"2","containDataOfType":"flower"/ | OK |
+| $adminAuthToken | plant | =~/"totalNo":"1","containDataOfType":"plant"/ | OK |
 
 *!
 !***> Update data(rose, flower)
@@ -121,14 +120,14 @@ An abstract record type (the parent) is used to create a group of record type si
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
 | $adminAuthToken | rose | rose1 | {"attributes":{"testType":"rose"},"children":[{"children":[{"name":"id","value":"rose1"},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"rose"}],"name":"type"},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}],"name":"recordInfo"},{"name":"id","value":"notRelyAnId"},{"name":"numOfThornes","value":"5"}],"name":"plant"} | | OK |
-| $adminAuthToken | flower | flower1 | {"attributes":{"testType":"flower"},"name":"plant","children":[{"name":"recordInfo","children":[{"name":"id","value":"flower1"},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"flower"}],"name":"type"},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"id","value":"theTulip"},{"name":"petalColour","value":"purple"}]} | | OK |
 
 *!
 !***> Try to update data on plant, this should fail as plant is abstract
 
 !| RecordEndpointFixture |
 | authToken | type | id | json | testUpdateRecord? | getStatusType? |
-| $adminAuthToken | plant | flower1 | {"name":"plant","children":[{"name":"recordInfo","children":[{"name":"id","value":"flower1"},{"name":"type","value":"plant"},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"id","value":"theRosee"}]} | | BAD_REQUEST |
+| $adminAuthToken | plant | rose1 | {"name":"plant","children":[{"name":"recordInfo","children":[{"name":"id","value":"flower1"},{"name":"type","value":"plant"},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"id","value":"theRosee"}]} | | BAD_REQUEST |
+| $adminAuthToken | flower | rose1 | {"name":"plant","children":[{"name":"recordInfo","children":[{"name":"id","value":"flower1"},{"name":"type","value":"plant"},{"name":"createdBy","children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}]},{"name":"tsCreated","value":"2017-10-01 00:00:00.0"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"id","value":"theRosee"}]} | | BAD_REQUEST |
 
 *!
 !***> Read data(rose1, flower1)
@@ -136,14 +135,14 @@ An abstract record type (the parent) is used to create a group of record type si
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
 | $adminAuthToken | rose | rose1 | | OK |
-| $adminAuthToken | flower | flower1 | | OK |
 
 *!
 !***> Try to read data on plant, this is ok even though abstract
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | plant | flower1 | =~/"name":"id","value":"flower1"/ | OK |
+| $adminAuthToken | flower | rose1 | =~/"name":"id","value":"rose1"/ | OK |
+| $adminAuthToken | plant | rose1 | =~/"name":"id","value":"rose1"/ | OK |
 
 *!
 !***> Delete data(rose1, flower1)
@@ -151,14 +150,13 @@ An abstract record type (the parent) is used to create a group of record type si
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
 | $adminAuthToken | rose | rose1 | | OK |
-| $adminAuthToken | flower | flower1 | | OK |
 
 *!
 !***> Try to delete data on plant, this should fail as plant is abstract
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $adminAuthToken | plant | flower1 | | NOT_FOUND |
+| $adminAuthToken | plant | rose1 | | NOT_FOUND |
 
 *!
 !2 Clean up created data
@@ -207,5 +205,7 @@ An abstract record type (the parent) is used to create a group of record type si
 | $adminAuthToken | coraText | plantTypeCollectionVarDefText | | OK |
 | $adminAuthToken | coraText | plantSearchDefText | | OK |
 | $adminAuthToken | coraText | plantSearchText | | OK |
+| $adminAuthToken | coraText | plantTypeCollectionText | | OK |
+| $adminAuthToken | coraText | plantTypeCollectionDefText | | OK |
 
 *!
