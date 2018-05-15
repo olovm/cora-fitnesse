@@ -10,15 +10,15 @@ A test that first reads all predefined metadata needed to be able to add present
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | metadataCollectionItem | thisItem | =~/"name":"linkedRecordId","value":"thisItemText"/ | OK |
-| $adminAuthToken | metadataCollectionItem | childrenItem | | OK |
-| $adminAuthToken | metadataCollectionItem | inputItem | | OK |
-| $adminAuthToken | metadataCollectionItem | outputItem | | OK |
-| $adminAuthToken | metadataCollectionItem | pGroupItem | | OK |
-| $adminAuthToken | metadataCollectionItem | pVarItem | | OK |
-| $adminAuthToken | metadataCollectionItem | containerItem | | OK |
-| $adminAuthToken | metadataCollectionItem | refItem | | OK |
-| $adminAuthToken | metadataCollectionItem | refMinimizedItem | | OK |
+| $adminAuthToken | genericCollectionItem | thisItem | =~/"name":"linkedRecordId","value":"thisItemText"/ | OK |
+| $adminAuthToken | genericCollectionItem | childrenItem | | OK |
+| $adminAuthToken | genericCollectionItem | inputItem | | OK |
+| $adminAuthToken | genericCollectionItem | outputItem | | OK |
+| $adminAuthToken | genericCollectionItem | pGroupItem | | OK |
+| $adminAuthToken | genericCollectionItem | pVarItem | | OK |
+| $adminAuthToken | genericCollectionItem | containerItem | | OK |
+| $adminAuthToken | genericCollectionItem | refItem | | OK |
+| $adminAuthToken | genericCollectionItem | refMinimizedItem | | OK |
 
 *!
 !***> Read itemCollection (repeatCollection, modeCollection, presentationTypeCollection)

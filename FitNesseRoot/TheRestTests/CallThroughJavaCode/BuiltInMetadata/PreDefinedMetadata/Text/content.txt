@@ -10,8 +10,8 @@ A test that first reads all predefined metadata needed to be able to add texts t
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | metadataCollectionItem | defaultItem | =~/"name":"nameInData","value":"default"/ | OK |
-| $adminAuthToken | metadataCollectionItem | alternativeItem | =~/"name":"nameInData","value":"alternative"/ | OK |
+| $adminAuthToken | genericCollectionItem | defaultItem | =~/"name":"nameInData","value":"default"/ | OK |
+| $adminAuthToken | genericCollectionItem | alternativeItem | =~/"name":"nameInData","value":"alternative"/ | OK |
 
 *!
 !***> Read itemCollection (textPartTypeCollection)
@@ -34,8 +34,8 @@ A test that first reads all predefined metadata needed to be able to add texts t
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | metadataCollectionItem | svItem | | OK |
-| $adminAuthToken | metadataCollectionItem | enItem | | OK |
+| $adminAuthToken | genericCollectionItem | svItem | | OK |
+| $adminAuthToken | genericCollectionItem | enItem | | OK |
 
 *!
 !***> Read itemCollection (systemLanguagesCollection)
