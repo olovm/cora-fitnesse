@@ -5,8 +5,7 @@ Test
 | import |
 | se.uu.ub.cora.fitnesseintegration |
 
-collectionItems
-
+!1 CollectionItem with extraData
 !***> Create metadataGroups needed for recordType testExtendedCollectionItem
 
 !| RecordEndpointFixture |
@@ -69,8 +68,7 @@ collectionItems
 | $adminAuthToken | testPlace | place1 | {"name":"testPlace","children":[{"name":"recordInfo","children":[{"name":"id","value":"place1"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"},{"children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"testPlace"}],"name":"type"},{"children":[{"name":"linkedRecordType","value":"user"},{"name":"linkedRecordId","value":"131313"}],"name":"createdBy"},{"name":"tsCreated","value":"2018-05-15 16:56:56.341"}]},{"name":"testCollection","value":"testItem"}]} | | OK |
 
 *!
-Failing tests
-
+!2 Failing tests
 !***> Create data of recordType testExtendedCollectionItem with incorrect final value for key and incorrect value for value
 
 !| RecordEndpointFixture |
