@@ -27,7 +27,7 @@ Read item to make sure they do not exist
 
 !| RecordEndpointFixture |
 | id | type | testReadRecord? | getStatusType? |
-| aFitnesseItem | metadataCollectionItem | | NOT_FOUND |
+| aFitnesseItem | genericCollectionItem | | NOT_FOUND |
 
 *!
 When the itemCollection has been created, a collectionVariable that uses the itemCollection automatically is created. When a collectionVarible has been created two presentations of that collectionVariable is created (input/output)
@@ -49,7 +49,7 @@ Read collectionVariable and presentationCollectionVars to make sure they do not 
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | metadataItemCollection | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"fitnesseBookCollection"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"fitnesseBook"},{"name":"collectionItemReferences","children":[{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataCollectionItem"},{"name":"linkedRecordId","value":"aFitnesseItem"}],"repeatId":"0"}]}],"attributes":{"type":"itemCollection"}} | | CREATED |
+| $adminAuthToken | metadataItemCollection | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"fitnesseBookCollection"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"fitnesseBook"},{"name":"collectionItemReferences","children":[{"name":"ref","children":[{"name":"linkedRecordType","value":"genericCollectionItem"},{"name":"linkedRecordId","value":"aFitnesseItem"}],"repeatId":"0"}]}],"attributes":{"type":"itemCollection"}} | | CREATED |
 
 *!
 Read fitnesseBookCollection to see that links to texts have been added to the metadata
@@ -77,7 +77,7 @@ Read collectionItem again to see that it has been created
 
 !| RecordEndpointFixture |
 | id | type | testReadRecord? | getStatusType? |
-| aFitnesseItem | metadataCollectionItem | | OK |
+| aFitnesseItem | genericCollectionItem | | OK |
 
 *!
 Read collectionVariable and presentationCollectionVars again to see that they have been created
@@ -104,7 +104,7 @@ Remove data created for this test
 | $adminAuthToken | metadataItemCollection | fitnesseBookCollection | | OK |
 | $adminAuthToken | coraText | fitnesseBookCollectionText | | OK |
 | $adminAuthToken | coraText | fitnesseBookCollectionDefText | | OK |
-| $adminAuthToken | metadataCollectionItem | aFitnesseItem | | OK |
+| $adminAuthToken | genericCollectionItem | aFitnesseItem | | OK |
 | $adminAuthToken | coraText | aFitnesseItemText | | OK |
 | $adminAuthToken | coraText | aFitnesseItemDefText | | OK |
 | $adminAuthToken | coraText | fitnesseBookCollectionVarDefText | | OK |

@@ -11,7 +11,7 @@ Attribute definition (collectionItems, itemCollection, collectionVariable)
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | metadataCollectionItem | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"flowerItem"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"nameInData","value":"flower"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"flowerItemText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"flowerItemDefText"}]}],"attributes":{"type":"collectionItem"}} | | CREATED |
+| $adminAuthToken | genericCollectionItem | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"flowerItem"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"nameInData","value":"flower"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"flowerItemText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"flowerItemDefText"}]}],"attributes":{"type":"collectionItem"}} | | CREATED |
 
 *!
 !***> Create texts for itemCollections
@@ -26,7 +26,7 @@ Attribute definition (collectionItems, itemCollection, collectionVariable)
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | metadataItemCollection | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"plantTypeCollection"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"nameInData","value":"type"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"plantTypeCollectionText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"plantTypeCollectionDefText"}]},{"name":"collectionItemReferences","children":[{"name":"ref","repeatId":"1","children":[{"name":"linkedRecordType","value":"metadataCollectionItem"},{"name":"linkedRecordId","value":"flowerItem"}]}]}],"attributes":{"type":"itemCollection"}} | | CREATED |
+| $adminAuthToken | metadataItemCollection | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"plantTypeCollection"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"nameInData","value":"type"},{"name":"textId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"plantTypeCollectionText"}]},{"name":"defTextId","children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"plantTypeCollectionDefText"}]},{"name":"collectionItemReferences","children":[{"name":"ref","repeatId":"1","children":[{"name":"linkedRecordType","value":"genericCollectionItem"},{"name":"linkedRecordId","value":"flowerItem"}]}]}],"attributes":{"type":"itemCollection"}} | | CREATED |
 
 *!
 !***> Create collectionVariable (flowerTypeCollectionVar)
@@ -162,7 +162,7 @@ Attribute definition (collectionItems, itemCollection, collectionVariable)
 | $adminAuthToken | metadataCollectionVariable | flowerTypeCollectionVar | | OK |
 | $adminAuthToken | metadataCollectionVariable | plantTypeCollectionVar | | OK |
 | $adminAuthToken | metadataItemCollection | plantTypeCollection | | OK |
-| $adminAuthToken | metadataCollectionItem | flowerItem | | OK |
+| $adminAuthToken | genericCollectionItem | flowerItem | | OK |
 | $adminAuthToken | coraText | plantTypeCollectionDefText | | OK |
 | $adminAuthToken | coraText | plantTypeCollectionText | | OK |
 | $adminAuthToken | coraText | someFitnesseText | | OK |
