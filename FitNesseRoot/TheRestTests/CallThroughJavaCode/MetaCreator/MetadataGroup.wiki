@@ -76,7 +76,38 @@ Read presentationGroups again to see that they have been created
 | fitnesseBookOutputPGroup | presentationGroup | | OK |
 
 *!
+!***> Load fitnesseBookOutputPGroup to use in tests
 
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| presentationGroup | fitnesseBookOutputPGroup | |
+
+*!
+!***> Check children in fitnesseBookOutputPGroup
+
+!| PresentationGroupFixture |
+| linkedRecordType | linkedRecordId | numberOfRefs? |
+| presentationGroup | recordInfoOutputPGroup | 1 |
+| presentationVar | fitnesseTestOutputPVar | 1 |
+| presentationCollectionVar | fitnesseBookOutputPCollVar | 1 |
+
+*!
+!***> Load fitnesseBookPGroup to use in tests
+
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| presentationGroup | fitnesseBookPGroup | |
+
+*!
+!***> Check children in fitnesseBookPGroup
+
+!| PresentationGroupFixture |
+| linkedRecordType | linkedRecordId | numberOfRefs? |
+| presentationGroup | recordInfoPGroup | 1 |
+| presentationVar | fitnesseTestPVar | 1 |
+| presentationCollectionVar | fitnesseBookPCollVar | 1 |
+
+*!
 !1 Reset testdata
 Remove data created for this test
 
