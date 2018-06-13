@@ -30,13 +30,21 @@ Read pGroups to make sure they do not exist
 | fitnesseBookOutputPGroup | presentationGroup | | NOT_FOUND |
 
 *!
-!2 
+!2 Create two new metadataTextVariables to use as children in metadataGroup
+!***> Create a new metadataTextVariable (fitnesseTestTextVar and testTitleTextVar)
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | metadataTextVariable | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"fitnesseTestTextVar"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"fintnesseTest"},{"name":"regEx","value":"(^[0-9A-Za-z:-_]{2,50}$)"}],"attributes":{"type":"textVariable"}} | | CREATED |
+| $adminAuthToken | metadataItemCollection | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"fitnesseBookCollection"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"fitnesseBook"},{"name":"collectionItemReferences","children":[{"name":"ref","children":[{"name":"linkedRecordType","value":"genericCollectionItem"},{"name":"linkedRecordId","value":"aFitnesseItem"}],"repeatId":"0"}]}],"attributes":{"type":"itemCollection"}} | | CREATED |
+
+*!
 !2 Create a new metadataGroup
 !***> Create a new metadataGroup (fitnesseBookGroup)
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | metadataGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"fitnesseBookGroup"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"fitnesseBook"},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadata"},{"name":"linkedRecordId","value":"recordInfoGroup"}]}],"repeatId":"0"}]}],"attributes":{"type":"group"}} | | CREATED |
+| $adminAuthToken | metadataGroup | {"name":"metadata","children":[{"name":"recordInfo","children":[{"name":"id","value":"fitnesseBookGroup"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"nameInData","value":"fitnesseBook"},{"name":"childReferences","children":[{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataGroup"},{"name":"linkedRecordId","value":"recordInfoGroup"}]}],"repeatId":"0"},{"name":"childReference","children":[{"name":"repeatMin","value":"0"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataTextVariable"},{"name":"linkedRecordId","value":"fitnesseTestTextVar"}]}],"repeatId":"1"},{"name":"childReference","children":[{"name":"repeatMin","value":"1"},{"name":"repeatMax","value":"1"},{"name":"ref","children":[{"name":"linkedRecordType","value":"metadataCollectionVariable"},{"name":"linkedRecordId","value":"fitnesseBookCollectionVar"}]}],"repeatId":"2"}]}],"attributes":{"type":"group"}} | | CREATED |
 
 *!
 Read fitnesseBookGroup to see that links to texts have been added to the metadata
@@ -68,6 +76,38 @@ Read presentationGroups again to see that they have been created
 | fitnesseBookOutputPGroup | presentationGroup | | OK |
 
 *!
+!***> Load fitnesseBookOutputPGroup to use in tests
+
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| presentationGroup | fitnesseBookOutputPGroup | |
+
+*!
+!***> Check children in fitnesseBookOutputPGroup
+
+!| PresentationGroupFixture |
+| linkedRecordType | linkedRecordId | numberOfRefs? |
+| presentationGroup | recordInfoOutputPGroup | 1 |
+| presentationVar | fitnesseTestOutputPVar | 1 |
+| presentationCollectionVar | fitnesseBookOutputPCollVar | 1 |
+
+*!
+!***> Load fitnesseBookPGroup to use in tests
+
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| presentationGroup | fitnesseBookPGroup | |
+
+*!
+!***> Check children in fitnesseBookPGroup
+
+!| PresentationGroupFixture |
+| linkedRecordType | linkedRecordId | numberOfRefs? |
+| presentationGroup | recordInfoPGroup | 1 |
+| presentationVar | fitnesseTestPVar | 1 |
+| presentationCollectionVar | fitnesseBookPCollVar | 1 |
+
+*!
 !1 Reset testdata
 Remove data created for this test
 
@@ -80,6 +120,22 @@ Remove data created for this test
 | $adminAuthToken | metadataGroup | fitnesseBookGroup | | OK |
 | $adminAuthToken | coraText | fitnesseBookGroupText | | OK |
 | $adminAuthToken | coraText | fitnesseBookGroupDefText | | OK |
+| $adminAuthToken | presentationVar | fitnesseTestPVar | | OK |
+| $adminAuthToken | presentationVar | fitnesseTestOutputPVar | | OK |
+| $adminAuthToken | metadataTextVariable | fitnesseTestTextVar | | OK |
+| $adminAuthToken | presentationCollectionVar | fitnesseBookOutputPCollVar | | OK |
+| $adminAuthToken | presentationCollectionVar | fitnesseBookPCollVar | | OK |
+| $adminAuthToken | metadataCollectionVariable | fitnesseBookCollectionVar | | OK |
+| $adminAuthToken | metadataItemCollection | fitnesseBookCollection | | OK |
+| $adminAuthToken | coraText | fitnesseBookCollectionText | | OK |
+| $adminAuthToken | coraText | fitnesseBookCollectionDefText | | OK |
+| $adminAuthToken | genericCollectionItem | aFitnesseItem | | OK |
+| $adminAuthToken | coraText | aFitnesseItemText | | OK |
+| $adminAuthToken | coraText | aFitnesseItemDefText | | OK |
+| $adminAuthToken | coraText | fitnesseTestTextVarText | | OK |
+| $adminAuthToken | coraText | fitnesseTestTextVarDefText | | OK |
+| $adminAuthToken | coraText | fitnesseBookCollectionVarDefText | | OK |
+| $adminAuthToken | coraText | fitnesseBookCollectionVarText | | OK |
 
 *!
 !2 Create a new metadataGroup with excludePGroupCreation option set to true
