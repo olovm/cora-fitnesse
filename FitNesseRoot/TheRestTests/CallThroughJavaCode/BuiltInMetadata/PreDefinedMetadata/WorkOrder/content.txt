@@ -28,11 +28,13 @@
 | $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"coraText"}]},{"name":"recordId","value":"testForWorkOrderText"},{"name":"type","value":"index"}]} | | CREATED | $createdId= |
 
 *!
+Work orders are deleted after create
+
 !***> Read workOrder
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | workOrder | $createdId | =~/"name":"id","value":"$createdId"/ | OK |
+| $adminAuthToken | workOrder | $createdId | | NOT_FOUND |
 
 *!
 !***> Create data of recordType workOrder without recordInfo. It is ok, since it is autocreated using extended functionality
@@ -46,7 +48,7 @@
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | workOrder | $createdId2 | =~/"name":"id","value":"$createdId2"/ | OK |
+| $adminAuthToken | workOrder | $createdId2 | | NOT_FOUND |
 
 *!
 !***> List recordType workOrder
@@ -60,8 +62,6 @@
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
-| $adminAuthToken | workOrder | $createdId | | OK |
-| $adminAuthToken | workOrder | $createdId2 | | OK |
 | $adminAuthToken | coraText | testForWorkOrderText | | OK |
 
 *!
