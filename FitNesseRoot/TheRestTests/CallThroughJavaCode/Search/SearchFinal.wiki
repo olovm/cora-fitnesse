@@ -304,9 +304,9 @@ Remove data created for this test
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
 | $adminAuthToken | recordType | testNews | | OK |
-| $adminAuthToken | presentationGroup | testNewsFormNewPGroup | | OK |
-| $adminAuthToken | presentationGroup | testNewsFormPGroup | | OK |
-| $adminAuthToken | presentationGroup | testNewsViewPGroup | | OK |
+| $adminAuthToken | presentationGroup | testNewsNewPGroup | | OK |
+| $adminAuthToken | presentationGroup | testNewsPGroup | | OK |
+| $adminAuthToken | presentationGroup | testNewsOutputPGroup | | OK |
 | $adminAuthToken | presentationGroup | testNewsMenuPGroup | | OK |
 | $adminAuthToken | presentationGroup | testNewsListPGroup | | OK |
 | $adminAuthToken | presentationGroup | testNewsAutocompletePGroup | | OK |
@@ -510,17 +510,17 @@ Remove data created for this test
 | authToken | type | id | testDeleteRecord? | getStatusType? |
 | $adminAuthToken | recordType | testArticle | | OK |
 | $adminAuthToken | recordType | testStudentThesis | | OK |
-| $adminAuthToken | presentationGroup | testArticleFormNewPGroup | | OK |
-| $adminAuthToken | presentationGroup | testArticleFormPGroup | | OK |
-| $adminAuthToken | presentationGroup | testArticleViewPGroup | | OK |
+| $adminAuthToken | presentationGroup | testArticleNewPGroup | | OK |
+| $adminAuthToken | presentationGroup | testArticlePGroup | | OK |
+| $adminAuthToken | presentationGroup | testArticleOutputPGroup | | OK |
 | $adminAuthToken | presentationGroup | testArticleMenuPGroup | | OK |
 | $adminAuthToken | presentationGroup | testArticleListPGroup | | OK |
 | $adminAuthToken | presentationGroup | testArticleAutocompletePGroup | | OK |
 | $adminAuthToken | metadataGroup | testArticleNewGroup | | OK |
 | $adminAuthToken | metadataGroup | testArticleGroup | | OK |
-| $adminAuthToken | presentationGroup | testStudentThesisFormNewPGroup | | OK |
-| $adminAuthToken | presentationGroup | testStudentThesisFormPGroup | | OK |
-| $adminAuthToken | presentationGroup | testStudentThesisViewPGroup | | OK |
+| $adminAuthToken | presentationGroup | testStudentThesisNewPGroup | | OK |
+| $adminAuthToken | presentationGroup | testStudentThesisPGroup | | OK |
+| $adminAuthToken | presentationGroup | testStudentThesisOutputPGroup | | OK |
 | $adminAuthToken | presentationGroup | testStudentThesisMenuPGroup | | OK |
 | $adminAuthToken | presentationGroup | testStudentThesisListPGroup | | OK |
 | $adminAuthToken | presentationGroup | testStudentThesisAutocompletePGroup | | OK |
