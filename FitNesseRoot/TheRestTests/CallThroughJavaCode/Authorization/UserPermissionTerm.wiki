@@ -270,5 +270,6 @@ If persmission terms are used in metadata for a record type, the user must have 
 | $adminAuthToken | permissionUnit | my.other.test.unit | | OK |
 | $adminAuthToken | permissionUnit | some.other.test.unit | | OK |
 | $adminAuthToken | collectPermissionTerm | testPermissionUnitPermissionTerm | | OK |
+| $adminAuthToken | collectPermissionTerm | testSomeOtherPermissionTerm | | OK |
 
 *!
