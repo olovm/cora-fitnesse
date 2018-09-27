@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <properties>
-<Edit/>
-<Files/>
-<Help>A test that checks that we can use newly created appTokens to authenticate</Help>
-<Properties/>
-<RecentChanges/>
-<Refactor/>
-<Search/>
-<Test/>
-<Versions/>
-<WhereUsed/>
+    <Edit/>
+    <Files/>
+    <Help>A test that checks that we can use newly created appTokens to authenticate</Help>
+    <Properties/>
+    <RecentChanges/>
+    <Refactor/>
+    <Search/>
+    <Test/>
+    <Versions/>
+    <WhereUsed/>
 </properties>
