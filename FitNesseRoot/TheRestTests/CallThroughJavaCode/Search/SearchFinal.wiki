@@ -241,20 +241,23 @@ The following two tests is used to show two things. !-
 *!
 !2 Limit search results by start and number of matches
 !***> Limit the number of matches to return
+
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
 | $adminAuthToken | testNewsExtendedSearch | {"name":"searchNewsExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testNewsTitleSearchTerm","value":"*"}]}]},{"name":"rows","value":"50"}]} | =~/"fromNo":"1".+"totalNo":"5".+"toNo":"5"/ | OK |
 | $adminAuthToken | testNewsExtendedSearch | {"name":"searchNewsExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testNewsTitleSearchTerm","value":"*"}]}]},{"name":"rows","value":"1"}]} | =~/"fromNo":"1".+"totalNo":"5".+"toNo":"1"/ | OK |
-
+*!
 !***> Start from some given position
+
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
 | $adminAuthToken | testNewsExtendedSearch | {"name":"searchNewsExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testNewsTitleSearchTerm","value":"*"}]}]},{"name":"start","value":"2"}]} | =~/"fromNo":"2".+"totalNo":"5".+"toNo":"5"/ | OK |
-
+*!
 !***> Start from some given position and limit number of rows to read
+
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | testNewsExtendedSearch | {"name":"searchNewsExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testNewsTitleSearchTerm","value":"*"}]}]},{"name":"rows","value":"2"},{"name":"start","value":"2"}]} | =~/"fromNo":"2".+"totalNo":"5".+"toNo":"4"/ | OK |
+| $adminAuthToken | testNewsExtendedSearch | {"name":"searchNewsExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testNewsTitleSearchTerm","value":"*"}]}]},{"name":"rows","value":"2"},{"name":"start","value":"2"}]} | =~/"fromNo":"2".+"totalNo":"5".+"toNo":"3"/ | OK |
 
 *!
 !2 Perform incorrect searches
@@ -588,4 +591,6 @@ Remove data created for this test
 | authToken | type | id | testDeleteRecord? | getStatusType? |
 | $adminAuthToken | collectIndexTerm | testTitleIndexTerm | | OK |
 
+*!
+*!
 *!
