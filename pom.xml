@@ -1,4 +1,4 @@
-<!-- ~ Copyright 2016 Uppsala University Library ~ ~ This file is part of 
+<!-- ~ Copyright 2016, 2018 Uppsala University Library ~ ~ This file is part of 
 	Cora. ~ ~ Cora is free software: you can redistribute it and/or modify ~ 
 	it under the terms of the GNU General Public License as published by ~ the 
 	Free Software Foundation, either version 3 of the License, or ~ (at your 
@@ -15,39 +15,25 @@
 	<parent>
 		<groupId>se.uu.ub.cora</groupId>
 		<artifactId>cora-parent</artifactId>
-		<version>0.6-SNAPSHOT</version>
+		<version>0.7-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>fitnesse</artifactId>
 	<packaging>jar</packaging>
-	<version>0.4-SNAPSHOT</version>
+	<version>0.5-SNAPSHOT</version>
 	<name>Fitnesse</name>
 
 	<properties>
-		<fitnesse.version>20161106</fitnesse.version>
-		<fitnesseintegration.version>0.1-SNAPSHOT</fitnesseintegration.version>
+		<fitnesse.version>20180127</fitnesse.version>
+		<fitnesseintegration.version>0.2-SNAPSHOT</fitnesseintegration.version>
 	</properties>
 
 	<scm>
-		<connection>scm:git:https://git.epc.ub.uu.se/epc/fitnesse.git</connection>
-		<developerConnection>scm:git:https://git.epc.ub.uu.se/epc/fitnesse.git</developerConnection>
-		<url>https://git.epc.ub.uu.se/epc/fitnesse.git</url>
+		<connection>scm:git:https://github.com/lsu-ub-uu/fitnesse.git</connection>
+		<developerConnection>scm:git:https://github.com/lsu-ub-uu/fitnesse.git</developerConnection>
+		<url>https://github.com/lsu-ub-uu/fitnesse.git</url>
 	</scm>
 
-	<repositories>
-		<repository>
-			<id>maven-public</id>
-			<name>LSU Nexus Repository</name>
-			<url>http://epc.ub.uu.se/nexus/repository/maven-public/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<updatePolicy>daily</updatePolicy>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
 
 	<dependencies>
 		<dependency>
@@ -72,7 +58,7 @@
 		<dependency>
 			<groupId>smartrics.restfixture</groupId>
 			<artifactId>smartrics-RestFixture</artifactId>
-			<version>4.0</version>
+			<version>4.4</version>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
@@ -84,19 +70,19 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
+			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 		  	<groupId>org.apache.httpcomponents</groupId>
 		  	<artifactId>httpmime</artifactId>
-		  	<version>4.5.2</version>
+		  	<version>4.5.6</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 		  	<groupId>org.apache.httpcomponents</groupId>
 		  	<artifactId>httpclient</artifactId>
-		  	<version>4.5.2</version>
+		  	<version>4.5.6</version>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
@@ -125,7 +111,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
-				<version>2.4.3</version>
+				<version>3.2.0</version>
 				<executions>
 					<execution>
 						<phase>package</phase>
@@ -148,7 +134,7 @@
 				<plugin>
 					<groupId>org.eclipse.jetty</groupId>
 					<artifactId>jetty-maven-plugin</artifactId>
-					<version>9.3.7.v20160115</version>
+					<version>9.4.12.v20180830</version>
 					<configuration>
 						<stopKey>STOP</stopKey>
 						<stopPort>9999</stopPort>
@@ -206,7 +192,7 @@
 							<dependency>
 								<groupId>org.apache.maven.surefire</groupId>
 								<artifactId>surefire-junit47</artifactId>
-								<version>2.18.1</version>
+								<version>2.22.0</version>
 							</dependency>
 						</dependencies>
 						<executions>
