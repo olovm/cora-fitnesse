@@ -96,7 +96,7 @@ No data is indexed, since no indexTerms has been added to the metadata for testN
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | testNewsExtendedSearch | {"name":"searchNewsExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testNewsTitleSearchTerm","value":"En titel"}]}]}]} | {"dataList":{"fromNo":"0","data":[],"totalNo":"0","containDataOfType":"mix","toNo":"0"}} | OK |
+| $adminAuthToken | testNewsExtendedSearch | {"name":"searchNewsExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testNewsTitleSearchTerm","value":"En titel"}]}]}]} | =~/"data":\[\],"totalNo":"0"/ | OK |
 
 *!
 !3 Perform reindex to make the title searchable
@@ -111,7 +111,7 @@ No data is indexed, since no indexTerms has been added to the metadata for testN
 
 !| RecordEndpointFixture |
 | authToken | searchId | json | testSearchRecord? | getStatusType? |
-| $adminAuthToken | testNewsExtendedSearch | {"name":"searchNewsExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testNewsTitleSearchTerm","value":"En titel"}]}]}]} | {"dataList":{"fromNo":"0","data":[],"totalNo":"0","containDataOfType":"mix","toNo":"0"}} | OK |
+| $adminAuthToken | testNewsExtendedSearch | {"name":"searchNewsExtended","children":[{"name":"include","children":[{"name":"includePart","children":[{"name":"testNewsTitleSearchTerm","value":"En titel"}]}]}]} | =~/"data":\[\],"totalNo":"0"/ | OK |
 
 *!
 Update rule for user, to enable the user to created a workOrder
