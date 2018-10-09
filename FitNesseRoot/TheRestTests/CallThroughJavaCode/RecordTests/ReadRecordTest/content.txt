@@ -16,6 +16,17 @@
 | $adminAuthToken | metadataTextVariable | | OK |
 
 *!
+!***> List part of data (metadataTextVariable)
+!| RecordEndpointFixture |
+| authToken | type | json | testReadRecordList? | getStatusType? |
+| $adminAuthToken | metadataTextVariable | {"name":"pagination","children":[]} |=~/"fromNo":"1".+"totalNo":"93".+"toNo":"93"/| OK |
+| $adminAuthToken | metadataTextVariable | {"name":"pagination","children":[{"name":"rows","value":"7"}]} |=~/"fromNo":"1".+"totalNo":"93".+"toNo":"7"/| OK |
+| $adminAuthToken | metadataTextVariable | {"name":"pagination","children":[{"name":"start","value":"2"}]} |=~/"fromNo":"2".+"totalNo":"93".+"toNo":"93"/| OK |
+| $adminAuthToken | metadataTextVariable | {"name":"pagination","children":[{"name":"rows","value":"5"},{"name":"start","value":"3"}]} |=~/"fromNo":"3".+"totalNo":"93".+"toNo":"7"/| OK |
+
+
+
+*!
 !***> Read a metadataVariable2, which doesn't exist (id)
 
 !| RecordEndpointFixture |
