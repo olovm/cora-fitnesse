@@ -28,13 +28,21 @@
 | $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"coraText"}]},{"name":"recordId","value":"testForWorkOrderText"},{"name":"type","value":"index"}]} | | CREATED | $createdId= |
 
 *!
-Work orders are deleted after create
+WorkOrders are deleted after create, since they only are intended to be used to perform a task. Reading and listing workOrders will therefore give no result.
 
 !***> Read workOrder
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
 | $adminAuthToken | workOrder | $createdId | | NOT_FOUND |
+
+*!
+
+!***> List recordType workOrder - no result since they are deleted after create
+
+!| RecordEndpointFixture |
+| authToken | type | testReadRecordList? | getStatusType? |
+| $adminAuthToken | workOrder | | NOT_FOUND |
 
 *!
 !***> Create data of recordType workOrder without recordInfo. It is ok, since it is autocreated using extended functionality
@@ -51,13 +59,7 @@ Work orders are deleted after create
 | $adminAuthToken | workOrder | $createdId2 | | NOT_FOUND |
 
 *!
-!***> List recordType workOrder
 
-!| RecordEndpointFixture |
-| authToken | type | testReadRecordList? | getStatusType? |
-| $adminAuthToken | workOrder | | OK |
-
-*!
 !***> Delete created metadataGroup and searchTerm
 
 !| RecordEndpointFixture |
