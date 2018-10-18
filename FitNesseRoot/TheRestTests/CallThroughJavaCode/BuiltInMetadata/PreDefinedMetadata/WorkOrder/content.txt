@@ -37,7 +37,6 @@ WorkOrders are deleted after create, since they only are intended to be used to 
 | $adminAuthToken | workOrder | $createdId | | NOT_FOUND |
 
 *!
-
 !***> List recordType workOrder - no result since they are deleted after create
 
 !| RecordEndpointFixture |
@@ -59,12 +58,26 @@ WorkOrders are deleted after create, since they only are intended to be used to 
 | $adminAuthToken | workOrder | $createdId2 | | NOT_FOUND |
 
 *!
+!***> Create text with an id containing characters that should be ok in workOrder
 
-!***> Delete created metadataGroup and searchTerm
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | coraText | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"an:Id_with-okCharactersText"},{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}]}]},{"name":"textPart","children":[{"name":"text","value":"Testtext"}],"attributes":{"type":"default","lang":"sv"}},{"name":"textPart","children":[{"name":"text","value":"Test  text"}],"attributes":{"type":"alternative","lang":"en"}}]} | | CREATED |
+
+*!
+!***> Create data of recordType workOrder
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? | getCreatedId? |
+| $adminAuthToken | workOrder | {"name":"workOrder","children":[{"name":"recordInfo","children":[{"name":"dataDivider","children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"testSystem"}]}]},{"name":"recordType","children":[{"name":"linkedRecordType","value":"recordType"},{"name":"linkedRecordId","value":"coraText"}]},{"name":"recordId","value":"an:Id_with-okCharactersText"},{"name":"type","value":"index"}]} | | CREATED | $createdId= |
+
+*!
+!***> Delete created texts
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
 | $adminAuthToken | coraText | testForWorkOrderText | | OK |
+| $adminAuthToken | coraText | an:Id_with-okCharactersText | | OK |
 
 *!
 !2 Test with incorrect data
