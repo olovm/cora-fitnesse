@@ -1,0 +1,41 @@
+---
+Test
+---
+!1 MetadataNumberVariable
+Create a metadataNumberVariable
+
+!***> Create numberVariable numOfAuthors
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecordCreatedType? | getStatusType? |
+| $adminAuthToken | metadataNumberVariable | {"name":"metadata","attributes":{"type":"numberVariable"},"children":[{"name":"recordInfo","children":[{"name":"id","value":"numOfAuthorsNumberVar"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"nameInData","value":"numOfAuthors"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestText"}],"name":"textId"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestDefText"}],"name":"defTextId"},{"name":"min","value":"0"},{"name":"max","value":"9999"},{"name":"warningMin","value":"1"},{"name":"warningMax","value":"99"},{"name":"numOfDecimals","value":"0"}]} | metadataNumberVariable | CREATED |
+
+*!
+Read the metadataNumberVariable created
+
+!***> Read metadataNumberVariable numOfAuthors
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | metadataTextVariable | numOfAuthorsNumberVar | =~/"name":"id","value":"numOfAuthorsNumberVar"/ | OK |
+
+*!
+Try to create metadataNumberVaraibles with incorrect content (missing values)
+
+!***> Try to create invalid metadataNumberVariables
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $adminAuthToken | metadataNumberVariable | {"name":"metadata","attributes":{"type":"numberVariable"},"children":[{"name":"recordInfo","children":[{"name":"id","value":"numOfAuthorsNumberVar"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"nameInData","value":"numOfAuthors"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestText"}],"name":"textId"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestDefText"}],"name":"defTextId"},{"name":"max","value":"9999"},{"name":"warningMin","value":"1"},{"name":"warningMax","value":"99"},{"name":"numOfDecimals","value":"0"}]} | metadataNumberVariable | BAD_REQUEST |
+| $adminAuthToken | metadataNumberVariable | {"name":"metadata","attributes":{"type":"numberVariable"},"children":[{"name":"recordInfo","children":[{"name":"id","value":"numOfAuthorsNumberVar"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"nameInData","value":"numOfAuthors"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestText"}],"name":"textId"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestDefText"}],"name":"defTextId"},{"name":"min","value":"0"},{"name":"warningMin","value":"1"},{"name":"warningMax","value":"99"},{"name":"numOfDecimals","value":"0"}]} | | BAD_REQUEST |
+| $adminAuthToken | metadataNumberVariable | {"name":"metadata","attributes":{"type":"numberVariable"},"children":[{"name":"recordInfo","children":[{"name":"id","value":"numOfAuthorsNumberVar"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"nameInData","value":"numOfAuthors"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestText"}],"name":"textId"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestDefText"}],"name":"defTextId"},{"name":"min","value":"0"},{"name":"max","value":"9999"},{"name":"warningMax","value":"99"},{"name":"numOfDecimals","value":"0"}]} | | BAD_REQUEST |
+| $adminAuthToken | metadataNumberVariable | {"name":"metadata","attributes":{"type":"numberVariable"},"children":[{"name":"recordInfo","children":[{"name":"id","value":"numOfAuthorsNumberVar"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"nameInData","value":"numOfAuthors"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestText"}],"name":"textId"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestDefText"}],"name":"defTextId"},{"name":"min","value":"0"},{"name":"max","value":"9999"},{"name":"warningMin","value":"1"},{"name":"numOfDecimals","value":"0"}]} | | BAD_REQUEST |
+| $adminAuthToken | metadataNumberVariable | {"name":"metadata","attributes":{"type":"numberVariable"},"children":[{"name":"recordInfo","children":[{"name":"id","value":"numOfAuthorsNumberVar"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"nameInData","value":"numOfAuthors"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestText"}],"name":"textId"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestDefText"}],"name":"defTextId"},{"name":"min","value":"0"},{"name":"max","value":"9999"},{"name":"warningMin","value":"1"},{"name":"warningMax","value":"99"}]} | | BAD_REQUEST |
+*!
+
+!2 Clean up created data
+!***> Clean up created data
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | metadataNumberVariable | numOfAuthorsNumberVar | | OK |
+*!
