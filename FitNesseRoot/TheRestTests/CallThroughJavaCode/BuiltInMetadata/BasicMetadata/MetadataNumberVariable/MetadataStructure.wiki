@@ -23,7 +23,7 @@ A metadataNumberVariable is a metadata variable for entering numbers.
 
 !| MetadataLinkFixture |
 | authToken | linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? | getNameInData? |
-| $adminAuthToken | metadataGroup | recordInfoNewTextVarGroup | 1 | 1 | recordInfo |
+| $adminAuthToken | metadataGroup | recordInfoNewNumberVarGroup | 1 | 1 | recordInfo |
 | $adminAuthToken | metadataTextVariable | nameInDataTextVar | 1 | 1 | nameInData |
 | $adminAuthToken | metadataRecordLink | textIdLink | 0 | 1 | textId |
 | $adminAuthToken | metadataRecordLink | defTextIdLink | 0 | 1 | defTextId |
