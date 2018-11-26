@@ -8,9 +8,15 @@
 !***> Check children in metadataGroupGroup
 
 !| MetadataLinkFixture |
-| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
-| metadataGroup | recordInfoGroup | 1 | 1 |
-| metadataGroup | recordInfoOldGroup | not found | not found |
+| authToken | linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? | getNameInData? |
+| $adminAuthToken | metadataGroup | recordInfoGroup | 1 | 1 | recordInfo |
+| $adminAuthToken | metadataTextVariable | nameInDataTextVar | 1 | 1 | nameInData |
+| $adminAuthToken | metadataRecordLink | textIdLink | 1 | 1 | textId |
+| $adminAuthToken | metadataRecordLink | defTextIdLink | 1 | 1 | defTextId |
+| $adminAuthToken | metadataRecordLink | refParentIdGroupLink | 0 | 1 | refParentId |
+| $adminAuthToken | metadataGroup | attributeReferencesGroup | 0 | 1 | attributeReferences |
+| $adminAuthToken | metadataGroup | childReferencesGroup | 1 | 1 | childReferences |
+| $adminAuthToken | metadataGroup | recordInfoOldGroup | not found | not found | |
 
 *!
 !***> Load metadataGroupNew to use in tests
@@ -23,9 +29,15 @@
 !***> Check children in metadataGroupNew
 
 !| MetadataLinkFixture |
-| linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? |
-| metadataGroup | recordInfoNewGroup | 1 | 1 |
-| metadataGroup | recordInfoOldGroup | not found | not found |
+| authToken | linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? | getNameInData? |
+| $adminAuthToken | metadataGroup | recordInfoNewGroup | 1 | 1 | recordInfo |
+| $adminAuthToken | metadataTextVariable | nameInDataTextVar | 1 | 1 | nameInData |
+| $adminAuthToken | metadataRecordLink | textIdLink | 0 | 1 | textId |
+| $adminAuthToken | metadataRecordLink | defTextIdLink | 0 | 1 | defTextId |
+| $adminAuthToken | metadataRecordLink | refParentIdGroupLink | 0 | 1 | refParentId |
+| $adminAuthToken | metadataGroup | attributeReferencesGroup | 0 | 1 | attributeReferences |
+| $adminAuthToken | metadataGroup | childReferencesGroup | 1 | 1 | childReferences |
+| $adminAuthToken | metadataGroup | recordInfoOldGroup | not found | not found | not found |
 
 *!
 !***> childReferences and childReference
