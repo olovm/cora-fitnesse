@@ -27,11 +27,11 @@ A metadataNumberVariable is a metadata variable for entering numbers.
 | $adminAuthToken | metadataTextVariable | nameInDataTextVar | 1 | 1 | nameInData |
 | $adminAuthToken | metadataRecordLink | textIdLink | 0 | 1 | textId |
 | $adminAuthToken | metadataRecordLink | defTextIdLink | 0 | 1 | defTextId |
-| $adminAuthToken | metadataNumberVariable | minValueNumberVar | 1 | 1 | min |
-| $adminAuthToken | metadataNumberVariable | maxValueNumberVar | 1 | 1 | max |
-| $adminAuthToken | metadataNumberVariable | warningMinValueNumberVar | 1 | 1 | warningMin |
-| $adminAuthToken | metadataNumberVariable | warningMaxValueNumberVar | 1 | 1 | warningMax |
-| $adminAuthToken | metadataNumberVariable | numberOfDecimalsNumberVar | 1 | 1 | numberOfDecimals |
+| $adminAuthToken | metadataTextVariable | minValueNumberTextVar | 1 | 1 | min |
+| $adminAuthToken | metadataTextVariable | maxValueNumberTextVar | 1 | 1 | max |
+| $adminAuthToken | metadataTextVariable | warningMinValueNumberTextVar | 1 | 1 | warningMin |
+| $adminAuthToken | metadataTextVariable | warningMaxValueNumberTextVar | 1 | 1 | warningMax |
+| $adminAuthToken | metadataTextVariable | numberOfDecimalsNumberTextVar | 1 | 1 | numberOfDecimals |
 | $adminAuthToken | metadataGroup | recordInfoOldGroup | not found | not found | not found |
 
 *!
@@ -50,11 +50,11 @@ A metadataNumberVariable is a metadata variable for entering numbers.
 | $adminAuthToken | metadataTextVariable | nameInDataTextVar | 1 | 1 | nameInData |
 | $adminAuthToken | metadataRecordLink | textIdLink | 1 | 1 | textId |
 | $adminAuthToken | metadataRecordLink | defTextIdLink | 1 | 1 | defTextId |
-| $adminAuthToken | metadataNumberVariable | minValueNumberVar | 1 | 1 | min |
-| $adminAuthToken | metadataNumberVariable | maxValueNumberVar | 1 | 1 | max |
-| $adminAuthToken | metadataNumberVariable | warningMinValueNumberVar | 1 | 1 | warningMin |
-| $adminAuthToken | metadataNumberVariable | warningMaxValueNumberVar | 1 | 1 | warningMax |
-| $adminAuthToken | metadataNumberVariable | numberOfDecimalsNumberVar | 1 | 1 | numberOfDecimals |
+| $adminAuthToken | metadataTextVariable | minValueNumberTextVar | 1 | 1 | min |
+| $adminAuthToken | metadataTextVariable | maxValueNumberTextVar | 1 | 1 | max |
+| $adminAuthToken | metadataTextVariable | warningMinValueNumberTextVar | 1 | 1 | warningMin |
+| $adminAuthToken | metadataTextVariable | warningMaxValueNumberTextVar | 1 | 1 | warningMax |
+| $adminAuthToken | metadataTextVariable | numberOfDecimalsNumberTextVar | 1 | 1 | numberOfDecimals |
 | $adminAuthToken | metadataGroup | recordInfoOldGroup | not found | not found | not found |
 
 *!
