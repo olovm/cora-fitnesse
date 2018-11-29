@@ -1,0 +1,96 @@
+---
+Test
+---
+!contents -R2 -g -p -f -h
+| import |
+| se.uu.ub.cora.fitnesseintegration |
+
+!1 !-PresentationNumberVar-!
+A test that reads all predefined metadata needed to be able to add presentationNumberVar to the system.
+
+!2 Read metadata defined in code to make sure it is correct
+!***> Read collectionItems (pNmberVarItem)
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | genericCollectionItem | pNumberVarItem | =~/"name":"linkedRecordId","value":"pNmberVarItemText"/ | OK |
+
+*!
+!***> Read itemCollection (presentationTypeCollection)
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | metadataItemCollection | presentationTypeCollection | =~/"name":"linkedRecordId","value":"pNumberVarItem".*/ | OK |
+
+*!
+!***> Read collectionVariables (modeCollectionVar, presentationTypeCollectionVar, presentationTypePRecordLinkCollectionVar)
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | metadataCollectionVariable | modeCollectionVar | | OK |
+| $adminAuthToken | metadataCollectionVariable | presentationTypeCollectionVar | | OK |
+| $adminAuthToken | metadataCollectionVariable | presentationTypePRecordLinkCollectionVar | | OK |
+
+*!
+!***> Read textVariable (idPNumberVarTextVar)
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | metadataTextVariable | idPNumberVarTextVar | | OK |
+
+*!
+!***> Load recordInfoNewPNumVarGroup to use in tests
+
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | recordInfoNewPNumVarGroup | |
+
+*!
+!***> Check children in recordInfoNewPNumVarGroup
+
+!| MetadataLinkFixture |
+| authToken | linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? | getNameInData? |
+| $adminAuthToken | metadataTextVariable | idPNumberVarTextVar | 1 | 1 | recordInfo |
+
+*!
+!***> Load presentationNumberVarNewGroup to use in tests
+
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | presentationNumberVarNewGroup | |
+
+*!
+!***> Check children in presentationNumberVarNewGroup
+
+!| MetadataLinkFixture |
+| authToken | linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? | getNameInData? |
+| $adminAuthToken | metadataGroup | recordInfoNewPNumVarGroup | 1 | 1 | recordInfo |
+| $adminAuthToken | metadataRecordLink | presentationOfTextVarLink | 1 | 1 | nameInData |
+| $adminAuthToken | metadataCollectionVariable | modeCollectionVar | 1 | 1 | textId |
+| $adminAuthToken | metadataRecordLink | emptyTextIdLink | 1 | 1 | defTextId |
+
+*!
+!***> Load presentationNumberVarGroup to use in tests
+
+!| RecordEndpointFixture |
+| type | id | testReadRecordAndStoreJson? |
+| metadataGroup | presentationNumberVarGroup | |
+
+*!
+!***> Check children in presentationNumberVarGroup
+
+!| MetadataLinkFixture |
+| authToken | linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? | getNameInData? |
+| $adminAuthToken | metadataGroup | recordInfoGroup | 1 | 1 | recordInfo |
+| $adminAuthToken | metadataRecordLink | presentationOfTextVarLink | 1 | 1 | nameInData |
+| $adminAuthToken | metadataCollectionVariable | modeCollectionVar | 1 | 1 | textId |
+| $adminAuthToken | metadataRecordLink | emptyTextIdLink | 1 | 1 | defTextId |
+
+*!
+!***> Read recordType (presentationNumberVar)
+
+!| RecordEndpointFixture |
+| authToken | type | id | testReadRecord? | getStatusType? |
+| $adminAuthToken | recordType | presentationNumberVar | =~/"name":"linkedRecordId","value":"presentationNumberVarGroup".*"name":"metadataId"/ | OK |
+
+*!
