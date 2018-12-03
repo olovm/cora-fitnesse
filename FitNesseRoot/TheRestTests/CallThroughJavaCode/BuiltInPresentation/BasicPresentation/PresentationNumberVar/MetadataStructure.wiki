@@ -13,14 +13,14 @@ A test that reads all predefined metadata needed to be able to add presentationN
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | genericCollectionItem | pNumberVarItem | =~/"name":"linkedRecordId","value":"pNmberVarItemText"/ | OK |
+| $adminAuthToken | genericCollectionItem | pNumVarItem | =~/"name":"linkedRecordId","value":"pNumVarItemText"/ | OK |
 
 *!
 !***> Read itemCollection (presentationTypeCollection)
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | metadataItemCollection | presentationTypeCollection | =~/"name":"linkedRecordId","value":"pNumberVarItem".*/ | OK |
+| $adminAuthToken | metadataItemCollection | presentationTypeCollection | =~/"name":"linkedRecordId","value":"pNumVarItem".*/ | OK |
 
 *!
 !***> Read collectionVariables (modeCollectionVar, presentationTypeCollectionVar, presentationTypePRecordLinkCollectionVar)
@@ -36,7 +36,7 @@ A test that reads all predefined metadata needed to be able to add presentationN
 
 !| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
-| $adminAuthToken | metadataTextVariable | idPNumberVarTextVar | | OK |
+| $adminAuthToken | metadataTextVariable | idPNumVarTextVar | | OK |
 
 *!
 !***> Load recordInfoNewPNumVarGroup to use in tests
@@ -50,7 +50,7 @@ A test that reads all predefined metadata needed to be able to add presentationN
 
 !| MetadataLinkFixture |
 | authToken | linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? | getNameInData? |
-| $adminAuthToken | metadataTextVariable | idPNumberVarTextVar | 1 | 1 | recordInfo |
+| $adminAuthToken | metadataTextVariable | idPNumVarTextVar | 1 | 1 | id |
 
 *!
 !***> Load presentationNumberVarNewGroup to use in tests
@@ -65,9 +65,8 @@ A test that reads all predefined metadata needed to be able to add presentationN
 !| MetadataLinkFixture |
 | authToken | linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? | getNameInData? |
 | $adminAuthToken | metadataGroup | recordInfoNewPNumVarGroup | 1 | 1 | recordInfo |
-| $adminAuthToken | metadataRecordLink | presentationOfTextVarLink | 1 | 1 | nameInData |
-| $adminAuthToken | metadataCollectionVariable | modeCollectionVar | 1 | 1 | textId |
-| $adminAuthToken | metadataRecordLink | emptyTextIdLink | 1 | 1 | defTextId |
+| $adminAuthToken | metadataRecordLink | presentationOfNumVarLink | 1 | 1 | presentationOf |
+| $adminAuthToken | metadataCollectionVariable | modeCollectionVar | 1 | 1 | mode |
 
 *!
 !***> Load presentationNumberVarGroup to use in tests
@@ -82,9 +81,8 @@ A test that reads all predefined metadata needed to be able to add presentationN
 !| MetadataLinkFixture |
 | authToken | linkedRecordType | linkedRecordId | getRepeatMin? | getRepeatMax? | getNameInData? |
 | $adminAuthToken | metadataGroup | recordInfoGroup | 1 | 1 | recordInfo |
-| $adminAuthToken | metadataRecordLink | presentationOfTextVarLink | 1 | 1 | nameInData |
-| $adminAuthToken | metadataCollectionVariable | modeCollectionVar | 1 | 1 | textId |
-| $adminAuthToken | metadataRecordLink | emptyTextIdLink | 1 | 1 | defTextId |
+| $adminAuthToken | metadataRecordLink | presentationOfNumVarLink | 1 | 1 | presentationOf |
+| $adminAuthToken | metadataCollectionVariable | modeCollectionVar | 1 | 1 | mode |
 
 *!
 !***> Read recordType (presentationNumberVar)

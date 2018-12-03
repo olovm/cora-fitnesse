@@ -38,6 +38,8 @@ Try to create metadataNumberVaraibles with incorrect content (missing values)
 
 !| RecordEndpointFixture |
 | authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | presentationNumberVar | numOfAuthorsPNumVar | | OK |
+| $adminAuthToken | presentationNumberVar | numOfAuthorsOutputPNumVar | | OK |
 | $adminAuthToken | metadataNumberVariable | numOfAuthorsNumberVar | | OK |
 | $adminAuthToken | coraText | someTestText | | OK |
 | $adminAuthToken | coraText | someTestDefText | | OK |

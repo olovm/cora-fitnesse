@@ -42,6 +42,8 @@ Create metadataGroups that uses the metadataNumberVariable created above
 | $adminAuthToken | presentationGroup | someFitnesseListPGroup | | OK |
 | $adminAuthToken | metadataGroup | someTestBookNewGroup | | OK |
 | $adminAuthToken | metadataGroup | someTestBookGroup | | OK |
+| $adminAuthToken | presentationNumberVar | numOfAuthorsPNumVar | | OK |
+| $adminAuthToken | presentationNumberVar | numOfAuthorsOutputPNumVar | | OK |
 | $adminAuthToken | metadataNumberVariable | numOfAuthorsNumberVar | | OK |
 | $adminAuthToken | coraText | someTestText | | OK |
 | $adminAuthToken | coraText | someTestDefText | | OK |

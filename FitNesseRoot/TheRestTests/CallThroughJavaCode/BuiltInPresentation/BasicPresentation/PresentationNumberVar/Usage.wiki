@@ -30,3 +30,16 @@ A test that tests creating and updating presentationNumVars.
 | $adminAuthToken | presentationNumberVar | {"name":"presentation","attributes":{"type":"pNumVar"},"children":[{"name":"recordInfo","children":[{"name":"id","value":"mySecondPNumVar"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"children":[{"name":"linkedRecordType","value":"metadataNumberVariable"},{"name":"linkedRecordId","value":"numOfAuthorsNumberVar"}],"name":"presentationOf"}]} | | BAD_REQUEST |
 
 *!
+!2 Clean up created data
+!***> Clean up created data
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | presentationNumberVar | myPNumVar | | OK |
+| $adminAuthToken | presentationNumberVar | numOfAuthorsPNumVar | | OK |
+| $adminAuthToken | presentationNumberVar | numOfAuthorsOutputPNumVar | | OK |
+| $adminAuthToken | metadataNumberVariable | numOfAuthorsNumberVar | | OK |
+| $adminAuthToken | coraText | someTestText | | OK |
+| $adminAuthToken | coraText | someTestDefText | | OK |
+
+*!

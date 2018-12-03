@@ -36,7 +36,7 @@ Read pVars to make sure they do not exist
 
 !| RecordEndpointFixture |
 | authToken | type | json | testCreateRecord? | getStatusType? |
-| $adminAuthToken | metadataNumberVariable | {"name":"metadata","attributes":{"type":"numberVariable"},"children":[{"name":"recordInfo","children":[{"name":"id","value":"fitnesseTestNumberVar"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"nameInData","value":"numOfAuthors"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestText"}],"name":"textId"},{"children":[{"name":"linkedRecordType","value":"text"},{"name":"linkedRecordId","value":"someTestDefText"}],"name":"defTextId"},{"name":"min","value":"0"},{"name":"max","value":"999"},{"name":"warningMin","value":"1"},{"name":"warningMax","value":"99"},{"name":"numberOfDecimals","value":"0"}]} | | CREATED |
+| $adminAuthToken | metadataNumberVariable | {"name":"metadata","attributes":{"type":"numberVariable"},"children":[{"name":"recordInfo","children":[{"name":"id","value":"fitnesseTestNumberVar"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"nameInData","value":"numOfAuthors"},{"name":"min","value":"0"},{"name":"max","value":"999"},{"name":"warningMin","value":"1"},{"name":"warningMax","value":"99"},{"name":"numberOfDecimals","value":"0"}]} | | CREATED |
 
 *!
 Read fitnesseTestNumberVar to see that links to texts have been added to the metadata
@@ -45,7 +45,7 @@ Read fitnesseTestNumberVar to see that links to texts have been added to the met
 
 !| RecordEndpointFixture |
 | id | type | testReadRecord? | getStatusType? |
-| fitnesseTestNumberVar | metadataNumberVariable | =~/"name":"id","value":"fitnesseTestTNumberVar"/ | OK |
+| fitnesseTestNumberVar | metadataNumberVariable | =~/"name":"id","value":"fitnesseTestNumberVar"/ | OK |
 
 *!
 Read texts again to see that they have been created
