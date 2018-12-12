@@ -6,10 +6,9 @@
 	be useful, ~ but WITHOUT ANY WARRANTY; without even the implied warranty 
 	of ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the ~ GNU General 
 	Public License for more details. ~ ~ You should have received a copy of the 
-	GNU General Public License ~ along with Cora. If not, see <http://www.gnu.org/licenses/>. -->
+	GNU General Public License ~ along with Cora. If not, see <http://www.gnu.org/licenses />. -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -20,7 +19,7 @@
 
 	<artifactId>fitnesse</artifactId>
 	<packaging>jar</packaging>
-	<version>0.6.0-SNAPSHOT</version>
+	<version>0.6.0</version>
 	<name>Fitnesse</name>
 
 	<properties>
@@ -32,7 +31,8 @@
 		<connection>scm:git:https://github.com/lsu-ub-uu/cora-fitnesse.git</connection>
 		<developerConnection>scm:git:https://github.com/lsu-ub-uu/cora-fitnesse.git</developerConnection>
 		<url>https://github.com/lsu-ub-uu/cora-fitnesse.git</url>
-	</scm>
+	  <tag>fitnesse-0.6.0</tag>
+  </scm>
 
 
 	<dependencies>
@@ -227,8 +227,7 @@
 								<configuration>
 									<target>
 										<echo taskname="fitnesse" message="Starting FitNesse Wiki..." />
-										<java classname="fitnesseMain.FitNesseMain" classpathref="maven.runtime.classpath"
-											fork="true">
+										<java classname="fitnesseMain.FitNesseMain" classpathref="maven.runtime.classpath" fork="true">
 											<arg line="-p 8090" />
 											<arg line="-d ." />
 										</java>
