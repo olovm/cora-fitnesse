@@ -67,16 +67,14 @@ FitnesseUser does not have permission to read or list instances of record type t
 *!
 !***> Read testStudentThesis as fitnesseUser. This should now be allowed since the record type is public.
 
-!| comment |
-| RecordEndpointFixture |
+!| RecordEndpointFixture |
 | authToken | type | id | testReadRecord? | getStatusType? |
 | $userAuthToken | testStudentThesis | $createdId | | OK |
 
 *!
 !***> List testStudentThesis as fitnesseUser. This should now be allowed since the record type is public.
 
-!| comment |
-| RecordEndpointFixture |
+!| RecordEndpointFixture |
 | authToken | type | testReadRecordList? | getStatusType? |
 | $userAuthToken | testStudentThesis | | OK |
 
