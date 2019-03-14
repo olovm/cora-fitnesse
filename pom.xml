@@ -19,12 +19,12 @@
 
 	<artifactId>fitnesse</artifactId>
 	<packaging>jar</packaging>
-	<version>0.9-SNAPSHOT</version>
+	<version>0.11-SNAPSHOT</version>
 	<name>Fitnesse</name>
 
 	<properties>
 		<fitnesse.version>20180127</fitnesse.version>
-		<fitnesseintegration.version>0.3.0</fitnesseintegration.version>
+		<fitnesseintegration.version>0.4.0</fitnesseintegration.version>
 	</properties>
 
 	<scm>
