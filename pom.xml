@@ -14,17 +14,17 @@
 	<parent>
 		<groupId>se.uu.ub.cora</groupId>
 		<artifactId>cora-parent</artifactId>
-		<version>0.8.6</version>
+		<version>0.9.0</version>
 	</parent>
 
 	<artifactId>fitnesse</artifactId>
 	<packaging>jar</packaging>
-	<version>0.11-SNAPSHOT</version>
+	<version>1.0-SNAPSHOT</version>
 	<name>Fitnesse</name>
 
 	<properties>
 		<fitnesse.version>20180127</fitnesse.version>
-		<fitnesseintegration.version>0.4.0</fitnesseintegration.version>
+		<fitnesseintegration.version>1.0.0</fitnesseintegration.version>
 	</properties>
 
 	<scm>
