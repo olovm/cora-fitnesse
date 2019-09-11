@@ -1,0 +1,57 @@
+---
+Help: A test that checks that idpLogin works as expected
+Test
+---
+!contents -R2 -g -p -f -h
+| import |
+| se.uu.ub.cora.fitnesseintegration |
+
+!1 !-IdpLoginTest-!
+A test that checks that we can use newly created idpLogins to authenticate.
+
+!***> Use authToken for fitnesseAdmin
+
+!| script | RecordEndpointFixture |
+| setAuthToken | $adminAuthToken |
+
+*!
+!2 Get a new authToken using idpLogin
+!***> Get authToken from idpLogin server
+
+!| IdpLoginServletFixture |
+| EPPN | getAuthTokenForEPPN? | getIdFromLogin? | getResponseCode? | getAuthToken? | getValidForNoSeconds? | getDeleteUrl? |
+| fitnesseAdmin@system.cora.uu.se | | | OK | $adminAuthToken= | | |
+| fitnesseUser@system.cora.uu.se | | | OK | $userAuthToken= | | |
+
+*!
+!2 Test with new texts to show that we can use our authToken and be our user
+!***> Create data of recordType text (textSystemOne)
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $userAuthToken | textSystemOne | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"myAuthText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"} ,"children":[{"name":"text","value":"Min svenska text"}]}]} | =~/"name":"linkedRecordId",\s*"value":"121212"/ | CREATED |
+
+*!
+!***> Logout
+
+!| AppTokenEndpointFixture |
+| userId | authTokenToLogOut | removeAuthTokenForUser? | getStatusType? |
+| 121212 | $userAuthToken | | OK |
+
+*!
+!2 Test with new texts to show that authToken is not valid after logout
+!***> Create data of recordType text (textSystemOne)
+
+!| RecordEndpointFixture |
+| authToken | type | json | testCreateRecord? | getStatusType? |
+| $userAuthToken | textSystemOne | {"name":"text","children":[{"name":"recordInfo","children":[{"name":"id","value":"myAuthText"},{"children":[{"name":"linkedRecordType","value":"system"},{"name":"linkedRecordId","value":"cora"}],"name":"dataDivider"}]},{"name":"textPart","attributes":{"type":"default","lang":"sv"} ,"children":[{"name":"text","value":"Min svenska text"}]}]} | | UNAUTHORIZED |
+
+*!
+!2 Clean up created data
+!***> Clean up created data
+
+!| RecordEndpointFixture |
+| authToken | type | id | testDeleteRecord? | getStatusType? |
+| $adminAuthToken | textSystemOne | myAuthText | | OK |
+
+*!

@@ -24,7 +24,7 @@
 
 	<properties>
 		<fitnesse.version>20180127</fitnesse.version>
-		<fitnesseintegration.version>1.0.0</fitnesseintegration.version>
+		<fitnesseintegration.version>1.1-SNAPSHOT</fitnesseintegration.version>
 	</properties>
 
 	<scm>

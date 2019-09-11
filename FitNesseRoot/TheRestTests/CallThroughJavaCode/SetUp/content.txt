@@ -4,6 +4,8 @@
 !| script | SystemUrl |
 | setUrl | ${systemUnderTestUrl} |
 | setAppTokenVerifierUrl | ${appTokenVerifierUrl} |
+| setIdpLoginUrl | ${idpLoginUrl} |
+| setGatekeeperServerUrl | ${gatekeeperServerUrl} |
 
 !| script | DependencyProvider |
 | setHttpHandlerFactoryClassName | se.uu.ub.cora.httphandler.HttpHandlerFactoryImp |
