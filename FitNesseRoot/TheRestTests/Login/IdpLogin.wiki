@@ -2,21 +2,25 @@
 Help: A test that checks that idpLogin works as expected
 Test
 ---
+e
+
 !contents -R2 -g -p -f -h
 | import |
 | se.uu.ub.cora.fitnesseintegration |
 
+!| script | SystemUrl |
+| setUrl | ${systemUnderTestUrl} |
+| setAppTokenVerifierUrl | ${appTokenVerifierUrl} |
+| setIdpLoginUrl | ${idpLoginUrl} |
+| setGatekeeperServerUrl | ${gatekeeperServerUrl} |
+
+!| script | DependencyProvider |
+| setHttpHandlerFactoryClassName | se.uu.ub.cora.httphandler.HttpHandlerFactoryImp |
+| setJsonToDataFactoryClassName | se.uu.ub.cora.clientdata.converter.jsontojava.JsonToDataConverterFactoryImp |
+
 !1 !-IdpLoginTest-!
-A test that checks that we can use newly created idpLogins to authenticate.
-
-!***> Use authToken for fitnesseAdmin
-
-!| script | RecordEndpointFixture |
-| setAuthToken | $adminAuthToken |
-
-*!
-!2 Get a new authToken using idpLogin
-!***> Get authToken from idpLogin server
+!2 Fetch authTokens using idpLogin
+!***> Get authTokens from idpLogin server
 
 !| IdpLoginServletFixture |
 | EPPN | getAuthTokenForEPPN? | getIdFromLogin? | getResponseCode? | getAuthToken? | getValidForNoSeconds? | getDeleteUrl? |
